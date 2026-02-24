@@ -488,42 +488,60 @@
 
   // ── Save data — через API з токеном ──────────
   async function saveData() {
-    if (!token) {
-      showToast('⚠️ Введи токен в налаштуваннях', 'error');
-      return false;
-    }
-    try {
-      const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
-
-      // Отримуємо SHA поточного файлу
-      const getRes = await fetch(apiUrl, {
-        headers: {
-          'Authorization': `token ${token}`,
-          'Accept': 'application/vnd.github.v3+json'
-        }
-      });
-      const getJson = await getRes.json();
-      if (!getRes.ok) throw new Error(getJson.message || `HTTP ${getRes.status}`);
-      const sha = getJson.sha;
-
-      // Кодуємо і записуємо
-      const content = btoa(unescape(encodeURIComponent(JSON.stringify(DB, null, 2))));
-      const putRes = await fetch(apiUrl, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `token ${token}`,
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ message: 'Add entry via GSS app', content, sha })
-      });
-
-      return putRes.ok;
-    } catch(e) {
-      console.error('Save error:', e);
-      return false;
-    }
+  if (!token) {
+    showToast('⚠️ Введи токен в налаштуваннях', 'error');
+    return false;
   }
+
+  // Записуємо в обидва файли
+  const ok1 = await writeFile('data.json');
+  const ok2 = await writeFile('public-data.json');
+  return ok1 && ok2;
+}
+
+async function writeFile(filename) {
+  try {
+    const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filename}`;
+
+    // Отримуємо SHA файлу
+    const getRes = await fetch(apiUrl, {
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    const getJson = await getRes.json();
+    if (!getRes.ok) throw new Error(getJson.message || `HTTP ${getRes.status}`);
+
+    // Записуємо оновлений вміст
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(DB, null, 2))));
+    const putRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `Update ${filename} via GSS app`,
+        content,
+        sha: getJson.sha
+      })
+    });
+
+    if (!putRes.ok) {
+      const err = await putRes.json();
+      throw new Error(err.message);
+    }
+
+    console.log(`✅ ${filename} оновлено`);
+    return true;
+  } catch(e) {
+    console.error(`❌ Помилка запису ${filename}:`, e.message);
+    return false;
+  }
+}
+
 
   // ── Machine ───────────────────────────────────
   function selectMachine(machine, btn) {
