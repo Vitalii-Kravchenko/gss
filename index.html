@@ -365,6 +365,71 @@
     .toast.show { opacity: 1; }
     .toast.success { border-color: #10b981; color: #10b981; }
     .toast.error   { border-color: #e05252; color: #e05252; }
+    /* Edit / Delete buttons */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+.btn-edit, .btn-delete {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-edit   { background: #1e3a5f; color: #60a5fa; border: 1px solid #2563eb; }
+.btn-delete { background: #3b1515; color: #f87171; border: 1px solid #dc2626; }
+.btn-edit:hover   { opacity: 0.8; }
+.btn-delete:hover { opacity: 0.8; }
+
+/* Confirm delete overlay */
+.confirm-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.confirm-overlay.open { display: flex; }
+.confirm-box {
+  background: #1a1b26;
+  border: 1px solid #dc2626;
+  border-radius: 16px;
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  animation: fadeIn 0.2s ease;
+}
+.confirm-box h3 { color: #f87171; font-size: 1.1rem; margin-bottom: 10px; }
+.confirm-box p  { color: #aaa; font-size: 0.9rem; margin-bottom: 22px; }
+.confirm-box strong { color: #fff; }
+.confirm-actions { display: flex; gap: 10px; }
+.btn-confirm-cancel {
+  flex: 1; padding: 11px;
+  border-radius: 10px;
+  border: 1.5px solid #2e2e3e;
+  background: transparent;
+  color: #aaa; cursor: pointer;
+}
+.btn-confirm-delete {
+  flex: 1; padding: 11px;
+  border-radius: 10px;
+  border: none;
+  background: #dc2626;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-confirm-delete:hover { background: #b91c1c; }
+
   </style>
 </head>
 <body>
@@ -436,6 +501,52 @@
     </div>
   </div>
 </div>
+
+  <!-- Edit Modal -->
+<div class="modal-overlay" id="editModalOverlay">
+  <div class="modal">
+    <h2>✏️ Редагування</h2>
+    <p class="modal-machine" id="editModalMachine"></p>
+    <input type="hidden" id="eOrigNum"/>
+    <div class="form-group">
+      <label>Унікальний номер</label>
+      <input type="text" id="eNum" inputmode="numeric" onkeypress="blockLetters(event)"/>
+    </div>
+    <div class="form-group">
+      <label>Діаметр (мм)</label>
+      <input type="number" id="eDiam" step="0.001"/>
+    </div>
+    <div class="form-group">
+      <label>Товщина (мм)</label>
+      <input type="number" id="eThick" step="0.001"/>
+    </div>
+    <div class="form-group">
+      <label>Вартість для кутів</label>
+      <div class="prices-row">
+        <div class="form-group"><label>20°</label><input type="number" id="eP20" step="0.1" min="0" max="99"/></div>
+        <div class="form-group"><label>25°</label><input type="number" id="eP25" step="0.1" min="0" max="99"/></div>
+        <div class="form-group"><label>30°</label><input type="number" id="eP30" step="0.1" min="0" max="99"/></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeEditModal()">Скасувати</button>
+      <button class="btn-save" id="btnEditSave" onclick="saveEdit()">💾 Зберегти зміни</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirm -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <h3>🗑️ Видалити запис?</h3>
+    <p>Номер <strong id="confirmNum"></strong> буде видалено з <strong id="confirmMachine"></strong>. Це незворотньо.</p>
+    <div class="confirm-actions">
+      <button class="btn-confirm-cancel" onclick="closeConfirm()">Скасувати</button>
+      <button class="btn-confirm-delete" onclick="confirmDelete()">Видалити</button>
+    </div>
+  </div>
+</div>
+
 
 <div class="toast" id="toast"></div>
 
@@ -596,31 +707,157 @@ async function writeFile(filename) {
   }
 
   function selectResult(id, item) {
-    document.getElementById('dropdown').innerHTML = '';
-    document.getElementById('searchInput').value = id;
-    const anglesHTML = [20, 25, 30].map((deg, i) => `
-      <div class="angle-box">
-        <div class="angle-deg">${deg}°</div>
-        <div class="angle-val">${parseFloat(item.prices[i]).toFixed(1)}</div>
-      </div>
-    `).join('');
-    document.getElementById('results').innerHTML = `
-      <div class="card">
-        <div class="card-top">
-          <div>
-            <div class="card-id"># ${id}</div>
-            <div class="card-machine">${currentMachine}</div>
-          </div>
-          ${bushingIcon()}
+  document.getElementById('dropdown').innerHTML = '';
+  document.getElementById('searchInput').value = id;
+
+  const anglesHTML = [20, 25, 30].map((deg, i) => `
+    <div class="angle-box">
+      <div class="angle-deg">${deg}°</div>
+      <div class="angle-val">${parseFloat(item.prices[i]).toFixed(1)}</div>
+    </div>
+  `).join('');
+
+  // Показуємо кнопки edit/delete тільки якщо є токен
+  const actionsHTML = token ? `
+    <div class="card-actions">
+      <button class="btn-edit"   onclick="openEditModal('${id}')">✏️ Редагувати</button>
+      <button class="btn-delete" onclick="openConfirm('${id}')">🗑️ Видалити</button>
+    </div>
+  ` : '';
+
+  document.getElementById('results').innerHTML = `
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-id"># ${id}</div>
+          <div class="card-machine">${currentMachine}</div>
         </div>
-        <div class="info-row">
-          <div class="info-pill">Діаметр вкладиша<span>${item.diameter} мм</span></div>
-          <div class="info-pill">Товщина вкладиша<span>${item.thickness} мм</span></div>
-        </div>
-        <div class="angles">${anglesHTML}</div>
+        ${bushingIcon()}
       </div>
-    `;
+      <div class="info-row">
+        <div class="info-pill">Діаметр вкладиша<span>${item.diameter} мм</span></div>
+        <div class="info-pill">Товщина вкладиша<span>${item.thickness} мм</span></div>
+      </div>
+      <div class="angles">${anglesHTML}</div>
+      ${actionsHTML}
+    </div>
+  `;
+}
+
+  // ── EDIT ──────────────────────────────────────
+function openEditModal(id) {
+  const item = DB[currentMachine][id];
+  if (!item) return;
+
+  document.getElementById('editModalMachine').textContent = currentMachine;
+  document.getElementById('eOrigNum').value  = id;
+  document.getElementById('eNum').value      = id;
+  document.getElementById('eDiam').value     = item.diameter;
+  document.getElementById('eThick').value    = item.thickness;
+  document.getElementById('eP20').value      = item.prices[0];
+  document.getElementById('eP25').value      = item.prices[1];
+  document.getElementById('eP30').value      = item.prices[2];
+
+  document.getElementById('editModalOverlay').classList.add('open');
+}
+
+function closeEditModal() {
+  document.getElementById('editModalOverlay').classList.remove('open');
+}
+
+async function saveEdit() {
+  const origNum = document.getElementById('eOrigNum').value;
+  const newNum  = document.getElementById('eNum').value.trim();
+  const diam    = parseFloat(document.getElementById('eDiam').value);
+  const thick   = parseFloat(document.getElementById('eThick').value);
+  const p20     = parseFloat(document.getElementById('eP20').value);
+  const p25     = parseFloat(document.getElementById('eP25').value);
+  const p30     = parseFloat(document.getElementById('eP30').value);
+
+  if (!newNum || isNaN(diam) || isNaN(thick) || isNaN(p20) || isNaN(p25) || isNaN(p30)) {
+    showToast('⚠️ Заповніть усі поля', 'error'); return;
   }
+  if ([p20, p25, p30].some(p => p > 99)) {
+    showToast('⚠️ Вартість не більше 99.0', 'error'); return;
+  }
+  // Якщо номер змінився — перевіряємо чи новий вже існує
+  if (newNum !== origNum && DB[currentMachine][newNum]) {
+    showToast('⚠️ Номер вже існує', 'error'); return;
+  }
+
+  const btn = document.getElementById('btnEditSave');
+  btn.disabled = true;
+  btn.textContent = '⏳ Зберігаю...';
+
+  // Видаляємо старий, додаємо новий
+  const oldData = { ...DB[currentMachine][origNum] };
+  delete DB[currentMachine][origNum];
+  DB[currentMachine][newNum] = { diameter: diam, thickness: thick, prices: [p20, p25, p30] };
+
+  const ok = await saveData();
+
+  btn.disabled = false;
+  btn.textContent = '💾 Зберегти зміни';
+
+  if (ok) {
+    closeEditModal();
+    showToast(`✅ Номер ${newNum} оновлено`, 'success');
+    // Оновлюємо відображення картки
+    selectResult(newNum, DB[currentMachine][newNum]);
+    document.getElementById('searchInput').value = newNum;
+  } else {
+    // Відкатуємо зміни
+    delete DB[currentMachine][newNum];
+    DB[currentMachine][origNum] = oldData;
+    showToast('❌ Помилка збереження', 'error');
+  }
+}
+
+// ── DELETE ────────────────────────────────────
+let pendingDeleteId = null;
+
+function openConfirm(id) {
+  pendingDeleteId = id;
+  document.getElementById('confirmNum').textContent     = `#${id}`;
+  document.getElementById('confirmMachine').textContent = currentMachine;
+  document.getElementById('confirmOverlay').classList.add('open');
+}
+
+function closeConfirm() {
+  pendingDeleteId = null;
+  document.getElementById('confirmOverlay').classList.remove('open');
+}
+
+async function confirmDelete() {
+  if (!pendingDeleteId) return;
+  const id = pendingDeleteId;
+
+  const backup = { ...DB[currentMachine][id] };
+  delete DB[currentMachine][id];
+
+  closeConfirm();
+  showToast('⏳ Видаляю...', '');
+
+  const ok = await saveData();
+
+  if (ok) {
+    document.getElementById('results').innerHTML = '<p class="hint">Запис видалено. Введіть новий номер.</p>';
+    document.getElementById('searchInput').value = '';
+    showToast(`✅ Номер ${id} видалено`, 'success');
+  } else {
+    DB[currentMachine][id] = backup;
+    showToast('❌ Помилка видалення', 'error');
+  }
+}
+
+// Закрити модалі при кліку на фон
+document.getElementById('editModalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeEditModal();
+});
+document.getElementById('confirmOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeConfirm();
+});
+
 
   // ── Bushing icon ──────────────────────────────
   function bushingIcon() {
