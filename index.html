@@ -379,6 +379,15 @@
       font-weight: 600;
       cursor: pointer;
     }
+    .fab.secondary {
+  bottom: 28px;
+  left: 22px;
+  right: auto;
+  background: #10b981;
+  box-shadow: 0 4px 20px rgba(16,185,129,0.5);
+}
+.fab.secondary:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(16,185,129,0.65); }
+
   </style>
 </head>
 <body>
@@ -415,6 +424,10 @@
 <div class="results" id="results">
   <p class="hint" id="hintMsg">Спочатку оберіть машину ↑</p>
 </div>
+
+  
+<button class="fab secondary" onclick="loadData(); showToast('🔄 Дані оновлено', 'success')" title="Оновити дані">⟳</button>
+
 
 <!-- FAB add button -->
 <button class="fab" onclick="openModal()" title="Додати номер">＋</button>
@@ -492,22 +505,35 @@ let currentMachine = null;
 
 async function loadData() {
   if (!GH.owner || !GH.repo) {
-    // Fallback — порожня база
     DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
     return;
   }
+  
   try {
-    const url = `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/data.json`;
+    // ✅ Додаємо timestamp — обходить кеш
+    const url = `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/data.json?ts=${Date.now()}`;
+    
     const res = await fetch(url, {
-      headers: { 'Authorization': `token ${GH.token}`, 'Accept': 'application/vnd.github.v3+json' }
+      headers: { 
+        'Authorization': `token ${GH.token}`, 
+        'Accept': 'application/vnd.github.v3+json',
+        'Cache-Control': 'no-cache'
+      }
     });
+    
+    if (!res.ok) throw new Error('API error');
+    
     const json = await res.json();
     DB = JSON.parse(atob(json.content.replace(/\n/g, '')));
+    
+    console.log('✅ Завантажено з GitHub:', Object.keys(DB).flatMap(m => Object.keys(DB[m])).length, 'записів');
   } catch(e) {
+    console.error('GitHub error:', e);
     DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
-    showToast('⚠️ Не вдалося завантажити дані з GitHub', 'error');
+    showToast('⚠️ Використовую локальну базу', 'error');
   }
 }
+
 
 async function saveData() {
   if (!GH.owner || !GH.repo || !GH.token) {
