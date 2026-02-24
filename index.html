@@ -572,19 +572,18 @@
 
   // ── Load data — публічно, без токена ──────────
   async function loadData() {
-    try {
-      // raw.githubusercontent.com — публічний, без авторизації
-      const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/data.json?_=${Date.now()}`;
-      const res = await fetch(url, { cache: 'no-cache' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      DB = await res.json();
-      console.log('✅ DB loaded:', Object.values(DB).flatMap(Object.keys).length, 'entries');
-    } catch(e) {
-      console.error('Load error:', e);
-      DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
-      showToast('⚠️ Не вдалося завантажити дані', 'error');
-    }
+  try {
+    const url = `https://raw.githubusercontent.com/Vitalii-Kravchenko/gss/main/data.json?_=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    DB = await res.json();
+    console.log('✅ DB loaded:', Object.values(DB).flatMap(Object.keys).length, 'entries');
+  } catch(e) {
+    console.error('Load error:', e);
+    DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
+    showToast('⚠️ Не вдалося завантажити дані', 'error');
   }
+}
 
   async function refreshData() {
     showToast('🔄 Оновлення...', '');
