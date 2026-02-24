@@ -504,35 +504,44 @@ let DB = {};
 let currentMachine = null;
 
 async function loadData() {
-  if (!GH.owner || !GH.repo) {
+  try {
+    // Спочатку пробуємо public файл (без токена)
+    const publicUrl = `https://raw.githubusercontent.com/${GH.owner}/${GH.repo}/main/public-data.json?ts=${Date.now()}`;
+    const res = await fetch(publicUrl, { cache: 'no-cache' });
+    
+    if (res.ok) {
+      DB = await res.json();
+      console.log('✅ Public data loaded');
+      return;
+    }
+  } catch(e) {
+    console.log('Public data unavailable, trying private...');
+  }
+  
+  // Fallback на приватний API (тільки з токеном)
+  if (!GH.owner || !GH.repo || !GH.token) {
     DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
     return;
   }
   
   try {
-    // ✅ Додаємо timestamp — обходить кеш
-    const url = `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/data.json?ts=${Date.now()}`;
-    
-    const res = await fetch(url, {
+    const apiUrl = `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/data.json?ts=${Date.now()}`;
+    const apiRes = await fetch(apiUrl, {
       headers: { 
         'Authorization': `token ${GH.token}`, 
         'Accept': 'application/vnd.github.v3+json',
         'Cache-Control': 'no-cache'
       }
     });
-    
-    if (!res.ok) throw new Error('API error');
-    
-    const json = await res.json();
-    DB = JSON.parse(atob(json.content.replace(/\n/g, '')));
-    
-    console.log('✅ Завантажено з GitHub:', Object.keys(DB).flatMap(m => Object.keys(DB[m])).length, 'записів');
+    const apiJson = await apiRes.json();
+    DB = JSON.parse(atob(apiJson.content.replace(/\n/g, '')));
+    console.log('✅ Private API data loaded');
   } catch(e) {
-    console.error('GitHub error:', e);
     DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
-    showToast('⚠️ Використовую локальну базу', 'error');
+    showToast('⚠️ База порожня', 'error');
   }
 }
+
 
 
 async function saveData() {
