@@ -20,6 +20,15 @@
     }
   },
   "GSS 2": {
+    "333333": {
+      "diameter": 3,
+      "thickness": 3,
+      "prices": [
+        2,
+        3,
+        6
+      ]
+    },
     "111111111": {
       "diameter": 11,
       "thickness": 1,
