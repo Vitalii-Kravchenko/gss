@@ -603,12 +603,9 @@
     showToast('⚠️ Введи токен в налаштуваннях', 'error');
     return false;
   }
-
-  // Записуємо в обидва файли
-  const ok1 = await writeFile('data.json');
-  const ok2 = await writeFile('public-data.json');
-  return ok1 && ok2;
+  return await writeFile('public-data.json');
 }
+
 
 async function writeFile(filename) {
   try {
