@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GSS Вкладиші</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f1117;
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 24px 16px 80px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: clamp(1.1rem, 4vw, 1.7rem);
+      letter-spacing: 2px;
+      color: #ffffff;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    /* ── Machine selector ── */
+    .machine-selector {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .machine-btn {
+      padding: 12px 0;
+      width: clamp(90px, 28vw, 150px);
+      border: 2px solid #2e2e3e;
+      border-radius: 12px;
+      background: #1a1b26;
+      color: #aaa;
+      font-size: clamp(0.9rem, 3.5vw, 1rem);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .machine-btn:hover { border-color: #4e6ef2; color: #fff; }
+    .machine-btn.active {
+      background: #4e6ef2;
+      border-color: #4e6ef2;
+      color: #fff;
+      box-shadow: 0 0 18px rgba(78,110,242,0.4);
+    }
+
+    /* ── Search ── */
+    .search-wrap {
+      max-width: 520px;
+      margin: 0 auto 28px;
+      position: relative;
+    }
+    .search-wrap input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 2px solid #2e2e3e;
+      background: #1a1b26;
+      color: #fff;
+      font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+      outline: none;
+      transition: border 0.2s;
+    }
+    .search-wrap input:focus { border-color: #4e6ef2; }
+    .search-wrap input::placeholder { color: #555; }
+    .search-wrap input:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* ── Dropdown ── */
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0; right: 0;
+      background: #1e1f2e;
+      border: 1px solid #2e2e3e;
+      border-radius: 12px;
+      overflow: hidden;
+      z-index: 100;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      max-height: 260px;
+      overflow-y: auto;
+    }
+    .dropdown:empty { display: none; }
+    .dropdown-item {
+      padding: 13px 18px;
+      cursor: pointer;
+      font-size: clamp(0.9rem, 3.5vw, 1rem);
+      color: #ccc;
+      border-bottom: 1px solid #25263a;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dropdown-item:last-child { border-bottom: none; }
+    .dropdown-item:hover { background: #2a2b40; color: #fff; }
+    .match-highlight { color: #4e6ef2; font-weight: 700; }
+    .dim-info { margin-left: auto; font-size: 0.78rem; color: #555; }
+    .dropdown-empty {
+      padding: 14px 18px;
+      color: #e05252;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+    .dropdown::-webkit-scrollbar { width: 5px; }
+    .dropdown::-webkit-scrollbar-track { background: #1e1f2e; }
+    .dropdown::-webkit-scrollbar-thumb { background: #3a3b55; border-radius: 4px; }
+
+    /* ── Hint ── */
+    .hint {
+      text-align: center;
+      color: #555;
+      margin-top: 40px;
+      font-size: clamp(0.85rem, 3vw, 0.95rem);
+    }
+
+    /* ── Result card ── */
+    .results { max-width: 520px; margin: 0 auto 24px; }
+    .card {
+      background: #1a1b26;
+      border: 1px solid #2e2e3e;
+      border-radius: 16px;
+      padding: 22px 20px 20px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.25s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(8px); }
+      to   { opacity:1; transform:none; }
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #4e6ef2, #7c4ef2);
+      border-radius: 16px 0 0 16px;
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .card-id {
+      font-size: clamp(1.1rem, 4vw, 1.3rem);
+      font-weight: 700;
+      color: #4e6ef2;
+      letter-spacing: 1px;
+    }
+    .card-machine { font-size: 0.78rem; color: #666; margin-top: 3px; }
+    .bushing-icon { width: 60px; height: 44px; flex-shrink: 0; }
+    .info-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .info-pill {
+      background: #12131d;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: clamp(0.8rem, 3vw, 0.88rem);
+      color: #aab4cc;
+      border: 1px solid #2a2b3a;
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+    }
+    .info-pill span {
+      display: block;
+      color: #fff;
+      font-weight: 700;
+      font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+      margin-top: 4px;
+    }
+    .angles { display: flex; gap: 10px; }
+    .angle-box {
+      flex: 1;
+      background: #12131d;
+      border: 1px solid #2a2b3a;
+      border-radius: 12px;
+      padding: 14px 8px;
+      text-align: center;
+    }
+    .angle-deg {
+      font-size: clamp(0.9rem, 3.5vw, 1rem);
+      font-weight: 700;
+      color: #f0c060;
+      margin-bottom: 8px;
+    }
+    .angle-val {
+      font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* ── ADD BUTTON (FAB) ── */
+    .fab {
+      position: fixed;
+      bottom: 28px;
+      right: 22px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4e6ef2, #7c4ef2);
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(78,110,242,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .fab:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(78,110,242,0.65); }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #1a1b26;
+      border: 1px solid #2e2e3e;
+      border-radius: 18px;
+      padding: 28px 24px;
+      width: 100%;
+      max-width: 440px;
+      animation: fadeIn 0.2s ease;
+    }
+    .modal h2 {
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .modal .modal-machine {
+      font-size: 0.82rem;
+      color: #4e6ef2;
+      margin-bottom: 20px;
+    }
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      color: #8a8aaa;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1.5px solid #2e2e3e;
+      background: #12131d;
+      color: #fff;
+      font-size: 0.98rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .form-group input:focus { border-color: #4e6ef2; }
+    .prices-row {
+      display: flex;
+      gap: 8px;
+    }
+    .prices-row .form-group { flex: 1; }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .btn-cancel {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1.5px solid #2e2e3e;
+      background: transparent;
+      color: #aaa;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-cancel:hover { border-color: #aaa; color: #fff; }
+    .btn-save {
+      flex: 2;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, #4e6ef2, #7c4ef2);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-save:hover { opacity: 0.88; }
+    .btn-save:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* ── Status toast ── */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e1f2e;
+      border: 1px solid #2e2e3e;
+      border-radius: 12px;
+      padding: 12px 22px;
+      color: #fff;
+      font-size: 0.9rem;
+      z-index: 400;
+      opacity: 0;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+    .toast.success { border-color: #10b981; color: #10b981; }
+    .toast.error   { border-color: #e05252; color: #e05252; }
+
+    /* ── GitHub config panel ── */
+    .config-bar {
+      max-width: 520px;
+      margin: 0 auto 18px;
+      background: #1a1b26;
+      border: 1px dashed #2e2e3e;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .config-bar summary {
+      cursor: pointer;
+      color: #666;
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+      user-select: none;
+    }
+    .config-bar summary:hover { color: #aaa; }
+    .config-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .config-fields input {
+      padding: 9px 13px;
+      border-radius: 8px;
+      border: 1.5px solid #2e2e3e;
+      background: #12131d;
+      color: #fff;
+      font-size: 0.88rem;
+      outline: none;
+    }
+    .config-fields input:focus { border-color: #4e6ef2; }
+    .btn-config-save {
+      padding: 9px;
+      border-radius: 8px;
+      border: none;
+      background: #4e6ef2;
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>GSS — Підбір вкладишів</h1>
+
+<!-- GitHub config -->
+<details class="config-bar" id="configBar">
+  <summary>⚙️ GitHub налаштування</summary>
+  <div class="config-fields">
+    <input type="text"     id="cfgOwner" placeholder="GitHub username (напр. vitalii-k)"/>
+    <input type="text"     id="cfgRepo"  placeholder="Назва репозиторію (напр. gss-lookup)"/>
+    <input type="password" id="cfgToken" placeholder="GitHub Personal Access Token"/>
+    <button class="btn-config-save" onclick="saveConfig()">💾 Зберегти налаштування</button>
+  </div>
+</details>
+
+<!-- Machine selector -->
+<div class="machine-selector">
+  <button class="machine-btn" onclick="selectMachine('GSS 1', this)">GSS 1</button>
+  <button class="machine-btn" onclick="selectMachine('GSS 2', this)">GSS 2</button>
+  <button class="machine-btn" onclick="selectMachine('GSS 3', this)">GSS 3</button>
+</div>
+
+<!-- Search -->
+<div class="search-wrap" id="searchWrap">
+  <input type="text" id="searchInput" inputmode="numeric" autocomplete="off"
+         placeholder="Спочатку оберіть машину..."
+         oninput="handleInput(event)" onkeypress="blockLetters(event)" disabled/>
+  <div class="dropdown" id="dropdown"></div>
+</div>
+
+<!-- Result -->
+<div class="results" id="results">
+  <p class="hint" id="hintMsg">Спочатку оберіть машину ↑</p>
+</div>
+
+<!-- FAB add button -->
+<button class="fab" onclick="openModal()" title="Додати номер">＋</button>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2>➕ Новий вкладиш</h2>
+    <p class="modal-machine" id="modalMachineName">Оберіть машину</p>
+    <div class="form-group">
+      <label>Унікальний номер</label>
+      <input type="text" id="fNum" inputmode="numeric" placeholder="напр. 1007"
+             onkeypress="blockLetters(event)"/>
+    </div>
+    <div class="form-group">
+      <label>Діаметр (мм)</label>
+      <input type="number" id="fDiam" step="0.001" placeholder="напр. 52.000"/>
+    </div>
+    <div class="form-group">
+      <label>Товщина (мм)</label>
+      <input type="number" id="fThick" step="0.001" placeholder="напр. 3.130"/>
+    </div>
+    <div class="form-group">
+      <label>Вартість для кутів</label>
+      <div class="prices-row">
+        <div class="form-group">
+          <label>20°</label>
+          <input type="number" id="fP20" step="0.1" min="0" max="99" placeholder="0.0"/>
+        </div>
+        <div class="form-group">
+          <label>25°</label>
+          <input type="number" id="fP25" step="0.1" min="0" max="99" placeholder="0.0"/>
+        </div>
+        <div class="form-group">
+          <label>30°</label>
+          <input type="number" id="fP30" step="0.1" min="0" max="99" placeholder="0.0"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Скасувати</button>
+      <button class="btn-save" id="btnSave" onclick="saveEntry()">💾 Зберегти</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── GitHub config ──────────────────────────────────────
+let GH = { owner: '', repo: '', token: '' };
+
+function saveConfig() {
+  GH.owner = document.getElementById('cfgOwner').value.trim();
+  GH.repo  = document.getElementById('cfgRepo').value.trim();
+  GH.token = document.getElementById('cfgToken').value.trim();
+  localStorage.setItem('gss_gh', JSON.stringify(GH));
+  showToast('✅ Налаштування збережено', 'success');
+  document.getElementById('configBar').removeAttribute('open');
+}
+
+function loadConfig() {
+  const saved = localStorage.getItem('gss_gh');
+  if (saved) {
+    GH = JSON.parse(saved);
+    document.getElementById('cfgOwner').value = GH.owner;
+    document.getElementById('cfgRepo').value  = GH.repo;
+    document.getElementById('cfgToken').value  = GH.token;
+  }
+}
+
+// ── Data ──────────────────────────────────────────────
+let DB = {};
+let currentMachine = null;
+
+async function loadData() {
+  if (!GH.owner || !GH.repo) {
+    // Fallback — порожня база
+    DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
+    return;
+  }
+  try {
+    const url = `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/data.json`;
+    const res = await fetch(url, {
+      headers: { 'Authorization': `token ${GH.token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    const json = await res.json();
+    DB = JSON.parse(atob(json.content.replace(/\n/g, '')));
+  } catch(e) {
+    DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
+    showToast('⚠️ Не вдалося завантажити дані з GitHub', 'error');
+  }
+}
+
+async function saveData() {
+  if (!GH.owner || !GH.repo || !GH.token) {
+    showToast('⚠️ Спочатку налаштуй GitHub', 'error');
+    return false;
+  }
+  try {
+    const url = `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/data.json`;
+    // Get current SHA
+    const getRes = await fetch(url, {
+      headers: { 'Authorization': `token ${GH.token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    const getJson = await getRes.json();
+    const sha = getJson.sha;
+
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(DB, null, 2))));
+    const putRes = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${GH.token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `Add entry via GSS app`,
+        content,
+        sha
+      })
+    });
+    return putRes.ok;
+  } catch(e) {
+    return false;
+  }
+}
+
+// ── Machine ───────────────────────────────────────────
+function selectMachine(machine, btn) {
+  currentMachine = machine;
+  document.querySelectorAll('.machine-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const inp = document.getElementById('searchInput');
+  inp.disabled = false;
+  inp.value = '';
+  inp.placeholder = `Пошук номера в ${machine}...`;
+  inp.focus();
+  document.getElementById('dropdown').innerHTML = '';
+  document.getElementById('results').innerHTML = '<p class="hint">Введіть номер для пошуку</p>';
+}
+
+// ── Search ────────────────────────────────────────────
+function blockLetters(e) {
+  if (!/[0-9]/.test(String.fromCharCode(e.which))) e.preventDefault();
+}
+
+function handleInput(e) {
+  e.target.value = e.target.value.replace(/[^0-9]/g, '');
+  const query = e.target.value.trim();
+  const dropdown = document.getElementById('dropdown');
+  document.getElementById('results').innerHTML = '';
+  dropdown.innerHTML = '';
+
+  if (!query) {
+    document.getElementById('results').innerHTML = '<p class="hint">Введіть номер для пошуку</p>';
+    return;
+  }
+
+  const machineData = DB[currentMachine] || {};
+  const matched = Object.entries(machineData).filter(([id]) => id.startsWith(query));
+
+  if (matched.length === 0) {
+    dropdown.innerHTML = `<div class="dropdown-empty">❌ Номера "${query}" немає в базі</div>`;
+    return;
+  }
+
+  matched.forEach(([id, item]) => {
+    const div = document.createElement('div');
+    div.className = 'dropdown-item';
+    div.innerHTML = `
+      <span># <span class="match-highlight">${query}</span>${id.slice(query.length)}</span>
+      <span class="dim-info">⌀${item.diameter} / ${item.thickness}мм</span>
+    `;
+    div.addEventListener('click', () => selectResult(id, item));
+    dropdown.appendChild(div);
+  });
+}
+
+function selectResult(id, item) {
+  document.getElementById('dropdown').innerHTML = '';
+  document.getElementById('searchInput').value = id;
+
+  const anglesHTML = [20, 25, 30].map((deg, i) => `
+    <div class="angle-box">
+      <div class="angle-deg">${deg}°</div>
+      <div class="angle-val">${parseFloat(item.prices[i]).toFixed(1)}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('results').innerHTML = `
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-id"># ${id}</div>
+          <div class="card-machine">${currentMachine}</div>
+        </div>
+        ${bushingIcon()}
+      </div>
+      <div class="info-row">
+        <div class="info-pill">Діаметр вкладиша<span>${item.diameter} мм</span></div>
+        <div class="info-pill">Товщина вкладиша<span>${item.thickness} мм</span></div>
+      </div>
+      <div class="angles">${anglesHTML}</div>
+    </div>
+  `;
+}
+
+// ── Bushing icon ──────────────────────────────────────
+function bushingIcon() {
+  return `
+  <svg class="bushing-icon" viewBox="0 0 60 44" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stop-color="#d0d8e8"/>
+        <stop offset="40%"  stop-color="#a8b4c8"/>
+        <stop offset="100%" stop-color="#6a7a90"/>
+      </linearGradient>
+      <linearGradient id="innerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stop-color="#8a9ab0"/>
+        <stop offset="100%" stop-color="#4a5a6e"/>
+      </linearGradient>
+      <linearGradient id="shineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%"   stop-color="rgba(255,255,255,0.45)"/>
+        <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+      </linearGradient>
+    </defs>
+    <!-- Outer half-ring -->
+    <path d="M 4,34 A 26,26 0 0,1 56,34 L 56,34 L 48,34 A 18,18 0 0,0 12,34 Z"
+          fill="url(#metalGrad)" stroke="#8a9ab0" stroke-width="0.8"/>
+    <!-- Side walls -->
+    <rect x="4"  y="34" width="8" height="6" rx="1" fill="url(#innerGrad)" stroke="#6a7a90" stroke-width="0.5"/>
+    <rect x="48" y="34" width="8" height="6" rx="1" fill="url(#innerGrad)" stroke="#6a7a90" stroke-width="0.5"/>
+    <!-- Bottom flat edge -->
+    <rect x="4" y="40" width="52" height="3" rx="1.5" fill="#5a6a80" stroke="#4a5a6e" stroke-width="0.5"/>
+    <!-- Shine -->
+    <path d="M 8,34 A 22,22 0 0,1 52,34 L 48,34 A 18,18 0 0,0 12,34 Z"
+          fill="url(#shineGrad)" opacity="0.6"/>
+    <!-- Surface groove -->
+    <path d="M 6,26 A 24,24 0 0,1 54,26"
+          fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>`;
+}
+
+// ── Modal ─────────────────────────────────────────────
+function openModal() {
+  if (!currentMachine) { showToast('⚠️ Спочатку оберіть машину', 'error'); return; }
+  document.getElementById('modalMachineName').textContent = currentMachine;
+  ['fNum','fDiam','fThick','fP20','fP25','fP30'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+async function saveEntry() {
+  const num   = document.getElementById('fNum').value.trim();
+  const diam  = parseFloat(document.getElementById('fDiam').value);
+  const thick = parseFloat(document.getElementById('fThick').value);
+  const p20   = parseFloat(document.getElementById('fP20').value);
+  const p25   = parseFloat(document.getElementById('fP25').value);
+  const p30   = parseFloat(document.getElementById('fP30').value);
+
+  if (!num || isNaN(diam) || isNaN(thick) || isNaN(p20) || isNaN(p25) || isNaN(p30)) {
+    showToast('⚠️ Заповніть усі поля', 'error'); return;
+  }
+  if ([p20, p25, p30].some(p => p > 99)) {
+    showToast('⚠️ Вартість не більше 99.0', 'error'); return;
+  }
+  if (DB[currentMachine][num]) {
+    showToast('⚠️ Такий номер вже існує', 'error'); return;
+  }
+
+  const btn = document.getElementById('btnSave');
+  btn.disabled = true;
+  btn.textContent = '⏳ Зберігаю...';
+
+  DB[currentMachine][num] = { diameter: diam, thickness: thick, prices: [p20, p25, p30] };
+
+  const ok = await saveData();
+  btn.disabled = false;
+  btn.textContent = '💾 Зберегти';
+
+  if (ok) {
+    closeModal();
+    showToast(`✅ Номер ${num} збережено на GitHub`, 'success');
+  } else {
+    delete DB[currentMachine][num];
+    showToast('❌ Помилка збереження на GitHub', 'error');
+  }
+}
+
+// ── Toast ─────────────────────────────────────────────
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── Close dropdown outside ────────────────────────────
+document.addEventListener('click', e => {
+  if (!document.getElementById('searchWrap').contains(e.target))
+    document.getElementById('dropdown').innerHTML = '';
+});
+
+// ── Close modal on overlay click ──────────────────────
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ── Init ──────────────────────────────────────────────
+loadConfig();
+loadData();
+</script>
+</body>
+</html>
