@@ -602,10 +602,19 @@
   // ── Load data — публічно, без токена ──────────
   async function loadData() {
   try {
-    const url = 'https://raw.githubusercontent.com/Vitalii-Kravchenko/gss/main/data.json';
-    const res = await fetch(url, { cache: 'no-cache' });
+    // GitHub API — завжди актуальні дані, без кешу
+    const url = `https://api.github.com/repos/Vitalii-Kravchenko/gss/contents/data.json`;
+    const res = await fetch(url, {
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      }
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    DB = await res.json();
+    const json = await res.json();
+    // Декодуємо base64 вміст файлу
+    DB = JSON.parse(atob(json.content.replace(/\n/g, '')));
     console.log('✅ DB loaded:', Object.values(DB).flatMap(Object.keys).length, 'entries');
   } catch(e) {
     console.error('Load error:', e);
@@ -613,6 +622,7 @@
     showToast('⚠️ Не вдалося завантажити дані', 'error');
   }
 }
+
 
   async function refreshData() {
     showToast('🔄 Оновлення...', '');
