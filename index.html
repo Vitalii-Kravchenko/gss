@@ -409,7 +409,7 @@
       const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
-      DB = JSON.parse(atob(json.content.replace(/\n/g, '')));
+      DB = JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\n/g, '')))));
       console.log('✅ DB loaded');
     } catch(e) {
       console.error('Load error:', e);
