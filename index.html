@@ -67,9 +67,9 @@
   .card-machine { font-size: 0.78rem; color: #666; margin-top: 3px; }
   .bushing-icon { width: 60px; height: 44px; flex-shrink: 0; }
 
-  .info-row { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
-  .info-pill { background: #12131d; border-radius: 8px; padding: 8px 14px; font-size: clamp(0.8rem, 3vw, 0.88rem); color: #aab4cc; border: 1px solid #2a2b3a; flex: 1; min-width: 120px; text-align: center; }
-  .info-pill span { display: block; color: #fff; font-weight: 700; font-size: clamp(0.95rem, 3.5vw, 1.05rem); margin-top: 4px; }
+  .info-row { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .info-pill { background: #12131d; border-radius: 8px; padding: 8px 14px; font-size: clamp(0.75rem, 2.8vw, 0.85rem); color: #aab4cc; border: 1px solid #2a2b3a; flex: 1; min-width: 100px; text-align: center; }
+  .info-pill span { display: block; color: #fff; font-weight: 700; font-size: clamp(0.88rem, 3.2vw, 1rem); margin-top: 4px; }
 
   .colors-section { margin-bottom: 18px; }
   .colors-label { font-size: 0.8rem; color: #8a8aaa; margin-bottom: 8px; }
@@ -78,7 +78,7 @@
   .color-name { font-size: 0.9rem; color: #ccc; flex: 1; }
   .color-thick { font-size: 0.9rem; font-weight: 700; color: #fff; }
 
-  .angles { display: flex; gap: 10px; }
+  .angles { display: flex; gap: 10px; margin-bottom: 14px; }
   .angle-box { flex: 1; background: #12131d; border: 1px solid #2a2b3a; border-radius: 12px; padding: 14px 8px; text-align: center; }
   .angle-deg { font-size: clamp(0.9rem, 3.5vw, 1rem); font-weight: 700; color: #f0c060; margin-bottom: 8px; }
   .angle-val { font-size: clamp(1.1rem, 4.5vw, 1.4rem); font-weight: 800; color: #fff; }
@@ -121,48 +121,23 @@
   .btn-save:active { opacity: 0.75; transform: scale(0.98); }
   .btn-save:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* ── Color picker buttons ── */
-  .colors-editor-label { font-size: 0.82rem; color: #8a8aaa; margin-bottom: 10px; display: block; }
+  .section-divider { font-size: 0.78rem; color: #4e6ef2; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin: 18px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #2e2e3e; }
 
-  .color-palette {
-    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;
-  }
-  .palette-btn {
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-    padding: 8px 10px; border-radius: 10px;
-    border: 2px solid #2e2e3e; background: #12131d;
-    color: #ccc; font-size: 0.75rem; cursor: pointer;
-    transition: border-color 0.15s, transform 0.1s;
-    min-width: 54px;
-  }
+  /* Palette */
+  .colors-editor-label { font-size: 0.82rem; color: #8a8aaa; margin-bottom: 10px; display: block; }
+  .color-palette { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .palette-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 10px; border-radius: 10px; border: 2px solid #2e2e3e; background: #12131d; color: #ccc; font-size: 0.75rem; cursor: pointer; transition: border-color 0.15s, transform 0.1s; min-width: 54px; }
   .palette-btn:active { transform: scale(0.93); }
-  .palette-btn.selected {
-    border-color: #4e6ef2;
-    color: #fff;
-    background: #1a1f3a;
-  }
-  .palette-dot {
-    width: 22px; height: 22px; border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.15);
-    flex-shrink: 0;
-  }
-  .palette-btn-add {
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-    padding: 8px 10px; border-radius: 10px;
-    border: 2px dashed #2e2e3e; background: transparent;
-    color: #555; font-size: 0.75rem; cursor: pointer;
-    transition: border-color 0.15s, color 0.15s;
-    min-width: 54px;
-  }
+  .palette-btn.selected { border-color: #4e6ef2; color: #fff; background: #1a1f3a; }
+  .palette-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); flex-shrink: 0; }
+  .palette-btn-add { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 10px; border-radius: 10px; border: 2px dashed #2e2e3e; background: transparent; color: #555; font-size: 0.75rem; cursor: pointer; transition: border-color 0.15s, color 0.15s; min-width: 54px; }
   .palette-btn-add:active { border-color: #4e6ef2; color: #4e6ef2; transform: scale(0.93); }
   .palette-add-icon { font-size: 1.2rem; line-height: 22px; }
 
-  /* custom color modal */
   .custom-color-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 600; align-items: center; justify-content: center; padding: 16px; }
   .custom-color-overlay.open { display: flex; }
   .custom-color-box { background: #1a1b26; border: 1px solid #2e2e3e; border-radius: 16px; padding: 24px; width: 100%; max-width: 320px; animation: fadeIn 0.2s ease; }
   .custom-color-box h3 { color: #fff; font-size: 1rem; margin-bottom: 16px; }
-  .custom-color-box .form-group { margin-bottom: 12px; }
   .color-preview-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
   .color-preview-circle { width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); flex-shrink: 0; }
   .color-preview-row input[type="color"] { width: 48px; height: 40px; padding: 2px; border-radius: 8px; border: 1.5px solid #2e2e3e; background: #12131d; cursor: pointer; }
@@ -170,11 +145,7 @@
   .btn-custom-cancel { flex: 1; padding: 10px; border-radius: 10px; border: 1.5px solid #2e2e3e; background: transparent; color: #aaa; cursor: pointer; }
   .btn-custom-ok { flex: 1; padding: 10px; border-radius: 10px; border: none; background: #4e6ef2; color: #fff; font-weight: 700; cursor: pointer; }
 
-  /* color entry row */
-  .color-entry {
-    background: #12131d; border: 1px solid #2a2b3a;
-    border-radius: 10px; padding: 10px 12px; margin-bottom: 8px;
-  }
+  .color-entry { background: #12131d; border: 1px solid #2a2b3a; border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
   .color-entry-top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
   .color-entry-dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); flex-shrink: 0; }
   .color-entry-name { font-size: 0.9rem; color: #fff; flex: 1; font-weight: 600; }
@@ -185,7 +156,6 @@
   .color-entry-thick input { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1.5px solid #2e2e3e; background: #0f1117; color: #fff; outline: none; }
   .color-entry-thick input:focus { border-color: #4e6ef2; }
 
-  /* confirm */
   .confirm-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 500; align-items: center; justify-content: center; padding: 16px; }
   .confirm-overlay.open { display: flex; }
   .confirm-box { background: #1a1b26; border: 1px solid #dc2626; border-radius: 16px; padding: 28px 24px; width: 100%; max-width: 360px; text-align: center; animation: fadeIn 0.2s ease; }
@@ -233,13 +203,15 @@
   <p class="hint">Najpierw wybierz maszynę ↑</p>
 </div>
 
-<button class="fab fab-add"     onclick="openModal()"   title="Dodaj numer">＋</button>
+<button class="fab fab-add" onclick="openModal()" title="Dodaj numer">＋</button>
 
-<!-- Add Modal -->
+<!-- ═══════════════ ADD MODAL ═══════════════ -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h2>➕ Nowa panewka</h2>
     <p class="modal-machine" id="modalMachineName"></p>
+
+    <div class="section-divider">Dane podstawowe</div>
     <div class="form-group">
       <label>Dziesięciocyfrówka</label>
       <input type="text" id="fNum" placeholder="np. 1402291079" autocomplete="off"/>
@@ -248,19 +220,44 @@
       <label>Średnica (mm)</label>
       <input type="number" id="fDiam" step="0.001" placeholder="np. 111.022"/>
     </div>
+
+    <div class="section-divider">Wartość dla kątów</div>
+    <div class="prices-row">
+      <div class="form-group"><label>20°</label><input type="number" id="fP20" step="0.1" min="0" max="99" placeholder="0.0"/></div>
+      <div class="form-group"><label>25°</label><input type="number" id="fP25" step="0.1" min="0" max="99" placeholder="0.0"/></div>
+      <div class="form-group"><label>30°</label><input type="number" id="fP30" step="0.1" min="0" max="99" placeholder="0.0"/></div>
+    </div>
+
+    <div class="section-divider">Tolerancje</div>
     <div class="form-group">
-      <label>Wartość dla kątów</label>
+      <label>Tolerancja grubości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>20°</label><input type="number" id="fP20" step="0.1" min="0" max="99" placeholder="0.0"/></div>
-        <div class="form-group"><label>25°</label><input type="number" id="fP25" step="0.1" min="0" max="99" placeholder="0.0"/></div>
-        <div class="form-group"><label>30°</label><input type="number" id="fP30" step="0.1" min="0" max="99" placeholder="0.0"/></div>
+        <div class="form-group"><label>Od</label><input type="number" id="fTgOd" step="0.001" placeholder="-0.010"/></div>
+        <div class="form-group"><label>Do</label><input type="number" id="fTgDo" step="0.001" placeholder="+0.010"/></div>
       </div>
     </div>
     <div class="form-group">
-      <label class="colors-editor-label">🎨 Kolory i grubości</label>
+      <label>Tolerancja współśrodkowości (mm)</label>
+      <div class="prices-row">
+        <div class="form-group"><label>Od</label><input type="number" id="fTwOd" step="0.001" placeholder="-0.005"/></div>
+        <div class="form-group"><label>Do</label><input type="number" id="fTwDo" step="0.001" placeholder="+0.005"/></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Tolerancja wysokości (mm)</label>
+      <div class="prices-row">
+        <div class="form-group"><label>Od</label><input type="number" id="fTyOd" step="0.001" placeholder="-0.008"/></div>
+        <div class="form-group"><label>Do</label><input type="number" id="fTyDo" step="0.001" placeholder="+0.008"/></div>
+      </div>
+    </div>
+
+    <div class="section-divider">Selekcje i grubości</div>
+    <div class="form-group">
+      <label class="colors-editor-label">🎨 Wybierz selekcje</label>
       <div class="color-palette" id="fPalette"></div>
       <div id="fColorsList"></div>
     </div>
+
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">Anuluj</button>
       <button class="btn-save" id="btnSave" onclick="saveEntry()">💾 Zapisz</button>
@@ -268,12 +265,14 @@
   </div>
 </div>
 
-<!-- Edit Modal -->
+<!-- ═══════════════ EDIT MODAL ═══════════════ -->
 <div class="modal-overlay" id="editModalOverlay">
   <div class="modal">
     <h2>✏️ Edycja</h2>
     <p class="modal-machine" id="editModalMachine"></p>
     <input type="hidden" id="eOrigNum"/>
+
+    <div class="section-divider">Dane podstawowe</div>
     <div class="form-group">
       <label>Dziesięciocyfrówka</label>
       <input type="text" id="eNum" autocomplete="off"/>
@@ -282,19 +281,44 @@
       <label>Średnica (mm)</label>
       <input type="number" id="eDiam" step="0.001"/>
     </div>
+
+    <div class="section-divider">Wartość dla kątów</div>
+    <div class="prices-row">
+      <div class="form-group"><label>20°</label><input type="number" id="eP20" step="0.1" min="0" max="99"/></div>
+      <div class="form-group"><label>25°</label><input type="number" id="eP25" step="0.1" min="0" max="99"/></div>
+      <div class="form-group"><label>30°</label><input type="number" id="eP30" step="0.1" min="0" max="99"/></div>
+    </div>
+
+    <div class="section-divider">Tolerancje</div>
     <div class="form-group">
-      <label>Wartość dla kątów</label>
+      <label>Tolerancja grubości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>20°</label><input type="number" id="eP20" step="0.1" min="0" max="99"/></div>
-        <div class="form-group"><label>25°</label><input type="number" id="eP25" step="0.1" min="0" max="99"/></div>
-        <div class="form-group"><label>30°</label><input type="number" id="eP30" step="0.1" min="0" max="99"/></div>
+        <div class="form-group"><label>Od</label><input type="number" id="eTgOd" step="0.001"/></div>
+        <div class="form-group"><label>Do</label><input type="number" id="eTgDo" step="0.001"/></div>
       </div>
     </div>
     <div class="form-group">
-      <label class="colors-editor-label">🎨 Kolory i grubości</label>
+      <label>Tolerancja współśrodkowości (mm)</label>
+      <div class="prices-row">
+        <div class="form-group"><label>Od</label><input type="number" id="eTwOd" step="0.001"/></div>
+        <div class="form-group"><label>Do</label><input type="number" id="eTwDo" step="0.001"/></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Tolerancja wysokości (mm)</label>
+      <div class="prices-row">
+        <div class="form-group"><label>Od</label><input type="number" id="eTyOd" step="0.001"/></div>
+        <div class="form-group"><label>Do</label><input type="number" id="eTyDo" step="0.001"/></div>
+      </div>
+    </div>
+
+    <div class="section-divider">Selekcje i grubości</div>
+    <div class="form-group">
+      <label class="colors-editor-label">🎨 Wybierz selekcje</label>
       <div class="color-palette" id="ePalette"></div>
       <div id="eColorsList"></div>
     </div>
+
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeEditModal()">Anuluj</button>
       <button class="btn-save" id="btnEditSave" onclick="saveEdit()">💾 Zapisz zmiany</button>
@@ -302,7 +326,7 @@
   </div>
 </div>
 
-<!-- Delete Confirm -->
+<!-- ═══════════════ DELETE CONFIRM ═══════════════ -->
 <div class="confirm-overlay" id="confirmOverlay">
   <div class="confirm-box">
     <h3>🗑️ Usunąć wpis?</h3>
@@ -314,17 +338,17 @@
   </div>
 </div>
 
-<!-- Custom color modal -->
+<!-- ═══════════════ CUSTOM COLOR MODAL ═══════════════ -->
 <div class="custom-color-overlay" id="customColorOverlay">
   <div class="custom-color-box">
-    <h3>➕ Nowy kolor</h3>
+    <h3>➕ Nowa selekcja</h3>
     <div class="color-preview-row">
-      <div class="color-preview-circle" id="customColorPreview"></div>
+      <div class="color-preview-circle" id="customColorPreview" style="background:#888888"></div>
       <input type="color" id="customColorPicker" value="#888888"
              oninput="document.getElementById('customColorPreview').style.background=this.value"/>
     </div>
     <div class="form-group">
-      <label>Nazwa koloru</label>
+      <label>Nazwa selekcji</label>
       <input type="text" id="customColorName" placeholder="np. Pomarańczowy" autocomplete="off"/>
     </div>
     <div class="custom-color-actions">
@@ -340,27 +364,21 @@
   const REPO_OWNER = 'Vitalii-Kravchenko';
   const REPO_NAME  = 'gss';
 
-  // ── Стандартні кольори ────────────────────────
   let PALETTE = JSON.parse(localStorage.getItem('gss_palette') || 'null') || [
-    { name: 'Czarny',     color: '#2d2d2d' },
-    { name: 'Zielony',    color: '#22c55e' },
-    { name: 'Żółty',      color: '#eab308' },
-    { name: 'Niebieski',  color: '#3b82f6' },
-    { name: 'Czerwony',   color: '#ef4444' },
-    { name: 'Fioletowy',  color: '#a855f7' },
+    { name: 'Czarny',    color: '#2d2d2d' },
+    { name: 'Zielony',   color: '#22c55e' },
+    { name: 'Żółty',     color: '#eab308' },
+    { name: 'Niebieski', color: '#3b82f6' },
+    { name: 'Czerwony',  color: '#ef4444' },
+    { name: 'Fioletowy', color: '#a855f7' },
   ];
-
-  function savePalette() {
-    localStorage.setItem('gss_palette', JSON.stringify(PALETTE));
-  }
+  function savePalette() { localStorage.setItem('gss_palette', JSON.stringify(PALETTE)); }
 
   let token = localStorage.getItem('gss_token') || '';
   let DB = {};
   let currentMachine = null;
-
-  // поточна палітра яка редагується ('fPalette'/'ePalette')
-  let _activePaletteId  = null;
-  let _activeColorsId   = null;
+  let _activePaletteId = null;
+  let _customTarget    = null;
 
   // ── Config ────────────────────────────────────
   function saveConfig() {
@@ -370,51 +388,36 @@
     document.getElementById('configBar').removeAttribute('open');
   }
 
-  // ── Load ──────────────────────────────────────
+  // ── Load / Save ───────────────────────────────
   async function loadData() {
     try {
       const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
       const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!res.ok) throw new Error();
       const json = await res.json();
       DB = JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\n/g, '')))));
-    } catch(e) {
+    } catch {
       DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
       showToast('⚠️ Nie udało się załadować danych', 'error');
     }
   }
 
-  async function refreshData() {
-    showToast('🔄 Odświeżanie...', '');
-    await loadData();
-    if (currentMachine) {
-      const val = document.getElementById('searchInput').value;
-      if (val) handleInput({ target: { value: val } });
-    }
-    showToast('✅ Dane zaktualizowane', 'success');
-  }
-
-  // ── Save ──────────────────────────────────────
   async function saveData() {
     if (!token) { showToast('⚠️ Wprowadź token w ustawieniach', 'error'); return false; }
-    return await writeFile('data.json');
-  }
-
-  async function writeFile(filename) {
     try {
-      const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filename}`;
-      const getRes = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
+      const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
+      const getRes  = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
       const getJson = await getRes.json();
       if (!getRes.ok) throw new Error(getJson.message);
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(DB, null, 2))));
-      const putRes = await fetch(apiUrl, {
+      const putRes  = await fetch(apiUrl, {
         method: 'PUT',
         headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: `Update ${filename} via GSS app`, content, sha: getJson.sha })
+        body: JSON.stringify({ message: 'Update data.json via GSS app', content, sha: getJson.sha })
       });
-      if (!putRes.ok) { const err = await putRes.json(); throw new Error(err.message); }
+      if (!putRes.ok) { const e = await putRes.json(); throw new Error(e.message); }
       return true;
-    } catch(e) { return false; }
+    } catch { return false; }
   }
 
   // ── Machine ───────────────────────────────────
@@ -438,18 +441,17 @@
     dropdown.innerHTML = '';
     if (!query) { document.getElementById('results').innerHTML = '<p class="hint">Wpisz numer, aby wyszukać</p>'; return; }
 
-    const machineData = DB[currentMachine] || {};
-    const matched = Object.entries(machineData).filter(([id]) => id.toLowerCase().startsWith(query.toLowerCase()));
+    const matched = Object.entries(DB[currentMachine] || {})
+      .filter(([id]) => id.toLowerCase().startsWith(query.toLowerCase()));
 
-    if (matched.length === 0) { dropdown.innerHTML = `<div class="dropdown-empty">❌ Numer "${query}" nie istnieje w bazie</div>`; return; }
+    if (!matched.length) { dropdown.innerHTML = `<div class="dropdown-empty">❌ Numer "${query}" nie istnieje w bazie</div>`; return; }
 
     matched.forEach(([id, item]) => {
       const div = document.createElement('div');
       div.className = 'dropdown-item';
-      const cnt = (item.colors || []).length;
       div.innerHTML = `
         <span># <span class="match-highlight">${id.slice(0, query.length)}</span>${id.slice(query.length)}</span>
-        <span class="dim-info">⌀${item.diameter} · ${cnt} kol.</span>
+        <span class="dim-info">⌀${item.diameter} · ${(item.colors||[]).length} sel.</span>
       `;
       div.addEventListener('click', () => selectResult(id, item));
       dropdown.appendChild(div);
@@ -461,33 +463,39 @@
     document.getElementById('dropdown').innerHTML = '';
     document.getElementById('searchInput').value = id;
 
-    const anglesHTML = [20, 25, 30].map((deg, i) => `
-      <div class="angle-box">
-        <div class="angle-deg">${deg}°</div>
-        <div class="angle-val">${parseFloat(item.prices[i]).toFixed(1)}</div>
-      </div>
-    `).join('');
-
     const colors = item.colors || [];
+    const tol    = item.tolerancje || {};
+
     const colorsHTML = colors.length ? `
       <div class="colors-section">
-        <div class="colors-label">🎨 Kolory i grubości</div>
+        <div class="colors-label">🎨 Selekcje i grubości</div>
         ${colors.map(c => `
           <div class="color-row">
             <div class="color-dot" style="background:${c.color}"></div>
             <div class="color-name">${c.name}</div>
             <div class="color-thick">${c.thickness} mm</div>
-          </div>
-        `).join('')}
-      </div>
-    ` : '';
+          </div>`).join('')}
+      </div>` : '';
+
+    const fmt = (v) => v !== undefined && v !== '' ? v : '—';
+    const tolHTML = `
+      <div class="info-row">
+        <div class="info-pill">Tol. grubości<span>${tol.grubosc ? fmt(tol.grubosc.od)+' / '+fmt(tol.grubosc.do)+' mm' : '—'}</span></div>
+        <div class="info-pill">Tol. wsp.środ.<span>${tol.wspolsrodkowosc ? fmt(tol.wspolsrodkowosc.od)+' / '+fmt(tol.wspolsrodkowosc.do)+' mm' : '—'}</span></div>
+        <div class="info-pill">Tol. wysokości<span>${tol.wysokosc ? fmt(tol.wysokosc.od)+' / '+fmt(tol.wysokosc.do)+' mm' : '—'}</span></div>
+      </div>`;
+
+    const anglesHTML = [20,25,30].map((deg,i) => `
+      <div class="angle-box">
+        <div class="angle-deg">${deg}°</div>
+        <div class="angle-val">${parseFloat(item.prices[i]).toFixed(1)}</div>
+      </div>`).join('');
 
     const actionsHTML = token ? `
       <div class="card-actions">
         <button class="btn-edit"   onclick="openEditModal('${id}')">✏️ Edytuj</button>
         <button class="btn-delete" onclick="openConfirm('${id}')">🗑️ Usuń</button>
-      </div>
-    ` : '';
+      </div>` : '';
 
     document.getElementById('results').innerHTML = `
       <div class="card">
@@ -499,34 +507,29 @@
           <div class="info-pill">Średnica panewki<span>${item.diameter} mm</span></div>
         </div>
         ${colorsHTML}
+        ${tolHTML}
         <div class="angles">${anglesHTML}</div>
         ${actionsHTML}
-      </div>
-    `;
+      </div>`;
   }
 
-  // ── Palette UI ────────────────────────────────
+  // ── Palette ───────────────────────────────────
   function renderPalette(paletteId, colorsListId, selectedColors) {
     _activePaletteId = paletteId;
-    _activeColorsId  = colorsListId;
-
-    const container = document.getElementById(paletteId);
+    const container  = document.getElementById(paletteId);
     container.innerHTML = '';
 
     PALETTE.forEach((p, i) => {
-      const isSelected = selectedColors
-        ? selectedColors.some(c => c.name === p.name)
-        : false;
+      const selected = (selectedColors || []).some(c => c.name === p.name);
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'palette-btn' + (isSelected ? ' selected' : '');
+      btn.className = 'palette-btn' + (selected ? ' selected' : '');
       btn.dataset.index = i;
       btn.innerHTML = `<div class="palette-dot" style="background:${p.color}"></div><span>${p.name}</span>`;
       btn.addEventListener('click', () => togglePaletteColor(i, paletteId, colorsListId));
       container.appendChild(btn);
     });
 
-    // кнопка "додати новий"
     const addBtn = document.createElement('button');
     addBtn.type = 'button';
     addBtn.className = 'palette-btn-add';
@@ -538,119 +541,111 @@
   function togglePaletteColor(index, paletteId, colorsListId) {
     const p = PALETTE[index];
     const list = document.getElementById(colorsListId);
-
-    // перевіряємо чи вже є
-    const existing = list.querySelector(`[data-color-name="${CSS.escape(p.name)}"]`);
+    const existing = list.querySelector(`[data-color-name="${p.name}"]`);
     if (existing) {
       existing.remove();
-      // знімаємо selected
-      const btn = document.querySelector(`#${paletteId} .palette-btn[data-index="${index}"]`);
-      if (btn) btn.classList.remove('selected');
+      document.querySelector(`#${paletteId} .palette-btn[data-index="${index}"]`)?.classList.remove('selected');
       return;
     }
-
-    // додаємо
     addColorEntry(colorsListId, p.name, p.color);
-    const btn = document.querySelector(`#${paletteId} .palette-btn[data-index="${index}"]`);
-    if (btn) btn.classList.add('selected');
+    document.querySelector(`#${paletteId} .palette-btn[data-index="${index}"]`)?.classList.add('selected');
   }
 
   function addColorEntry(colorsListId, name, color, thickness = '') {
     const list = document.getElementById(colorsListId);
-    const div = document.createElement('div');
+    const div  = document.createElement('div');
     div.className = 'color-entry';
     div.dataset.colorName = name;
+    div.dataset.colorHex  = color;
+    const paletteId = colorsListId === 'fColorsList' ? 'fPalette' : 'ePalette';
     div.innerHTML = `
       <div class="color-entry-top">
         <div class="color-entry-dot" style="background:${color}"></div>
         <div class="color-entry-name">${name}</div>
-        <button class="btn-remove-color" onclick="removeColorEntry(this, '${CSS.escape(name)}', '${colorsListId}', '${_activePaletteId || colorsListId.replace('ColorsList','Palette')}')">✕</button>
+        <button class="btn-remove-color" onclick="removeColorEntry(this,'${paletteId}','${colorsListId}')">✕</button>
       </div>
       <div class="color-entry-thick">
         <label>Grubość (mm):</label>
         <input type="number" step="0.001" placeholder="np. 3.474" value="${thickness}"/>
-      </div>
-    `;
-    // зберігаємо колір в dataset
-    div.dataset.colorHex = color;
+      </div>`;
     list.appendChild(div);
   }
 
-  function removeColorEntry(btn, escapedName, colorsListId, paletteId) {
+  function removeColorEntry(btn, paletteId, colorsListId) {
     const entry = btn.closest('.color-entry');
-    const name = entry.dataset.colorName;
+    const name  = entry.dataset.colorName;
     entry.remove();
-
-    // знімаємо selected з палітри
-    const paletteEl = document.getElementById(paletteId);
-    if (!paletteEl) return;
-    paletteEl.querySelectorAll('.palette-btn').forEach(b => {
-      const idx = parseInt(b.dataset.index);
-      if (!isNaN(idx) && PALETTE[idx]?.name === name) b.classList.remove('selected');
+    document.querySelectorAll(`#${paletteId} .palette-btn`).forEach(b => {
+      const i = parseInt(b.dataset.index);
+      if (!isNaN(i) && PALETTE[i]?.name === name) b.classList.remove('selected');
     });
   }
 
   function getColorsFromList(colorsListId) {
-    const entries = document.querySelectorAll(`#${colorsListId} .color-entry`);
     const result = [];
-    for (const entry of entries) {
-      const name      = entry.dataset.colorName;
-      const color     = entry.dataset.colorHex;
+    for (const entry of document.querySelectorAll(`#${colorsListId} .color-entry`)) {
       const thickness = parseFloat(entry.querySelector('input[type="number"]').value);
-      if (!name || isNaN(thickness)) return null;
-      result.push({ name, color, thickness });
+      if (!entry.dataset.colorName || isNaN(thickness)) return null;
+      result.push({ name: entry.dataset.colorName, color: entry.dataset.colorHex, thickness });
     }
     return result;
   }
 
   // ── Custom color ──────────────────────────────
-  let _customTarget = null;
-
   function openCustomColor(paletteId, colorsListId) {
     _customTarget = { paletteId, colorsListId };
     document.getElementById('customColorName').value = '';
-    const picker = document.getElementById('customColorPicker');
-    picker.value = '#888888';
+    document.getElementById('customColorPicker').value = '#888888';
     document.getElementById('customColorPreview').style.background = '#888888';
     document.getElementById('customColorOverlay').classList.add('open');
   }
-
-  function closeCustomColor() {
-    document.getElementById('customColorOverlay').classList.remove('open');
-    _customTarget = null;
-  }
+  function closeCustomColor() { document.getElementById('customColorOverlay').classList.remove('open'); _customTarget = null; }
 
   function confirmCustomColor() {
     const name  = document.getElementById('customColorName').value.trim();
     const color = document.getElementById('customColorPicker').value;
-    if (!name) { showToast('⚠️ Podaj nazwę koloru', 'error'); return; }
-
-    // Додаємо в глобальну палітру
+    if (!name) { showToast('⚠️ Podaj nazwę selekcji', 'error'); return; }
     PALETTE.push({ name, color });
     savePalette();
-
     closeCustomColor();
-
     if (_customTarget) {
       const { paletteId, colorsListId } = _customTarget;
-      // Перемальовуємо палітру
-      const currentSelected = getColorsFromList(colorsListId);
-      renderPalette(paletteId, colorsListId, currentSelected);
-      // Відразу додаємо в список
+      const cur = getColorsFromList(colorsListId);
+      renderPalette(paletteId, colorsListId, cur);
       addColorEntry(colorsListId, name, color);
-      // Позначаємо кнопку
-      const newIdx = PALETTE.length - 1;
-      const btn = document.querySelector(`#${paletteId} .palette-btn[data-index="${newIdx}"]`);
-      if (btn) btn.classList.add('selected');
+      const idx = PALETTE.length - 1;
+      document.querySelector(`#${paletteId} .palette-btn[data-index="${idx}"]`)?.classList.add('selected');
     }
+  }
+
+  // ── Helpers: read tolerances ──────────────────
+  function readTol(prefix) {
+    return {
+      grubosc:          { od: parseFloat(document.getElementById(`${prefix}TgOd`).value), do: parseFloat(document.getElementById(`${prefix}TgDo`).value) },
+      wspolsrodkowosc:  { od: parseFloat(document.getElementById(`${prefix}TwOd`).value), do: parseFloat(document.getElementById(`${prefix}TwDo`).value) },
+      wysokosc:         { od: parseFloat(document.getElementById(`${prefix}TyOd`).value), do: parseFloat(document.getElementById(`${prefix}TyDo`).value) },
+    };
+  }
+  function tolValid(t) {
+    return !Object.values(t).some(v => isNaN(v.od) || isNaN(v.do));
+  }
+  function fillTol(prefix, tol) {
+    const t = tol || {};
+    document.getElementById(`${prefix}TgOd`).value = t.grubosc?.od         ?? '';
+    document.getElementById(`${prefix}TgDo`).value = t.grubosc?.do         ?? '';
+    document.getElementById(`${prefix}TwOd`).value = t.wspolsrodkowosc?.od ?? '';
+    document.getElementById(`${prefix}TwDo`).value = t.wspolsrodkowosc?.do ?? '';
+    document.getElementById(`${prefix}TyOd`).value = t.wysokosc?.od        ?? '';
+    document.getElementById(`${prefix}TyDo`).value = t.wysokosc?.do        ?? '';
   }
 
   // ── Add Modal ─────────────────────────────────
   function openModal() {
     if (!currentMachine) { showToast('⚠️ Najpierw wybierz maszynę', 'error'); return; }
-    if (!token) { showToast('⚠️ Wprowadź token w ustawieniach ⚙️', 'error'); return; }
+    if (!token)          { showToast('⚠️ Wprowadź token w ustawieniach ⚙️', 'error'); return; }
     document.getElementById('modalMachineName').textContent = currentMachine;
-    ['fNum','fDiam','fP20','fP25','fP30'].forEach(id => document.getElementById(id).value = '');
+    ['fNum','fDiam','fP20','fP25','fP30','fTgOd','fTgDo','fTwOd','fTwDo','fTyOd','fTyDo']
+      .forEach(id => document.getElementById(id).value = '');
     document.getElementById('fColorsList').innerHTML = '';
     renderPalette('fPalette', 'fColorsList', []);
     document.getElementById('modalOverlay').classList.add('open');
@@ -658,27 +653,29 @@
   function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
 
   async function saveEntry() {
-    const num  = document.getElementById('fNum').value.trim();
-    const diam = parseFloat(document.getElementById('fDiam').value);
-    const p20  = parseFloat(document.getElementById('fP20').value);
-    const p25  = parseFloat(document.getElementById('fP25').value);
-    const p30  = parseFloat(document.getElementById('fP30').value);
+    const num    = document.getElementById('fNum').value.trim();
+    const diam   = parseFloat(document.getElementById('fDiam').value);
+    const p20    = parseFloat(document.getElementById('fP20').value);
+    const p25    = parseFloat(document.getElementById('fP25').value);
+    const p30    = parseFloat(document.getElementById('fP30').value);
+    const tol    = readTol('f');
     const colors = getColorsFromList('fColorsList');
 
     if (!num || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('⚠️ Wypełnij wszystkie pola', 'error'); return; }
-    if (colors === null) { showToast('⚠️ Wypełnij grubości dla wszystkich kolorów', 'error'); return; }
-    if (colors.length === 0) { showToast('⚠️ Wybierz przynajmniej jeden kolor', 'error'); return; }
-    if ([p20, p25, p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
+    if (!tolValid(tol))    { showToast('⚠️ Wypełnij wszystkie tolerancje', 'error'); return; }
+    if (colors === null)   { showToast('⚠️ Wypełnij grubości dla wszystkich selekcji', 'error'); return; }
+    if (!colors.length)    { showToast('⚠️ Wybierz przynajmniej jedną selekcję', 'error'); return; }
+    if ([p20,p25,p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
     if (DB[currentMachine][num]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
 
     const btn = document.getElementById('btnSave');
     btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
-    DB[currentMachine][num] = { diameter: diam, prices: [p20, p25, p30], colors };
+    DB[currentMachine][num] = { diameter: diam, prices: [p20,p25,p30], tolerancje: tol, colors };
     const ok = await saveData();
     btn.disabled = false; btn.textContent = '💾 Zapisz';
 
     if (ok) { closeModal(); showToast(`✅ Numer ${num} zapisany`, 'success'); }
-    else { delete DB[currentMachine][num]; showToast('❌ Błąd. Sprawdź token', 'error'); }
+    else    { delete DB[currentMachine][num]; showToast('❌ Błąd. Sprawdź token', 'error'); }
   }
 
   // ── Edit Modal ────────────────────────────────
@@ -692,20 +689,17 @@
     document.getElementById('eP20').value     = item.prices[0];
     document.getElementById('eP25').value     = item.prices[1];
     document.getElementById('eP30').value     = item.prices[2];
+    fillTol('e', item.tolerancje);
 
     const list = document.getElementById('eColorsList');
     list.innerHTML = '';
-    const savedColors = item.colors || [];
-    renderPalette('ePalette', 'eColorsList', savedColors);
-    savedColors.forEach(c => addColorEntry('eColorsList', c.name, c.color || '#888888', c.thickness));
-
-    // позначаємо вибрані кнопки
-    savedColors.forEach(sc => {
+    const saved = item.colors || [];
+    renderPalette('ePalette', 'eColorsList', saved);
+    saved.forEach(c => {
+      addColorEntry('eColorsList', c.name, c.color || '#888888', c.thickness);
       PALETTE.forEach((p, i) => {
-        if (p.name === sc.name) {
-          const btn = document.querySelector(`#ePalette .palette-btn[data-index="${i}"]`);
-          if (btn) btn.classList.add('selected');
-        }
+        if (p.name === c.name)
+          document.querySelector(`#ePalette .palette-btn[data-index="${i}"]`)?.classList.add('selected');
       });
     });
 
@@ -720,19 +714,21 @@
     const p20     = parseFloat(document.getElementById('eP20').value);
     const p25     = parseFloat(document.getElementById('eP25').value);
     const p30     = parseFloat(document.getElementById('eP30').value);
+    const tol     = readTol('e');
     const colors  = getColorsFromList('eColorsList');
 
     if (!newNum || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('⚠️ Wypełnij wszystkie pola', 'error'); return; }
-    if (colors === null) { showToast('⚠️ Wypełnij grubości dla wszystkich kolorów', 'error'); return; }
-    if (colors.length === 0) { showToast('⚠️ Wybierz przynajmniej jeden kolor', 'error'); return; }
-    if ([p20, p25, p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
+    if (!tolValid(tol))    { showToast('⚠️ Wypełnij wszystkie tolerancje', 'error'); return; }
+    if (colors === null)   { showToast('⚠️ Wypełnij grubości dla wszystkich selekcji', 'error'); return; }
+    if (!colors.length)    { showToast('⚠️ Wybierz przynajmniej jedną selekcję', 'error'); return; }
+    if ([p20,p25,p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
     if (newNum !== origNum && DB[currentMachine][newNum]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
 
     const btn = document.getElementById('btnEditSave');
     btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
     const oldData = { ...DB[currentMachine][origNum] };
     delete DB[currentMachine][origNum];
-    DB[currentMachine][newNum] = { diameter: diam, prices: [p20, p25, p30], colors };
+    DB[currentMachine][newNum] = { diameter: diam, prices: [p20,p25,p30], tolerancje: tol, colors };
     const ok = await saveData();
     btn.disabled = false; btn.textContent = '💾 Zapisz zmiany';
 
@@ -805,10 +801,10 @@
     if (!document.getElementById('searchWrap').contains(e.target))
       document.getElementById('dropdown').innerHTML = '';
   });
-  document.getElementById('modalOverlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-  document.getElementById('editModalOverlay').addEventListener('click', function(e) { if (e.target === this) closeEditModal(); });
-  document.getElementById('confirmOverlay').addEventListener('click', function(e) { if (e.target === this) closeConfirm(); });
-  document.getElementById('customColorOverlay').addEventListener('click', function(e) { if (e.target === this) closeCustomColor(); });
+  document.getElementById('modalOverlay').addEventListener('click',       function(e) { if (e.target===this) closeModal(); });
+  document.getElementById('editModalOverlay').addEventListener('click',   function(e) { if (e.target===this) closeEditModal(); });
+  document.getElementById('confirmOverlay').addEventListener('click',     function(e) { if (e.target===this) closeConfirm(); });
+  document.getElementById('customColorOverlay').addEventListener('click', function(e) { if (e.target===this) closeCustomColor(); });
 
   // ── Init ──────────────────────────────────────
   if (localStorage.getItem('gss_token')) {
