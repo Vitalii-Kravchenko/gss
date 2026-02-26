@@ -602,18 +602,15 @@
   // ── Load data — публічно, без токена ──────────
   async function loadData() {
   try {
-    // GitHub API — завжди актуальні дані, без кешу
     const url = `https://api.github.com/repos/Vitalii-Kravchenko/gss/contents/data.json`;
     const res = await fetch(url, {
       headers: {
-        'Accept': 'application/vnd.github.v3+json',
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache'
+        'Accept': 'application/vnd.github.v3+json'
+        // ❌ Cache-Control і Pragma — прибрані (викликали CORS)
       }
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
-    // Декодуємо base64 вміст файлу
     DB = JSON.parse(atob(json.content.replace(/\n/g, '')));
     console.log('✅ DB loaded:', Object.values(DB).flatMap(Object.keys).length, 'entries');
   } catch(e) {
@@ -622,6 +619,7 @@
     showToast('⚠️ Не вдалося завантажити дані', 'error');
   }
 }
+
 
 
   async function refreshData() {
