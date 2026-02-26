@@ -24,7 +24,7 @@
       ],
       "tolerancje": {
         "grubosc": {
-          "od": 2,
+          "od": 0,
           "do": -9
         },
         "wspolsrodkowosc": {
