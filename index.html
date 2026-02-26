@@ -498,7 +498,7 @@
       const colorsCount = (item.colors || []).length;
       div.innerHTML = `
         <span># <span class="match-highlight">${id.slice(0, query.length)}</span>${id.slice(query.length)}</span>
-        <span class="dim-info">⌀${item.diameter} · ${colorsCount} kol.</span>
+        <span class="dim-info">⌀${item.diameter} · ${colorsCount} sel.</span>
       `;
       div.addEventListener('click', () => selectResult(id, item));
       dropdown.appendChild(div);
