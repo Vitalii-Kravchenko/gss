@@ -26,73 +26,27 @@
     margin-bottom: 24px;
     text-transform: uppercase;
   }
-  .machine-selector {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-  }
+  .machine-selector { display: flex; justify-content: center; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
   .machine-btn {
-    padding: 12px 0;
-    width: clamp(90px, 28vw, 150px);
-    border: 2px solid #2e2e3e;
-    border-radius: 12px;
-    background: #1a1b26;
-    color: #aaa;
-    font-size: clamp(0.9rem, 3.5vw, 1rem);
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 1px;
-    text-align: center;
+    padding: 12px 0; width: clamp(90px, 28vw, 150px);
+    border: 2px solid #2e2e3e; border-radius: 12px;
+    background: #1a1b26; color: #aaa;
+    font-size: clamp(0.9rem, 3.5vw, 1rem); font-weight: 600;
+    cursor: pointer; letter-spacing: 1px; text-align: center;
     transition: border-color 0.15s, color 0.15s;
   }
-  .machine-btn.active {
-    background: #4e6ef2;
-    border-color: #4e6ef2;
-    color: #fff;
-    box-shadow: 0 0 18px rgba(78,110,242,0.4);
-  }
+  .machine-btn.active { background: #4e6ef2; border-color: #4e6ef2; color: #fff; box-shadow: 0 0 18px rgba(78,110,242,0.4); }
   .machine-btn:active { transform: scale(0.96); background: #3a5ce0; border-color: #3a5ce0; color: #fff; }
 
   .search-wrap { max-width: 520px; margin: 0 auto 28px; position: relative; }
-  .search-wrap input {
-    width: 100%;
-    padding: 14px 18px;
-    border-radius: 12px;
-    border: 2px solid #2e2e3e;
-    background: #1a1b26;
-    color: #fff;
-    outline: none;
-    transition: border-color 0.2s;
-  }
+  .search-wrap input { width: 100%; padding: 14px 18px; border-radius: 12px; border: 2px solid #2e2e3e; background: #1a1b26; color: #fff; outline: none; transition: border-color 0.2s; }
   .search-wrap input:focus { border-color: #4e6ef2; }
   .search-wrap input::placeholder { color: #555; }
   .search-wrap input:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  .dropdown {
-    position: absolute;
-    top: calc(100% + 6px);
-    left: 0; right: 0;
-    background: #1e1f2e;
-    border: 1px solid #2e2e3e;
-    border-radius: 12px;
-    z-index: 100;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    max-height: 260px;
-    overflow-y: auto;
-  }
+  .dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1e1f2e; border: 1px solid #2e2e3e; border-radius: 12px; z-index: 100; box-shadow: 0 8px 30px rgba(0,0,0,0.5); max-height: 260px; overflow-y: auto; }
   .dropdown:empty { display: none; }
-  .dropdown-item {
-    padding: 13px 18px;
-    cursor: pointer;
-    color: #ccc;
-    border-bottom: 1px solid #25263a;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: background 0.1s;
-  }
+  .dropdown-item { padding: 13px 18px; cursor: pointer; color: #ccc; border-bottom: 1px solid #25263a; display: flex; align-items: center; gap: 10px; transition: background 0.1s; }
   .dropdown-item:last-child { border-bottom: none; }
   .dropdown-item:active { background: #2a2b40; color: #fff; }
   .match-highlight { color: #4e6ef2; font-weight: 700; }
@@ -105,65 +59,22 @@
   .hint { text-align: center; color: #555; margin-top: 40px; font-size: clamp(0.85rem, 3vw, 0.95rem); }
 
   .results { max-width: 520px; margin: 0 auto 24px; }
-  .card {
-    background: #1a1b26;
-    border: 1px solid #2e2e3e;
-    border-radius: 16px;
-    padding: 22px 20px 20px;
-    position: relative;
-    overflow: hidden;
-    animation: fadeIn 0.25s ease;
-  }
-  @keyframes fadeIn {
-    from { opacity:0; transform:translateY(8px); }
-    to   { opacity:1; transform:none; }
-  }
-  .card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 4px;
-    background: linear-gradient(180deg, #4e6ef2, #7c4ef2);
-    border-radius: 16px 0 0 16px;
-  }
+  .card { background: #1a1b26; border: 1px solid #2e2e3e; border-radius: 16px; padding: 22px 20px 20px; position: relative; overflow: hidden; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+  .card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, #4e6ef2, #7c4ef2); border-radius: 16px 0 0 16px; }
   .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
   .card-id { font-size: clamp(1.1rem, 4vw, 1.3rem); font-weight: 700; color: #4e6ef2; letter-spacing: 1px; }
   .card-machine { font-size: 0.78rem; color: #666; margin-top: 3px; }
   .bushing-icon { width: 60px; height: 44px; flex-shrink: 0; }
 
   .info-row { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
-  .info-pill {
-    background: #12131d;
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: clamp(0.8rem, 3vw, 0.88rem);
-    color: #aab4cc;
-    border: 1px solid #2a2b3a;
-    flex: 1;
-    min-width: 120px;
-    text-align: center;
-  }
+  .info-pill { background: #12131d; border-radius: 8px; padding: 8px 14px; font-size: clamp(0.8rem, 3vw, 0.88rem); color: #aab4cc; border: 1px solid #2a2b3a; flex: 1; min-width: 120px; text-align: center; }
   .info-pill span { display: block; color: #fff; font-weight: 700; font-size: clamp(0.95rem, 3.5vw, 1.05rem); margin-top: 4px; }
 
-  /* ── Colors table ── */
   .colors-section { margin-bottom: 18px; }
   .colors-label { font-size: 0.8rem; color: #8a8aaa; margin-bottom: 8px; }
-  .color-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #12131d;
-    border: 1px solid #2a2b3a;
-    border-radius: 10px;
-    padding: 10px 14px;
-    margin-bottom: 6px;
-  }
-  .color-dot {
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 2px solid rgba(255,255,255,0.15);
-  }
+  .color-row { display: flex; align-items: center; gap: 10px; background: #12131d; border: 1px solid #2a2b3a; border-radius: 10px; padding: 10px 14px; margin-bottom: 6px; }
+  .color-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.15); }
   .color-name { font-size: 0.9rem; color: #ccc; flex: 1; }
   .color-thick { font-size: 0.9rem; font-weight: 700; color: #fff; }
 
@@ -173,22 +84,13 @@
   .angle-val { font-size: clamp(1.1rem, 4.5vw, 1.4rem); font-weight: 800; color: #fff; }
 
   .card-actions { display: flex; gap: 8px; margin-top: 16px; }
-  .btn-edit, .btn-delete {
-    flex: 1; padding: 10px; border-radius: 10px;
-    font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
-  }
+  .btn-edit, .btn-delete { flex: 1; padding: 10px; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
   .btn-edit   { background: #1e3a5f; color: #60a5fa; border: 1px solid #2563eb; }
   .btn-delete { background: #3b1515; color: #f87171; border: 1px solid #dc2626; }
   .btn-edit:active   { opacity: 0.65; transform: scale(0.97); }
   .btn-delete:active { opacity: 0.65; transform: scale(0.97); }
 
-  .fab {
-    position: fixed; bottom: 28px;
-    width: 58px; height: 58px; border-radius: 50%; border: none;
-    color: #fff; font-size: 1.6rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    z-index: 200; transition: transform 0.15s;
-  }
+  .fab { position: fixed; bottom: 28px; width: 58px; height: 58px; border-radius: 50%; border: none; color: #fff; font-size: 1.6rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 200; transition: transform 0.15s; }
   .fab:active { transform: scale(0.91); box-shadow: none !important; }
   .fab-add { right: 22px; background: linear-gradient(135deg, #4e6ef2, #7c4ef2); box-shadow: 0 4px 20px rgba(78,110,242,0.5); }
   .fab-refresh { right: 92px; background: #10b981; box-shadow: 0 4px 20px rgba(16,185,129,0.5); font-size: 1.3rem; }
@@ -202,23 +104,14 @@
   .btn-config-save { padding: 9px; border-radius: 8px; border: none; background: #4e6ef2; color: #fff; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
   .btn-config-save:active { opacity: 0.7; transform: scale(0.97); }
 
-  /* ── Modal ── */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 300; align-items: center; justify-content: center; padding: 16px; }
   .modal-overlay.open { display: flex; }
-  .modal {
-    background: #1a1b26; border: 1px solid #2e2e3e; border-radius: 18px;
-    padding: 28px 24px; width: 100%; max-width: 440px;
-    animation: fadeIn 0.2s ease;
-    max-height: 90vh; overflow-y: auto;
-  }
+  .modal { background: #1a1b26; border: 1px solid #2e2e3e; border-radius: 18px; padding: 28px 24px; width: 100%; max-width: 440px; animation: fadeIn 0.2s ease; max-height: 90vh; overflow-y: auto; }
   .modal h2 { font-size: 1.15rem; color: #fff; margin-bottom: 6px; }
   .modal-machine { font-size: 0.82rem; color: #4e6ef2; margin-bottom: 20px; }
   .form-group { margin-bottom: 14px; }
   .form-group label { display: block; font-size: 0.82rem; color: #8a8aaa; margin-bottom: 5px; }
-  .form-group input {
-    width: 100%; padding: 11px 14px; border-radius: 10px;
-    border: 1.5px solid #2e2e3e; background: #12131d; color: #fff; outline: none; transition: border-color 0.2s;
-  }
+  .form-group input { width: 100%; padding: 11px 14px; border-radius: 10px; border: 1.5px solid #2e2e3e; background: #12131d; color: #fff; outline: none; transition: border-color 0.2s; }
   .form-group input:focus { border-color: #4e6ef2; }
   .prices-row { display: flex; gap: 8px; }
   .prices-row .form-group { flex: 1; }
@@ -229,32 +122,71 @@
   .btn-save:active { opacity: 0.75; transform: scale(0.98); }
   .btn-save:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* ── Colors editor ── */
-  .colors-editor-label { font-size: 0.82rem; color: #8a8aaa; margin-bottom: 8px; display: block; }
-  .color-entry {
-    display: flex; gap: 8px; align-items: center;
-    background: #12131d; border: 1px solid #2a2b3a;
-    border-radius: 10px; padding: 8px 10px; margin-bottom: 6px;
-  }
-  .color-entry input[type="text"] { flex: 2; }
-  .color-entry input[type="number"] { flex: 1; }
-  .color-entry input[type="color"] {
-    width: 36px; height: 36px; padding: 2px; border-radius: 8px;
-    border: 1.5px solid #2e2e3e; background: #12131d; cursor: pointer; flex-shrink: 0;
-  }
-  .btn-remove-color {
-    background: #3b1515; color: #f87171; border: 1px solid #dc2626;
-    border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 0.85rem; flex-shrink: 0;
-  }
-  .btn-remove-color:active { opacity: 0.7; }
-  .btn-add-color {
-    width: 100%; padding: 9px; border-radius: 10px;
-    border: 1.5px dashed #2e2e3e; background: transparent;
-    color: #4e6ef2; font-size: 0.88rem; cursor: pointer; margin-top: 4px;
-  }
-  .btn-add-color:active { opacity: 0.7; }
+  /* ── Color picker buttons ── */
+  .colors-editor-label { font-size: 0.82rem; color: #8a8aaa; margin-bottom: 10px; display: block; }
 
-  /* ── Confirm ── */
+  .color-palette {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;
+  }
+  .palette-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 8px 10px; border-radius: 10px;
+    border: 2px solid #2e2e3e; background: #12131d;
+    color: #ccc; font-size: 0.75rem; cursor: pointer;
+    transition: border-color 0.15s, transform 0.1s;
+    min-width: 54px;
+  }
+  .palette-btn:active { transform: scale(0.93); }
+  .palette-btn.selected {
+    border-color: #4e6ef2;
+    color: #fff;
+    background: #1a1f3a;
+  }
+  .palette-dot {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+  .palette-btn-add {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 8px 10px; border-radius: 10px;
+    border: 2px dashed #2e2e3e; background: transparent;
+    color: #555; font-size: 0.75rem; cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+    min-width: 54px;
+  }
+  .palette-btn-add:active { border-color: #4e6ef2; color: #4e6ef2; transform: scale(0.93); }
+  .palette-add-icon { font-size: 1.2rem; line-height: 22px; }
+
+  /* custom color modal */
+  .custom-color-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 600; align-items: center; justify-content: center; padding: 16px; }
+  .custom-color-overlay.open { display: flex; }
+  .custom-color-box { background: #1a1b26; border: 1px solid #2e2e3e; border-radius: 16px; padding: 24px; width: 100%; max-width: 320px; animation: fadeIn 0.2s ease; }
+  .custom-color-box h3 { color: #fff; font-size: 1rem; margin-bottom: 16px; }
+  .custom-color-box .form-group { margin-bottom: 12px; }
+  .color-preview-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .color-preview-circle { width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); flex-shrink: 0; }
+  .color-preview-row input[type="color"] { width: 48px; height: 40px; padding: 2px; border-radius: 8px; border: 1.5px solid #2e2e3e; background: #12131d; cursor: pointer; }
+  .custom-color-actions { display: flex; gap: 10px; margin-top: 16px; }
+  .btn-custom-cancel { flex: 1; padding: 10px; border-radius: 10px; border: 1.5px solid #2e2e3e; background: transparent; color: #aaa; cursor: pointer; }
+  .btn-custom-ok { flex: 1; padding: 10px; border-radius: 10px; border: none; background: #4e6ef2; color: #fff; font-weight: 700; cursor: pointer; }
+
+  /* color entry row */
+  .color-entry {
+    background: #12131d; border: 1px solid #2a2b3a;
+    border-radius: 10px; padding: 10px 12px; margin-bottom: 8px;
+  }
+  .color-entry-top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .color-entry-dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); flex-shrink: 0; }
+  .color-entry-name { font-size: 0.9rem; color: #fff; flex: 1; font-weight: 600; }
+  .btn-remove-color { background: #3b1515; color: #f87171; border: 1px solid #dc2626; border-radius: 8px; padding: 5px 10px; cursor: pointer; font-size: 0.8rem; }
+  .btn-remove-color:active { opacity: 0.7; }
+  .color-entry-thick { display: flex; align-items: center; gap: 8px; }
+  .color-entry-thick label { font-size: 0.8rem; color: #8a8aaa; white-space: nowrap; }
+  .color-entry-thick input { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1.5px solid #2e2e3e; background: #0f1117; color: #fff; outline: none; }
+  .color-entry-thick input:focus { border-color: #4e6ef2; }
+
+  /* confirm */
   .confirm-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 500; align-items: center; justify-content: center; padding: 16px; }
   .confirm-overlay.open { display: flex; }
   .confirm-box { background: #1a1b26; border: 1px solid #dc2626; border-radius: 16px; padding: 28px 24px; width: 100%; max-width: 360px; text-align: center; animation: fadeIn 0.2s ease; }
@@ -327,9 +259,9 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="colors-editor-label">🎨 Selekcje i grubości</label>
+      <label class="colors-editor-label">🎨 Kolory i grubości</label>
+      <div class="color-palette" id="fPalette"></div>
       <div id="fColorsList"></div>
-      <button class="btn-add-color" onclick="addColorRow('fColorsList')">＋ Dodaj selekcję</button>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">Anuluj</button>
@@ -361,9 +293,9 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="colors-editor-label">🎨 Selekcje i grubości</label>
+      <label class="colors-editor-label">🎨 Kolory i grubości</label>
+      <div class="color-palette" id="ePalette"></div>
       <div id="eColorsList"></div>
-      <button class="btn-add-color" onclick="addColorRow('eColorsList')">＋ Dodaj selekcję</button>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeEditModal()">Anuluj</button>
@@ -384,15 +316,53 @@
   </div>
 </div>
 
+<!-- Custom color modal -->
+<div class="custom-color-overlay" id="customColorOverlay">
+  <div class="custom-color-box">
+    <h3>➕ Nowy kolor</h3>
+    <div class="color-preview-row">
+      <div class="color-preview-circle" id="customColorPreview"></div>
+      <input type="color" id="customColorPicker" value="#888888"
+             oninput="document.getElementById('customColorPreview').style.background=this.value"/>
+    </div>
+    <div class="form-group">
+      <label>Nazwa koloru</label>
+      <input type="text" id="customColorName" placeholder="np. Pomarańczowy" autocomplete="off"/>
+    </div>
+    <div class="custom-color-actions">
+      <button class="btn-custom-cancel" onclick="closeCustomColor()">Anuluj</button>
+      <button class="btn-custom-ok"     onclick="confirmCustomColor()">✅ Dodaj</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
   const REPO_OWNER = 'Vitalii-Kravchenko';
   const REPO_NAME  = 'gss';
 
+  // ── Стандартні кольори ────────────────────────
+  let PALETTE = JSON.parse(localStorage.getItem('gss_palette') || 'null') || [
+    { name: 'Czarny',     color: '#2d2d2d' },
+    { name: 'Zielony',    color: '#22c55e' },
+    { name: 'Żółty',      color: '#eab308' },
+    { name: 'Niebieski',  color: '#3b82f6' },
+    { name: 'Czerwony',   color: '#ef4444' },
+    { name: 'Fioletowy',  color: '#a855f7' },
+  ];
+
+  function savePalette() {
+    localStorage.setItem('gss_palette', JSON.stringify(PALETTE));
+  }
+
   let token = localStorage.getItem('gss_token') || '';
   let DB = {};
   let currentMachine = null;
+
+  // поточна палітра яка редагується ('fPalette'/'ePalette')
+  let _activePaletteId  = null;
+  let _activeColorsId   = null;
 
   // ── Config ────────────────────────────────────
   function saveConfig() {
@@ -410,9 +380,7 @@
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
       DB = JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\n/g, '')))));
-      console.log('✅ DB loaded');
     } catch(e) {
-      console.error('Load error:', e);
       DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
       showToast('⚠️ Nie udało się załadować danych', 'error');
     }
@@ -437,11 +405,9 @@
   async function writeFile(filename) {
     try {
       const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filename}`;
-      const getRes = await fetch(apiUrl, {
-        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
-      });
+      const getRes = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
       const getJson = await getRes.json();
-      if (!getRes.ok) throw new Error(getJson.message || `HTTP ${getRes.status}`);
+      if (!getRes.ok) throw new Error(getJson.message);
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(DB, null, 2))));
       const putRes = await fetch(apiUrl, {
         method: 'PUT',
@@ -450,10 +416,7 @@
       });
       if (!putRes.ok) { const err = await putRes.json(); throw new Error(err.message); }
       return true;
-    } catch(e) {
-      console.error(`❌ Błąd zapisu:`, e.message);
-      return false;
-    }
+    } catch(e) { return false; }
   }
 
   // ── Machine ───────────────────────────────────
@@ -462,8 +425,7 @@
     document.querySelectorAll('.machine-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const inp = document.getElementById('searchInput');
-    inp.disabled = false;
-    inp.value = '';
+    inp.disabled = false; inp.value = '';
     inp.placeholder = `Szukaj numeru w ${machine}...`;
     inp.focus();
     document.getElementById('dropdown').innerHTML = '';
@@ -476,36 +438,27 @@
     const dropdown = document.getElementById('dropdown');
     document.getElementById('results').innerHTML = '';
     dropdown.innerHTML = '';
-
-    if (!query) {
-      document.getElementById('results').innerHTML = '<p class="hint">Wpisz numer, aby wyszukać</p>';
-      return;
-    }
+    if (!query) { document.getElementById('results').innerHTML = '<p class="hint">Wpisz numer, aby wyszukać</p>'; return; }
 
     const machineData = DB[currentMachine] || {};
-    const matched = Object.entries(machineData).filter(([id]) =>
-      id.toLowerCase().startsWith(query.toLowerCase())
-    );
+    const matched = Object.entries(machineData).filter(([id]) => id.toLowerCase().startsWith(query.toLowerCase()));
 
-    if (matched.length === 0) {
-      dropdown.innerHTML = `<div class="dropdown-empty">❌ Numer "${query}" nie istnieje w bazie</div>`;
-      return;
-    }
+    if (matched.length === 0) { dropdown.innerHTML = `<div class="dropdown-empty">❌ Numer "${query}" nie istnieje w bazie</div>`; return; }
 
     matched.forEach(([id, item]) => {
       const div = document.createElement('div');
       div.className = 'dropdown-item';
-      const colorsCount = (item.colors || []).length;
+      const cnt = (item.colors || []).length;
       div.innerHTML = `
         <span># <span class="match-highlight">${id.slice(0, query.length)}</span>${id.slice(query.length)}</span>
-        <span class="dim-info">⌀${item.diameter} · ${colorsCount} sel.</span>
+        <span class="dim-info">⌀${item.diameter} · ${cnt} kol.</span>
       `;
       div.addEventListener('click', () => selectResult(id, item));
       dropdown.appendChild(div);
     });
   }
 
-  // ── Result card ───────────────────────────────
+  // ── Card ──────────────────────────────────────
   function selectResult(id, item) {
     document.getElementById('dropdown').innerHTML = '';
     document.getElementById('searchInput').value = id;
@@ -518,12 +471,12 @@
     `).join('');
 
     const colors = item.colors || [];
-    const colorsHTML = colors.length > 0 ? `
+    const colorsHTML = colors.length ? `
       <div class="colors-section">
-        <div class="colors-label">🎨 Selekcje i grubości</div>
+        <div class="colors-label">🎨 Kolory i grubości</div>
         ${colors.map(c => `
           <div class="color-row">
-            <div class="color-dot" style="background:${c.color || '#888'}"></div>
+            <div class="color-dot" style="background:${c.color}"></div>
             <div class="color-name">${c.name}</div>
             <div class="color-thick">${c.thickness} mm</div>
           </div>
@@ -541,10 +494,7 @@
     document.getElementById('results').innerHTML = `
       <div class="card">
         <div class="card-top">
-          <div>
-            <div class="card-id"># ${id}</div>
-            <div class="card-machine">${currentMachine}</div>
-          </div>
+          <div><div class="card-id"># ${id}</div><div class="card-machine">${currentMachine}</div></div>
           ${bushingIcon()}
         </div>
         <div class="info-row">
@@ -557,32 +507,144 @@
     `;
   }
 
-  // ── Colors editor rows ────────────────────────
-  function addColorRow(containerId, name = '', color = '#888888', thickness = '') {
-    const container = document.getElementById(containerId);
-    const div = document.createElement('div');
-    div.className = 'color-entry';
-    div.innerHTML = `
-      <input type="color" value="${color}" title="Kolor"/>
-      <input type="text"   placeholder="Nazwa selekcji" value="${name}" style="flex:2"/>
-      <input type="number" placeholder="Grubość" step="0.001" value="${thickness}" style="flex:1.2"/>
-      <button class="btn-remove-color" onclick="this.parentElement.remove()">✕</button>
-    `;
-    container.appendChild(div);
+  // ── Palette UI ────────────────────────────────
+  function renderPalette(paletteId, colorsListId, selectedColors) {
+    _activePaletteId = paletteId;
+    _activeColorsId  = colorsListId;
+
+    const container = document.getElementById(paletteId);
+    container.innerHTML = '';
+
+    PALETTE.forEach((p, i) => {
+      const isSelected = selectedColors
+        ? selectedColors.some(c => c.name === p.name)
+        : false;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'palette-btn' + (isSelected ? ' selected' : '');
+      btn.dataset.index = i;
+      btn.innerHTML = `<div class="palette-dot" style="background:${p.color}"></div><span>${p.name}</span>`;
+      btn.addEventListener('click', () => togglePaletteColor(i, paletteId, colorsListId));
+      container.appendChild(btn);
+    });
+
+    // кнопка "додати новий"
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'palette-btn-add';
+    addBtn.innerHTML = `<span class="palette-add-icon">＋</span><span>Nowy</span>`;
+    addBtn.addEventListener('click', () => openCustomColor(paletteId, colorsListId));
+    container.appendChild(addBtn);
   }
 
-  function getColorsFromList(containerId) {
-    const rows = document.querySelectorAll(`#${containerId} .color-entry`);
+  function togglePaletteColor(index, paletteId, colorsListId) {
+    const p = PALETTE[index];
+    const list = document.getElementById(colorsListId);
+
+    // перевіряємо чи вже є
+    const existing = list.querySelector(`[data-color-name="${CSS.escape(p.name)}"]`);
+    if (existing) {
+      existing.remove();
+      // знімаємо selected
+      const btn = document.querySelector(`#${paletteId} .palette-btn[data-index="${index}"]`);
+      if (btn) btn.classList.remove('selected');
+      return;
+    }
+
+    // додаємо
+    addColorEntry(colorsListId, p.name, p.color);
+    const btn = document.querySelector(`#${paletteId} .palette-btn[data-index="${index}"]`);
+    if (btn) btn.classList.add('selected');
+  }
+
+  function addColorEntry(colorsListId, name, color, thickness = '') {
+    const list = document.getElementById(colorsListId);
+    const div = document.createElement('div');
+    div.className = 'color-entry';
+    div.dataset.colorName = name;
+    div.innerHTML = `
+      <div class="color-entry-top">
+        <div class="color-entry-dot" style="background:${color}"></div>
+        <div class="color-entry-name">${name}</div>
+        <button class="btn-remove-color" onclick="removeColorEntry(this, '${CSS.escape(name)}', '${colorsListId}', '${_activePaletteId || colorsListId.replace('ColorsList','Palette')}')">✕</button>
+      </div>
+      <div class="color-entry-thick">
+        <label>Grubość (mm):</label>
+        <input type="number" step="0.001" placeholder="np. 3.474" value="${thickness}"/>
+      </div>
+    `;
+    // зберігаємо колір в dataset
+    div.dataset.colorHex = color;
+    list.appendChild(div);
+  }
+
+  function removeColorEntry(btn, escapedName, colorsListId, paletteId) {
+    const entry = btn.closest('.color-entry');
+    const name = entry.dataset.colorName;
+    entry.remove();
+
+    // знімаємо selected з палітри
+    const paletteEl = document.getElementById(paletteId);
+    if (!paletteEl) return;
+    paletteEl.querySelectorAll('.palette-btn').forEach(b => {
+      const idx = parseInt(b.dataset.index);
+      if (!isNaN(idx) && PALETTE[idx]?.name === name) b.classList.remove('selected');
+    });
+  }
+
+  function getColorsFromList(colorsListId) {
+    const entries = document.querySelectorAll(`#${colorsListId} .color-entry`);
     const result = [];
-    for (const row of rows) {
-      const inputs = row.querySelectorAll('input');
-      const color     = inputs[0].value;
-      const name      = inputs[1].value.trim();
-      const thickness = parseFloat(inputs[2].value);
-      if (!name || isNaN(thickness)) return null; // validation fail
-      result.push({ color, name, thickness });
+    for (const entry of entries) {
+      const name      = entry.dataset.colorName;
+      const color     = entry.dataset.colorHex;
+      const thickness = parseFloat(entry.querySelector('input[type="number"]').value);
+      if (!name || isNaN(thickness)) return null;
+      result.push({ name, color, thickness });
     }
     return result;
+  }
+
+  // ── Custom color ──────────────────────────────
+  let _customTarget = null;
+
+  function openCustomColor(paletteId, colorsListId) {
+    _customTarget = { paletteId, colorsListId };
+    document.getElementById('customColorName').value = '';
+    const picker = document.getElementById('customColorPicker');
+    picker.value = '#888888';
+    document.getElementById('customColorPreview').style.background = '#888888';
+    document.getElementById('customColorOverlay').classList.add('open');
+  }
+
+  function closeCustomColor() {
+    document.getElementById('customColorOverlay').classList.remove('open');
+    _customTarget = null;
+  }
+
+  function confirmCustomColor() {
+    const name  = document.getElementById('customColorName').value.trim();
+    const color = document.getElementById('customColorPicker').value;
+    if (!name) { showToast('⚠️ Podaj nazwę koloru', 'error'); return; }
+
+    // Додаємо в глобальну палітру
+    PALETTE.push({ name, color });
+    savePalette();
+
+    closeCustomColor();
+
+    if (_customTarget) {
+      const { paletteId, colorsListId } = _customTarget;
+      // Перемальовуємо палітру
+      const currentSelected = getColorsFromList(colorsListId);
+      renderPalette(paletteId, colorsListId, currentSelected);
+      // Відразу додаємо в список
+      addColorEntry(colorsListId, name, color);
+      // Позначаємо кнопку
+      const newIdx = PALETTE.length - 1;
+      const btn = document.querySelector(`#${paletteId} .palette-btn[data-index="${newIdx}"]`);
+      if (btn) btn.classList.add('selected');
+    }
   }
 
   // ── Add Modal ─────────────────────────────────
@@ -592,7 +654,7 @@
     document.getElementById('modalMachineName').textContent = currentMachine;
     ['fNum','fDiam','fP20','fP25','fP30'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('fColorsList').innerHTML = '';
-    addColorRow('fColorsList'); // один кольор за замовчуванням
+    renderPalette('fPalette', 'fColorsList', []);
     document.getElementById('modalOverlay').classList.add('open');
   }
   function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
@@ -605,29 +667,20 @@
     const p30  = parseFloat(document.getElementById('fP30').value);
     const colors = getColorsFromList('fColorsList');
 
-    if (!num || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) {
-      showToast('⚠️ Wypełnij wszystkie pola', 'error'); return;
-    }
-    if (colors === null) { showToast('⚠️ Wypełnij wszystkie selekcje i grubości', 'error'); return; }
-    if (colors.length === 0) { showToast('⚠️ Dodaj przynajmniej jedną selekcję', 'error'); return; }
+    if (!num || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('⚠️ Wypełnij wszystkie pola', 'error'); return; }
+    if (colors === null) { showToast('⚠️ Wypełnij grubości dla wszystkich kolorów', 'error'); return; }
+    if (colors.length === 0) { showToast('⚠️ Wybierz przynajmniej jeden kolor', 'error'); return; }
     if ([p20, p25, p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
     if (DB[currentMachine][num]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
 
     const btn = document.getElementById('btnSave');
     btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
-
     DB[currentMachine][num] = { diameter: diam, prices: [p20, p25, p30], colors };
     const ok = await saveData();
-
     btn.disabled = false; btn.textContent = '💾 Zapisz';
 
-    if (ok) {
-      closeModal();
-      showToast(`✅ Numer ${num} zapisany`, 'success');
-    } else {
-      delete DB[currentMachine][num];
-      showToast('❌ Błąd. Sprawdź token', 'error');
-    }
+    if (ok) { closeModal(); showToast(`✅ Numer ${num} zapisany`, 'success'); }
+    else { delete DB[currentMachine][num]; showToast('❌ Błąd. Sprawdź token', 'error'); }
   }
 
   // ── Edit Modal ────────────────────────────────
@@ -644,7 +697,19 @@
 
     const list = document.getElementById('eColorsList');
     list.innerHTML = '';
-    (item.colors || []).forEach(c => addColorRow('eColorsList', c.name, c.color || '#888888', c.thickness));
+    const savedColors = item.colors || [];
+    renderPalette('ePalette', 'eColorsList', savedColors);
+    savedColors.forEach(c => addColorEntry('eColorsList', c.name, c.color || '#888888', c.thickness));
+
+    // позначаємо вибрані кнопки
+    savedColors.forEach(sc => {
+      PALETTE.forEach((p, i) => {
+        if (p.name === sc.name) {
+          const btn = document.querySelector(`#ePalette .palette-btn[data-index="${i}"]`);
+          if (btn) btn.classList.add('selected');
+        }
+      });
+    });
 
     document.getElementById('editModalOverlay').classList.add('open');
   }
@@ -659,21 +724,17 @@
     const p30     = parseFloat(document.getElementById('eP30').value);
     const colors  = getColorsFromList('eColorsList');
 
-    if (!newNum || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) {
-      showToast('⚠️ Wypełnij wszystkie pola', 'error'); return;
-    }
-    if (colors === null) { showToast('⚠️ Wypełnij wszystkie selekcje i grubości', 'error'); return; }
-    if (colors.length === 0) { showToast('⚠️ Dodaj przynajmniej jedną selekcję', 'error'); return; }
+    if (!newNum || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('⚠️ Wypełnij wszystkie pola', 'error'); return; }
+    if (colors === null) { showToast('⚠️ Wypełnij grubości dla wszystkich kolorów', 'error'); return; }
+    if (colors.length === 0) { showToast('⚠️ Wybierz przynajmniej jeden kolor', 'error'); return; }
     if ([p20, p25, p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
     if (newNum !== origNum && DB[currentMachine][newNum]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
 
     const btn = document.getElementById('btnEditSave');
     btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
-
     const oldData = { ...DB[currentMachine][origNum] };
     delete DB[currentMachine][origNum];
     DB[currentMachine][newNum] = { diameter: diam, prices: [p20, p25, p30], colors };
-
     const ok = await saveData();
     btn.disabled = false; btn.textContent = '💾 Zapisz zmiany';
 
@@ -691,17 +752,13 @@
 
   // ── Delete ────────────────────────────────────
   let pendingDeleteId = null;
-
   function openConfirm(id) {
     pendingDeleteId = id;
     document.getElementById('confirmNum').textContent     = `#${id}`;
     document.getElementById('confirmMachine').textContent = currentMachine;
     document.getElementById('confirmOverlay').classList.add('open');
   }
-  function closeConfirm() {
-    pendingDeleteId = null;
-    document.getElementById('confirmOverlay').classList.remove('open');
-  }
+  function closeConfirm() { pendingDeleteId = null; document.getElementById('confirmOverlay').classList.remove('open'); }
 
   async function confirmDelete() {
     if (!pendingDeleteId) return;
@@ -721,25 +778,19 @@
     }
   }
 
-  // ── Bushing SVG ───────────────────────────────
+  // ── SVG ───────────────────────────────────────
   function bushingIcon() {
     return `<svg class="bushing-icon" viewBox="0 0 60 44" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#d0d8e8"/><stop offset="40%" stop-color="#a8b4c8"/><stop offset="100%" stop-color="#6a7a90"/>
-        </linearGradient>
-        <linearGradient id="innerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#8a9ab0"/><stop offset="100%" stop-color="#4a5a6e"/>
-        </linearGradient>
-        <linearGradient id="shineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="rgba(255,255,255,0.45)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-        </linearGradient>
+        <linearGradient id="mg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d0d8e8"/><stop offset="40%" stop-color="#a8b4c8"/><stop offset="100%" stop-color="#6a7a90"/></linearGradient>
+        <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8a9ab0"/><stop offset="100%" stop-color="#4a5a6e"/></linearGradient>
+        <linearGradient id="sg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="rgba(255,255,255,0.45)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient>
       </defs>
-      <path d="M 4,34 A 26,26 0 0,1 56,34 L 48,34 A 18,18 0 0,0 12,34 Z" fill="url(#metalGrad)" stroke="#8a9ab0" stroke-width="0.8"/>
-      <rect x="4"  y="34" width="8" height="6" rx="1" fill="url(#innerGrad)" stroke="#6a7a90" stroke-width="0.5"/>
-      <rect x="48" y="34" width="8" height="6" rx="1" fill="url(#innerGrad)" stroke="#6a7a90" stroke-width="0.5"/>
+      <path d="M 4,34 A 26,26 0 0,1 56,34 L 48,34 A 18,18 0 0,0 12,34 Z" fill="url(#mg)" stroke="#8a9ab0" stroke-width="0.8"/>
+      <rect x="4" y="34" width="8" height="6" rx="1" fill="url(#ig)" stroke="#6a7a90" stroke-width="0.5"/>
+      <rect x="48" y="34" width="8" height="6" rx="1" fill="url(#ig)" stroke="#6a7a90" stroke-width="0.5"/>
       <rect x="4" y="40" width="52" height="3" rx="1.5" fill="#5a6a80" stroke="#4a5a6e" stroke-width="0.5"/>
-      <path d="M 8,34 A 22,22 0 0,1 52,34 L 48,34 A 18,18 0 0,0 12,34 Z" fill="url(#shineGrad)" opacity="0.6"/>
+      <path d="M 8,34 A 22,22 0 0,1 52,34 L 48,34 A 18,18 0 0,0 12,34 Z" fill="url(#sg)" opacity="0.6"/>
       <path d="M 6,26 A 24,24 0 0,1 54,26" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-linecap="round"/>
     </svg>`;
   }
@@ -747,8 +798,7 @@
   // ── Toast ─────────────────────────────────────
   function showToast(msg, type = '') {
     const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = `toast ${type} show`;
+    t.textContent = msg; t.className = `toast ${type} show`;
     setTimeout(() => t.classList.remove('show'), 3000);
   }
 
@@ -760,6 +810,7 @@
   document.getElementById('modalOverlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
   document.getElementById('editModalOverlay').addEventListener('click', function(e) { if (e.target === this) closeEditModal(); });
   document.getElementById('confirmOverlay').addEventListener('click', function(e) { if (e.target === this) closeConfirm(); });
+  document.getElementById('customColorOverlay').addEventListener('click', function(e) { if (e.target === this) closeCustomColor(); });
 
   // ── Init ──────────────────────────────────────
   if (localStorage.getItem('gss_token')) {
