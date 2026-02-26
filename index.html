@@ -573,7 +573,7 @@
   // ── Load data — публічно, без токена ──────────
   async function loadData() {
   try {
-    const url = `https://raw.githubusercontent.com/Vitalii-Kravchenko/gss/main/data.json?_=${Date.now()}`;
+    const url = 'https://raw.githubusercontent.com/Vitalii-Kravchenko/gss/main/data.json';
     const res = await fetch(url, { cache: 'no-cache' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     DB = await res.json();
