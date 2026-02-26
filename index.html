@@ -327,9 +327,9 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="colors-editor-label">🎨 Kolory i grubości</label>
+      <label class="colors-editor-label">🎨 Selekcje i grubości</label>
       <div id="fColorsList"></div>
-      <button class="btn-add-color" onclick="addColorRow('fColorsList')">＋ Dodaj kolor</button>
+      <button class="btn-add-color" onclick="addColorRow('fColorsList')">＋ Dodaj selekcję</button>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">Anuluj</button>
@@ -361,9 +361,9 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="colors-editor-label">🎨 Kolory i grubości</label>
+      <label class="colors-editor-label">🎨 Selekcje i grubości</label>
       <div id="eColorsList"></div>
-      <button class="btn-add-color" onclick="addColorRow('eColorsList')">＋ Dodaj kolor</button>
+      <button class="btn-add-color" onclick="addColorRow('eColorsList')">＋ Dodaj selekcję</button>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeEditModal()">Anuluj</button>
@@ -520,7 +520,7 @@
     const colors = item.colors || [];
     const colorsHTML = colors.length > 0 ? `
       <div class="colors-section">
-        <div class="colors-label">🎨 Kolory i grubości</div>
+        <div class="colors-label">🎨 Selekcje i grubości</div>
         ${colors.map(c => `
           <div class="color-row">
             <div class="color-dot" style="background:${c.color || '#888'}"></div>
@@ -564,7 +564,7 @@
     div.className = 'color-entry';
     div.innerHTML = `
       <input type="color" value="${color}" title="Kolor"/>
-      <input type="text"   placeholder="Nazwa koloru" value="${name}" style="flex:2"/>
+      <input type="text"   placeholder="Nazwa selekcji" value="${name}" style="flex:2"/>
       <input type="number" placeholder="Grubość" step="0.001" value="${thickness}" style="flex:1.2"/>
       <button class="btn-remove-color" onclick="this.parentElement.remove()">✕</button>
     `;
@@ -608,8 +608,8 @@
     if (!num || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) {
       showToast('⚠️ Wypełnij wszystkie pola', 'error'); return;
     }
-    if (colors === null) { showToast('⚠️ Wypełnij wszystkie kolory i grubości', 'error'); return; }
-    if (colors.length === 0) { showToast('⚠️ Dodaj przynajmniej jeden kolor', 'error'); return; }
+    if (colors === null) { showToast('⚠️ Wypełnij wszystkie selekcje i grubości', 'error'); return; }
+    if (colors.length === 0) { showToast('⚠️ Dodaj przynajmniej jedną selekcję', 'error'); return; }
     if ([p20, p25, p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
     if (DB[currentMachine][num]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
 
@@ -662,8 +662,8 @@
     if (!newNum || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) {
       showToast('⚠️ Wypełnij wszystkie pola', 'error'); return;
     }
-    if (colors === null) { showToast('⚠️ Wypełnij wszystkie kolory i grubości', 'error'); return; }
-    if (colors.length === 0) { showToast('⚠️ Dodaj przynajmniej jeden kolor', 'error'); return; }
+    if (colors === null) { showToast('⚠️ Wypełnij wszystkie selekcje i grubości', 'error'); return; }
+    if (colors.length === 0) { showToast('⚠️ Dodaj przynajmniej jedną selekcję', 'error'); return; }
     if ([p20, p25, p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
     if (newNum !== origNum && DB[currentMachine][newNum]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
 
