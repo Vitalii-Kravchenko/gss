@@ -6,14 +6,11 @@
   <title>GSS Panewki</title>
   <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   input, select, textarea { font-size: 16px !important; }
-
   button, input, .dropdown-item, .machine-btn, .fab, .config-bar summary {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }
-
   body {
     font-family: 'Segoe UI', sans-serif;
     background: #0f1117;
@@ -21,7 +18,6 @@
     min-height: 100vh;
     padding: 24px 16px 80px;
   }
-
   h1 {
     text-align: center;
     font-size: clamp(1.1rem, 4vw, 1.7rem);
@@ -30,7 +26,6 @@
     margin-bottom: 24px;
     text-transform: uppercase;
   }
-
   .machine-selector {
     display: flex;
     justify-content: center;
@@ -58,18 +53,9 @@
     color: #fff;
     box-shadow: 0 0 18px rgba(78,110,242,0.4);
   }
-  .machine-btn:active {
-    transform: scale(0.96);
-    background: #3a5ce0;
-    border-color: #3a5ce0;
-    color: #fff;
-  }
+  .machine-btn:active { transform: scale(0.96); background: #3a5ce0; border-color: #3a5ce0; color: #fff; }
 
-  .search-wrap {
-    max-width: 520px;
-    margin: 0 auto 28px;
-    position: relative;
-  }
+  .search-wrap { max-width: 520px; margin: 0 auto 28px; position: relative; }
   .search-wrap input {
     width: 100%;
     padding: 14px 18px;
@@ -111,22 +97,12 @@
   .dropdown-item:active { background: #2a2b40; color: #fff; }
   .match-highlight { color: #4e6ef2; font-weight: 700; }
   .dim-info { margin-left: auto; font-size: 0.78rem; color: #555; }
-  .dropdown-empty {
-    padding: 14px 18px;
-    color: #e05252;
-    font-size: 0.95rem;
-    text-align: center;
-  }
+  .dropdown-empty { padding: 14px 18px; color: #e05252; font-size: 0.95rem; text-align: center; }
   .dropdown::-webkit-scrollbar { width: 5px; }
   .dropdown::-webkit-scrollbar-track { background: #1e1f2e; }
   .dropdown::-webkit-scrollbar-thumb { background: #3a3b55; border-radius: 4px; }
 
-  .hint {
-    text-align: center;
-    color: #555;
-    margin-top: 40px;
-    font-size: clamp(0.85rem, 3vw, 0.95rem);
-  }
+  .hint { text-align: center; color: #555; margin-top: 40px; font-size: clamp(0.85rem, 3vw, 0.95rem); }
 
   .results { max-width: 520px; margin: 0 auto 24px; }
   .card {
@@ -150,27 +126,12 @@
     background: linear-gradient(180deg, #4e6ef2, #7c4ef2);
     border-radius: 16px 0 0 16px;
   }
-  .card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .card-id {
-    font-size: clamp(1.1rem, 4vw, 1.3rem);
-    font-weight: 700;
-    color: #4e6ef2;
-    letter-spacing: 1px;
-  }
+  .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .card-id { font-size: clamp(1.1rem, 4vw, 1.3rem); font-weight: 700; color: #4e6ef2; letter-spacing: 1px; }
   .card-machine { font-size: 0.78rem; color: #666; margin-top: 3px; }
   .bushing-icon { width: 60px; height: 44px; flex-shrink: 0; }
 
-  .info-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
-  }
+  .info-row { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
   .info-pill {
     background: #12131d;
     border-radius: 8px;
@@ -182,48 +143,39 @@
     min-width: 120px;
     text-align: center;
   }
-  .info-pill span {
-    display: block;
-    color: #fff;
-    font-weight: 700;
-    font-size: clamp(0.95rem, 3.5vw, 1.05rem);
-    margin-top: 4px;
-  }
+  .info-pill span { display: block; color: #fff; font-weight: 700; font-size: clamp(0.95rem, 3.5vw, 1.05rem); margin-top: 4px; }
 
-  .angles { display: flex; gap: 10px; }
-  .angle-box {
-    flex: 1;
+  /* ── Colors table ── */
+  .colors-section { margin-bottom: 18px; }
+  .colors-label { font-size: 0.8rem; color: #8a8aaa; margin-bottom: 8px; }
+  .color-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     background: #12131d;
     border: 1px solid #2a2b3a;
-    border-radius: 12px;
-    padding: 14px 8px;
-    text-align: center;
-  }
-  .angle-deg {
-    font-size: clamp(0.9rem, 3.5vw, 1rem);
-    font-weight: 700;
-    color: #f0c060;
-    margin-bottom: 8px;
-  }
-  .angle-val {
-    font-size: clamp(1.1rem, 4.5vw, 1.4rem);
-    font-weight: 800;
-    color: #fff;
-  }
-
-  .card-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 16px;
-  }
-  .btn-edit, .btn-delete {
-    flex: 1;
-    padding: 10px;
     border-radius: 10px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.15s;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+  }
+  .color-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+  .color-name { font-size: 0.9rem; color: #ccc; flex: 1; }
+  .color-thick { font-size: 0.9rem; font-weight: 700; color: #fff; }
+
+  .angles { display: flex; gap: 10px; }
+  .angle-box { flex: 1; background: #12131d; border: 1px solid #2a2b3a; border-radius: 12px; padding: 14px 8px; text-align: center; }
+  .angle-deg { font-size: clamp(0.9rem, 3.5vw, 1rem); font-weight: 700; color: #f0c060; margin-bottom: 8px; }
+  .angle-val { font-size: clamp(1.1rem, 4.5vw, 1.4rem); font-weight: 800; color: #fff; }
+
+  .card-actions { display: flex; gap: 8px; margin-top: 16px; }
+  .btn-edit, .btn-delete {
+    flex: 1; padding: 10px; border-radius: 10px;
+    font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
   }
   .btn-edit   { background: #1e3a5f; color: #60a5fa; border: 1px solid #2563eb; }
   .btn-delete { background: #3b1515; color: #f87171; border: 1px solid #dc2626; }
@@ -231,216 +183,91 @@
   .btn-delete:active { opacity: 0.65; transform: scale(0.97); }
 
   .fab {
-    position: fixed;
-    bottom: 28px;
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    border: none;
-    color: #fff;
-    font-size: 1.6rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 200;
-    transition: transform 0.15s;
+    position: fixed; bottom: 28px;
+    width: 58px; height: 58px; border-radius: 50%; border: none;
+    color: #fff; font-size: 1.6rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; transition: transform 0.15s;
   }
   .fab:active { transform: scale(0.91); box-shadow: none !important; }
-  .fab-add {
-    right: 22px;
-    background: linear-gradient(135deg, #4e6ef2, #7c4ef2);
-    box-shadow: 0 4px 20px rgba(78,110,242,0.5);
-  }
-  .fab-refresh {
-    right: 92px;
-    background: #10b981;
-    box-shadow: 0 4px 20px rgba(16,185,129,0.5);
-    font-size: 1.3rem;
-  }
+  .fab-add { right: 22px; background: linear-gradient(135deg, #4e6ef2, #7c4ef2); box-shadow: 0 4px 20px rgba(78,110,242,0.5); }
+  .fab-refresh { right: 92px; background: #10b981; box-shadow: 0 4px 20px rgba(16,185,129,0.5); font-size: 1.3rem; }
 
-  .config-bar {
-    max-width: 520px;
-    margin: 0 auto 18px;
-    background: #1a1b26;
-    border: 1px dashed #2e2e3e;
-    border-radius: 12px;
-    padding: 14px 16px;
-  }
-  .config-bar summary {
-    cursor: pointer;
-    color: #555;
-    font-size: 0.82rem;
-    letter-spacing: 0.5px;
-    user-select: none;
-    transition: color 0.15s;
-  }
+  .config-bar { max-width: 520px; margin: 0 auto 18px; background: #1a1b26; border: 1px dashed #2e2e3e; border-radius: 12px; padding: 14px 16px; }
+  .config-bar summary { cursor: pointer; color: #555; font-size: 0.82rem; letter-spacing: 0.5px; user-select: none; transition: color 0.15s; }
   .config-bar summary:active { color: #aaa; }
-  .config-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 12px;
-  }
-  .config-fields input {
-    padding: 9px 13px;
-    border-radius: 8px;
-    border: 1.5px solid #2e2e3e;
-    background: #12131d;
-    color: #fff;
-    outline: none;
-    transition: border-color 0.2s;
-  }
+  .config-fields { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+  .config-fields input { padding: 9px 13px; border-radius: 8px; border: 1.5px solid #2e2e3e; background: #12131d; color: #fff; outline: none; transition: border-color 0.2s; }
   .config-fields input:focus { border-color: #4e6ef2; }
-  .btn-config-save {
-    padding: 9px;
-    border-radius: 8px;
-    border: none;
-    background: #4e6ef2;
-    color: #fff;
-    font-size: 0.88rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
+  .btn-config-save { padding: 9px; border-radius: 8px; border: none; background: #4e6ef2; color: #fff; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
   .btn-config-save:active { opacity: 0.7; transform: scale(0.97); }
 
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    z-index: 300;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  }
+  /* ── Modal ── */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 300; align-items: center; justify-content: center; padding: 16px; }
   .modal-overlay.open { display: flex; }
   .modal {
-    background: #1a1b26;
-    border: 1px solid #2e2e3e;
-    border-radius: 18px;
-    padding: 28px 24px;
-    width: 100%;
-    max-width: 440px;
+    background: #1a1b26; border: 1px solid #2e2e3e; border-radius: 18px;
+    padding: 28px 24px; width: 100%; max-width: 440px;
     animation: fadeIn 0.2s ease;
+    max-height: 90vh; overflow-y: auto;
   }
   .modal h2 { font-size: 1.15rem; color: #fff; margin-bottom: 6px; }
   .modal-machine { font-size: 0.82rem; color: #4e6ef2; margin-bottom: 20px; }
   .form-group { margin-bottom: 14px; }
-  .form-group label {
-    display: block;
-    font-size: 0.82rem;
-    color: #8a8aaa;
-    margin-bottom: 5px;
-  }
+  .form-group label { display: block; font-size: 0.82rem; color: #8a8aaa; margin-bottom: 5px; }
   .form-group input {
-    width: 100%;
-    padding: 11px 14px;
-    border-radius: 10px;
-    border: 1.5px solid #2e2e3e;
-    background: #12131d;
-    color: #fff;
-    outline: none;
-    transition: border-color 0.2s;
+    width: 100%; padding: 11px 14px; border-radius: 10px;
+    border: 1.5px solid #2e2e3e; background: #12131d; color: #fff; outline: none; transition: border-color 0.2s;
   }
   .form-group input:focus { border-color: #4e6ef2; }
   .prices-row { display: flex; gap: 8px; }
   .prices-row .form-group { flex: 1; }
   .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
-  .btn-cancel {
-    flex: 1;
-    padding: 12px;
-    border-radius: 10px;
-    border: 1.5px solid #2e2e3e;
-    background: transparent;
-    color: #aaa;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: border-color 0.15s, color 0.15s;
-  }
+  .btn-cancel { flex: 1; padding: 12px; border-radius: 10px; border: 1.5px solid #2e2e3e; background: transparent; color: #aaa; font-size: 0.95rem; cursor: pointer; }
   .btn-cancel:active { border-color: #aaa; color: #fff; transform: scale(0.97); }
-  .btn-save {
-    flex: 2;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    background: linear-gradient(135deg, #4e6ef2, #7c4ef2);
-    color: #fff;
-    font-size: 0.95rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
+  .btn-save { flex: 2; padding: 12px; border-radius: 10px; border: none; background: linear-gradient(135deg, #4e6ef2, #7c4ef2); color: #fff; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
   .btn-save:active { opacity: 0.75; transform: scale(0.98); }
   .btn-save:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  .confirm-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 500;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
+  /* ── Colors editor ── */
+  .colors-editor-label { font-size: 0.82rem; color: #8a8aaa; margin-bottom: 8px; display: block; }
+  .color-entry {
+    display: flex; gap: 8px; align-items: center;
+    background: #12131d; border: 1px solid #2a2b3a;
+    border-radius: 10px; padding: 8px 10px; margin-bottom: 6px;
   }
+  .color-entry input[type="text"] { flex: 2; }
+  .color-entry input[type="number"] { flex: 1; }
+  .color-entry input[type="color"] {
+    width: 36px; height: 36px; padding: 2px; border-radius: 8px;
+    border: 1.5px solid #2e2e3e; background: #12131d; cursor: pointer; flex-shrink: 0;
+  }
+  .btn-remove-color {
+    background: #3b1515; color: #f87171; border: 1px solid #dc2626;
+    border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 0.85rem; flex-shrink: 0;
+  }
+  .btn-remove-color:active { opacity: 0.7; }
+  .btn-add-color {
+    width: 100%; padding: 9px; border-radius: 10px;
+    border: 1.5px dashed #2e2e3e; background: transparent;
+    color: #4e6ef2; font-size: 0.88rem; cursor: pointer; margin-top: 4px;
+  }
+  .btn-add-color:active { opacity: 0.7; }
+
+  /* ── Confirm ── */
+  .confirm-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 500; align-items: center; justify-content: center; padding: 16px; }
   .confirm-overlay.open { display: flex; }
-  .confirm-box {
-    background: #1a1b26;
-    border: 1px solid #dc2626;
-    border-radius: 16px;
-    padding: 28px 24px;
-    width: 100%;
-    max-width: 360px;
-    text-align: center;
-    animation: fadeIn 0.2s ease;
-  }
+  .confirm-box { background: #1a1b26; border: 1px solid #dc2626; border-radius: 16px; padding: 28px 24px; width: 100%; max-width: 360px; text-align: center; animation: fadeIn 0.2s ease; }
   .confirm-box h3 { color: #f87171; font-size: 1.1rem; margin-bottom: 10px; }
   .confirm-box p  { color: #aaa; font-size: 0.9rem; margin-bottom: 22px; }
   .confirm-box strong { color: #fff; }
   .confirm-actions { display: flex; gap: 10px; }
-  .btn-confirm-cancel {
-    flex: 1;
-    padding: 11px;
-    border-radius: 10px;
-    border: 1.5px solid #2e2e3e;
-    background: transparent;
-    color: #aaa;
-    cursor: pointer;
-    transition: color 0.15s;
-  }
+  .btn-confirm-cancel { flex: 1; padding: 11px; border-radius: 10px; border: 1.5px solid #2e2e3e; background: transparent; color: #aaa; cursor: pointer; }
   .btn-confirm-cancel:active { color: #fff; border-color: #aaa; transform: scale(0.97); }
-  .btn-confirm-delete {
-    flex: 1;
-    padding: 11px;
-    border-radius: 10px;
-    border: none;
-    background: #dc2626;
-    color: #fff;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
+  .btn-confirm-delete { flex: 1; padding: 11px; border-radius: 10px; border: none; background: #dc2626; color: #fff; font-weight: 700; cursor: pointer; }
   .btn-confirm-delete:active { background: #b91c1c; transform: scale(0.97); }
 
-  .toast {
-    position: fixed;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #1e1f2e;
-    border: 1px solid #2e2e3e;
-    border-radius: 12px;
-    padding: 12px 22px;
-    color: #fff;
-    font-size: 0.9rem;
-    z-index: 400;
-    opacity: 0;
-    transition: opacity 0.3s;
-    white-space: nowrap;
-    pointer-events: none;
-  }
+  .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #1e1f2e; border: 1px solid #2e2e3e; border-radius: 12px; padding: 12px 22px; color: #fff; font-size: 0.9rem; z-index: 400; opacity: 0; transition: opacity 0.3s; white-space: nowrap; pointer-events: none; }
   .toast.show    { opacity: 1; }
   .toast.success { border-color: #10b981; color: #10b981; }
   .toast.error   { border-color: #e05252; color: #e05252; }
@@ -450,7 +277,6 @@
 
 <h1>GSS</h1>
 
-<!-- Config -->
 <details class="config-bar" id="configBar">
   <summary>⚙️ Ustawienia (tylko dla administratora)</summary>
   <div class="config-fields">
@@ -459,14 +285,12 @@
   </div>
 </details>
 
-<!-- Machines -->
 <div class="machine-selector">
   <button class="machine-btn" onclick="selectMachine('GSS 1', this)">GSS 1</button>
   <button class="machine-btn" onclick="selectMachine('GSS 2', this)">GSS 2</button>
   <button class="machine-btn" onclick="selectMachine('GSS 3', this)">GSS 3</button>
 </div>
 
-<!-- Search -->
 <div class="search-wrap" id="searchWrap">
   <input type="text" id="searchInput" autocomplete="off"
          placeholder="Najpierw wybierz maszynę..."
@@ -474,12 +298,10 @@
   <div class="dropdown" id="dropdown"></div>
 </div>
 
-<!-- Result -->
 <div class="results" id="results">
   <p class="hint">Najpierw wybierz maszynę ↑</p>
 </div>
 
-<!-- FAB -->
 <button class="fab fab-refresh" onclick="refreshData()" title="Odśwież dane">↻</button>
 <button class="fab fab-add"     onclick="openModal()"   title="Dodaj numer">＋</button>
 
@@ -497,16 +319,17 @@
       <input type="number" id="fDiam" step="0.001" placeholder="np. 111.022"/>
     </div>
     <div class="form-group">
-      <label>Grubość (mm)</label>
-      <input type="number" id="fThick" step="0.001" placeholder="np. 3.474"/>
-    </div>
-    <div class="form-group">
       <label>Wartość dla kątów</label>
       <div class="prices-row">
         <div class="form-group"><label>20°</label><input type="number" id="fP20" step="0.1" min="0" max="99" placeholder="0.0"/></div>
         <div class="form-group"><label>25°</label><input type="number" id="fP25" step="0.1" min="0" max="99" placeholder="0.0"/></div>
         <div class="form-group"><label>30°</label><input type="number" id="fP30" step="0.1" min="0" max="99" placeholder="0.0"/></div>
       </div>
+    </div>
+    <div class="form-group">
+      <label class="colors-editor-label">🎨 Kolory i grubości</label>
+      <div id="fColorsList"></div>
+      <button class="btn-add-color" onclick="addColorRow('fColorsList')">＋ Dodaj kolor</button>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">Anuluj</button>
@@ -530,16 +353,17 @@
       <input type="number" id="eDiam" step="0.001"/>
     </div>
     <div class="form-group">
-      <label>Grubość (mm)</label>
-      <input type="number" id="eThick" step="0.001"/>
-    </div>
-    <div class="form-group">
       <label>Wartość dla kątów</label>
       <div class="prices-row">
         <div class="form-group"><label>20°</label><input type="number" id="eP20" step="0.1" min="0" max="99"/></div>
         <div class="form-group"><label>25°</label><input type="number" id="eP25" step="0.1" min="0" max="99"/></div>
         <div class="form-group"><label>30°</label><input type="number" id="eP30" step="0.1" min="0" max="99"/></div>
       </div>
+    </div>
+    <div class="form-group">
+      <label class="colors-editor-label">🎨 Kolory i grubości</label>
+      <div id="eColorsList"></div>
+      <button class="btn-add-color" onclick="addColorRow('eColorsList')">＋ Dodaj kolor</button>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeEditModal()">Anuluj</button>
@@ -570,6 +394,7 @@
   let DB = {};
   let currentMachine = null;
 
+  // ── Config ────────────────────────────────────
   function saveConfig() {
     token = document.getElementById('cfgToken').value.trim();
     localStorage.setItem('gss_token', token);
@@ -577,16 +402,15 @@
     document.getElementById('configBar').removeAttribute('open');
   }
 
+  // ── Load ──────────────────────────────────────
   async function loadData() {
     try {
       const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
-      const res = await fetch(url, {
-        headers: { 'Accept': 'application/vnd.github.v3+json' }
-      });
+      const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
       DB = JSON.parse(atob(json.content.replace(/\n/g, '')));
-      console.log('✅ DB loaded:', Object.values(DB).flatMap(Object.keys).length, 'entries');
+      console.log('✅ DB loaded');
     } catch(e) {
       console.error('Load error:', e);
       DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
@@ -604,11 +428,9 @@
     showToast('✅ Dane zaktualizowane', 'success');
   }
 
+  // ── Save ──────────────────────────────────────
   async function saveData() {
-    if (!token) {
-      showToast('⚠️ Wprowadź token w ustawieniach', 'error');
-      return false;
-    }
+    if (!token) { showToast('⚠️ Wprowadź token w ustawieniach', 'error'); return false; }
     return await writeFile('data.json');
   }
 
@@ -616,40 +438,25 @@
     try {
       const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filename}`;
       const getRes = await fetch(apiUrl, {
-        headers: {
-          'Authorization': `token ${token}`,
-          'Accept': 'application/vnd.github.v3+json'
-        }
+        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
       });
       const getJson = await getRes.json();
       if (!getRes.ok) throw new Error(getJson.message || `HTTP ${getRes.status}`);
-
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(DB, null, 2))));
       const putRes = await fetch(apiUrl, {
         method: 'PUT',
-        headers: {
-          'Authorization': `token ${token}`,
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: `Update ${filename} via GSS app`,
-          content,
-          sha: getJson.sha
-        })
+        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: `Update ${filename} via GSS app`, content, sha: getJson.sha })
       });
-      if (!putRes.ok) {
-        const err = await putRes.json();
-        throw new Error(err.message);
-      }
-      console.log(`✅ ${filename} zaktualizowany`);
+      if (!putRes.ok) { const err = await putRes.json(); throw new Error(err.message); }
       return true;
     } catch(e) {
-      console.error(`❌ Błąd zapisu ${filename}:`, e.message);
+      console.error(`❌ Błąd zapisu:`, e.message);
       return false;
     }
   }
 
+  // ── Machine ───────────────────────────────────
   function selectMachine(machine, btn) {
     currentMachine = machine;
     document.querySelectorAll('.machine-btn').forEach(b => b.classList.remove('active'));
@@ -663,6 +470,7 @@
     document.getElementById('results').innerHTML = '<p class="hint">Wpisz numer, aby wyszukać</p>';
   }
 
+  // ── Search ────────────────────────────────────
   function handleInput(e) {
     const query = e.target.value.trim();
     const dropdown = document.getElementById('dropdown');
@@ -687,15 +495,17 @@
     matched.forEach(([id, item]) => {
       const div = document.createElement('div');
       div.className = 'dropdown-item';
+      const colorsCount = (item.colors || []).length;
       div.innerHTML = `
         <span># <span class="match-highlight">${id.slice(0, query.length)}</span>${id.slice(query.length)}</span>
-        <span class="dim-info">⌀${item.diameter} / ${item.thickness}mm</span>
+        <span class="dim-info">⌀${item.diameter} · ${colorsCount} kol.</span>
       `;
       div.addEventListener('click', () => selectResult(id, item));
       dropdown.appendChild(div);
     });
   }
 
+  // ── Result card ───────────────────────────────
   function selectResult(id, item) {
     document.getElementById('dropdown').innerHTML = '';
     document.getElementById('searchInput').value = id;
@@ -706,6 +516,20 @@
         <div class="angle-val">${parseFloat(item.prices[i]).toFixed(1)}</div>
       </div>
     `).join('');
+
+    const colors = item.colors || [];
+    const colorsHTML = colors.length > 0 ? `
+      <div class="colors-section">
+        <div class="colors-label">🎨 Kolory i grubości</div>
+        ${colors.map(c => `
+          <div class="color-row">
+            <div class="color-dot" style="background:${c.color || '#888'}"></div>
+            <div class="color-name">${c.name}</div>
+            <div class="color-thick">${c.thickness} mm</div>
+          </div>
+        `).join('')}
+      </div>
+    ` : '';
 
     const actionsHTML = token ? `
       <div class="card-actions">
@@ -725,82 +549,77 @@
         </div>
         <div class="info-row">
           <div class="info-pill">Średnica panewki<span>${item.diameter} mm</span></div>
-          <div class="info-pill">Grubość panewki<span>${item.thickness} mm</span></div>
         </div>
+        ${colorsHTML}
         <div class="angles">${anglesHTML}</div>
         ${actionsHTML}
       </div>
     `;
   }
 
-  function bushingIcon() {
-    return `
-    <svg class="bushing-icon" viewBox="0 0 60 44" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#d0d8e8"/>
-          <stop offset="40%" stop-color="#a8b4c8"/>
-          <stop offset="100%" stop-color="#6a7a90"/>
-        </linearGradient>
-        <linearGradient id="innerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#8a9ab0"/>
-          <stop offset="100%" stop-color="#4a5a6e"/>
-        </linearGradient>
-        <linearGradient id="shineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="rgba(255,255,255,0.45)"/>
-          <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-        </linearGradient>
-      </defs>
-      <path d="M 4,34 A 26,26 0 0,1 56,34 L 48,34 A 18,18 0 0,0 12,34 Z"
-            fill="url(#metalGrad)" stroke="#8a9ab0" stroke-width="0.8"/>
-      <rect x="4"  y="34" width="8" height="6" rx="1" fill="url(#innerGrad)" stroke="#6a7a90" stroke-width="0.5"/>
-      <rect x="48" y="34" width="8" height="6" rx="1" fill="url(#innerGrad)" stroke="#6a7a90" stroke-width="0.5"/>
-      <rect x="4" y="40" width="52" height="3" rx="1.5" fill="#5a6a80" stroke="#4a5a6e" stroke-width="0.5"/>
-      <path d="M 8,34 A 22,22 0 0,1 52,34 L 48,34 A 18,18 0 0,0 12,34 Z"
-            fill="url(#shineGrad)" opacity="0.6"/>
-      <path d="M 6,26 A 24,24 0 0,1 54,26"
-            fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-linecap="round"/>
-    </svg>`;
+  // ── Colors editor rows ────────────────────────
+  function addColorRow(containerId, name = '', color = '#888888', thickness = '') {
+    const container = document.getElementById(containerId);
+    const div = document.createElement('div');
+    div.className = 'color-entry';
+    div.innerHTML = `
+      <input type="color" value="${color}" title="Kolor"/>
+      <input type="text"   placeholder="Nazwa koloru" value="${name}" style="flex:2"/>
+      <input type="number" placeholder="Grubość" step="0.001" value="${thickness}" style="flex:1.2"/>
+      <button class="btn-remove-color" onclick="this.parentElement.remove()">✕</button>
+    `;
+    container.appendChild(div);
   }
 
+  function getColorsFromList(containerId) {
+    const rows = document.querySelectorAll(`#${containerId} .color-entry`);
+    const result = [];
+    for (const row of rows) {
+      const inputs = row.querySelectorAll('input');
+      const color     = inputs[0].value;
+      const name      = inputs[1].value.trim();
+      const thickness = parseFloat(inputs[2].value);
+      if (!name || isNaN(thickness)) return null; // validation fail
+      result.push({ color, name, thickness });
+    }
+    return result;
+  }
+
+  // ── Add Modal ─────────────────────────────────
   function openModal() {
     if (!currentMachine) { showToast('⚠️ Najpierw wybierz maszynę', 'error'); return; }
     if (!token) { showToast('⚠️ Wprowadź token w ustawieniach ⚙️', 'error'); return; }
     document.getElementById('modalMachineName').textContent = currentMachine;
-    ['fNum','fDiam','fThick','fP20','fP25','fP30'].forEach(id => document.getElementById(id).value = '');
+    ['fNum','fDiam','fP20','fP25','fP30'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('fColorsList').innerHTML = '';
+    addColorRow('fColorsList'); // один кольор за замовчуванням
     document.getElementById('modalOverlay').classList.add('open');
   }
-  function closeModal() {
-    document.getElementById('modalOverlay').classList.remove('open');
-  }
+  function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
 
   async function saveEntry() {
-    const num   = document.getElementById('fNum').value.trim();
-    const diam  = parseFloat(document.getElementById('fDiam').value);
-    const thick = parseFloat(document.getElementById('fThick').value);
-    const p20   = parseFloat(document.getElementById('fP20').value);
-    const p25   = parseFloat(document.getElementById('fP25').value);
-    const p30   = parseFloat(document.getElementById('fP30').value);
+    const num  = document.getElementById('fNum').value.trim();
+    const diam = parseFloat(document.getElementById('fDiam').value);
+    const p20  = parseFloat(document.getElementById('fP20').value);
+    const p25  = parseFloat(document.getElementById('fP25').value);
+    const p30  = parseFloat(document.getElementById('fP30').value);
+    const colors = getColorsFromList('fColorsList');
 
-    if (!num || isNaN(diam) || isNaN(thick) || isNaN(p20) || isNaN(p25) || isNaN(p30)) {
+    if (!num || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) {
       showToast('⚠️ Wypełnij wszystkie pola', 'error'); return;
     }
-    if ([p20, p25, p30].some(p => p > 99)) {
-      showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return;
-    }
-    if (DB[currentMachine][num]) {
-      showToast('⚠️ Taki numer już istnieje', 'error'); return;
-    }
+    if (colors === null) { showToast('⚠️ Wypełnij wszystkie kolory i grubości', 'error'); return; }
+    if (colors.length === 0) { showToast('⚠️ Dodaj przynajmniej jeden kolor', 'error'); return; }
+    if ([p20, p25, p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
+    if (DB[currentMachine][num]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
 
     const btn = document.getElementById('btnSave');
-    btn.disabled = true;
-    btn.textContent = '⏳ Zapisuję...';
+    btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
 
-    DB[currentMachine][num] = { diameter: diam, thickness: thick, prices: [p20, p25, p30] };
+    DB[currentMachine][num] = { diameter: diam, prices: [p20, p25, p30], colors };
     const ok = await saveData();
 
-    btn.disabled = false;
-    btn.textContent = '💾 Zapisz';
+    btn.disabled = false; btn.textContent = '💾 Zapisz';
 
     if (ok) {
       closeModal();
@@ -811,53 +630,52 @@
     }
   }
 
+  // ── Edit Modal ────────────────────────────────
   function openEditModal(id) {
     const item = DB[currentMachine][id];
     if (!item) return;
     document.getElementById('editModalMachine').textContent = currentMachine;
-    document.getElementById('eOrigNum').value  = id;
-    document.getElementById('eNum').value      = id;
-    document.getElementById('eDiam').value     = item.diameter;
-    document.getElementById('eThick').value    = item.thickness;
-    document.getElementById('eP20').value      = item.prices[0];
-    document.getElementById('eP25').value      = item.prices[1];
-    document.getElementById('eP30').value      = item.prices[2];
+    document.getElementById('eOrigNum').value = id;
+    document.getElementById('eNum').value     = id;
+    document.getElementById('eDiam').value    = item.diameter;
+    document.getElementById('eP20').value     = item.prices[0];
+    document.getElementById('eP25').value     = item.prices[1];
+    document.getElementById('eP30').value     = item.prices[2];
+
+    const list = document.getElementById('eColorsList');
+    list.innerHTML = '';
+    (item.colors || []).forEach(c => addColorRow('eColorsList', c.name, c.color || '#888888', c.thickness));
+
     document.getElementById('editModalOverlay').classList.add('open');
   }
-  function closeEditModal() {
-    document.getElementById('editModalOverlay').classList.remove('open');
-  }
+  function closeEditModal() { document.getElementById('editModalOverlay').classList.remove('open'); }
 
   async function saveEdit() {
     const origNum = document.getElementById('eOrigNum').value;
     const newNum  = document.getElementById('eNum').value.trim();
     const diam    = parseFloat(document.getElementById('eDiam').value);
-    const thick   = parseFloat(document.getElementById('eThick').value);
     const p20     = parseFloat(document.getElementById('eP20').value);
     const p25     = parseFloat(document.getElementById('eP25').value);
     const p30     = parseFloat(document.getElementById('eP30').value);
+    const colors  = getColorsFromList('eColorsList');
 
-    if (!newNum || isNaN(diam) || isNaN(thick) || isNaN(p20) || isNaN(p25) || isNaN(p30)) {
+    if (!newNum || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) {
       showToast('⚠️ Wypełnij wszystkie pola', 'error'); return;
     }
-    if ([p20, p25, p30].some(p => p > 99)) {
-      showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return;
-    }
-    if (newNum !== origNum && DB[currentMachine][newNum]) {
-      showToast('⚠️ Taki numer już istnieje', 'error'); return;
-    }
+    if (colors === null) { showToast('⚠️ Wypełnij wszystkie kolory i grubości', 'error'); return; }
+    if (colors.length === 0) { showToast('⚠️ Dodaj przynajmniej jeden kolor', 'error'); return; }
+    if ([p20, p25, p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
+    if (newNum !== origNum && DB[currentMachine][newNum]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
 
     const btn = document.getElementById('btnEditSave');
-    btn.disabled = true;
-    btn.textContent = '⏳ Zapisuję...';
+    btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
 
     const oldData = { ...DB[currentMachine][origNum] };
     delete DB[currentMachine][origNum];
-    DB[currentMachine][newNum] = { diameter: diam, thickness: thick, prices: [p20, p25, p30] };
+    DB[currentMachine][newNum] = { diameter: diam, prices: [p20, p25, p30], colors };
 
     const ok = await saveData();
-    btn.disabled = false;
-    btn.textContent = '💾 Zapisz zmiany';
+    btn.disabled = false; btn.textContent = '💾 Zapisz zmiany';
 
     if (ok) {
       closeEditModal();
@@ -871,6 +689,7 @@
     }
   }
 
+  // ── Delete ────────────────────────────────────
   let pendingDeleteId = null;
 
   function openConfirm(id) {
@@ -891,7 +710,6 @@
     delete DB[currentMachine][id];
     closeConfirm();
     showToast('⏳ Usuwam...', '');
-
     const ok = await saveData();
     if (ok) {
       document.getElementById('results').innerHTML = '<p class="hint">Wpis usunięty. Wpisz nowy numer.</p>';
@@ -903,6 +721,30 @@
     }
   }
 
+  // ── Bushing SVG ───────────────────────────────
+  function bushingIcon() {
+    return `<svg class="bushing-icon" viewBox="0 0 60 44" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#d0d8e8"/><stop offset="40%" stop-color="#a8b4c8"/><stop offset="100%" stop-color="#6a7a90"/>
+        </linearGradient>
+        <linearGradient id="innerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#8a9ab0"/><stop offset="100%" stop-color="#4a5a6e"/>
+        </linearGradient>
+        <linearGradient id="shineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.45)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+        </linearGradient>
+      </defs>
+      <path d="M 4,34 A 26,26 0 0,1 56,34 L 48,34 A 18,18 0 0,0 12,34 Z" fill="url(#metalGrad)" stroke="#8a9ab0" stroke-width="0.8"/>
+      <rect x="4"  y="34" width="8" height="6" rx="1" fill="url(#innerGrad)" stroke="#6a7a90" stroke-width="0.5"/>
+      <rect x="48" y="34" width="8" height="6" rx="1" fill="url(#innerGrad)" stroke="#6a7a90" stroke-width="0.5"/>
+      <rect x="4" y="40" width="52" height="3" rx="1.5" fill="#5a6a80" stroke="#4a5a6e" stroke-width="0.5"/>
+      <path d="M 8,34 A 22,22 0 0,1 52,34 L 48,34 A 18,18 0 0,0 12,34 Z" fill="url(#shineGrad)" opacity="0.6"/>
+      <path d="M 6,26 A 24,24 0 0,1 54,26" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>`;
+  }
+
+  // ── Toast ─────────────────────────────────────
   function showToast(msg, type = '') {
     const t = document.getElementById('toast');
     t.textContent = msg;
@@ -910,20 +752,16 @@
     setTimeout(() => t.classList.remove('show'), 3000);
   }
 
+  // ── Listeners ─────────────────────────────────
   document.addEventListener('click', e => {
     if (!document.getElementById('searchWrap').contains(e.target))
       document.getElementById('dropdown').innerHTML = '';
   });
-  document.getElementById('modalOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
-  });
-  document.getElementById('editModalOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeEditModal();
-  });
-  document.getElementById('confirmOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeConfirm();
-  });
+  document.getElementById('modalOverlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+  document.getElementById('editModalOverlay').addEventListener('click', function(e) { if (e.target === this) closeEditModal(); });
+  document.getElementById('confirmOverlay').addEventListener('click', function(e) { if (e.target === this) closeConfirm(); });
 
+  // ── Init ──────────────────────────────────────
   if (localStorage.getItem('gss_token')) {
     token = localStorage.getItem('gss_token');
     document.getElementById('cfgToken').value = token;
