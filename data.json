@@ -18,21 +18,6 @@
   },
   "GSS 2": {},
   "GSS 3": {
-    "11111": {
-      "diameter": 1,
-      "prices": [
-        1,
-        1,
-        1
-      ],
-      "colors": [
-        {
-          "color": "#888888",
-          "name": "1",
-          "thickness": 1
-        }
-      ]
-    },
     "14132X2058": {
       "diameter": 117.022,
       "prices": [
