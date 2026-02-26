@@ -14,6 +14,31 @@
           "thickness": 3.474
         }
       ]
+    },
+    "14482X2058": {
+      "diameter": 99.03,
+      "prices": [
+        19.2,
+        23,
+        27.5
+      ],
+      "colors": [
+        {
+          "color": "#fff000",
+          "name": "Żółty",
+          "thickness": 2.995
+        },
+        {
+          "color": "#00ff00",
+          "name": "Zielony",
+          "thickness": 2.984
+        },
+        {
+          "color": "#ff0000",
+          "name": "Czerwony",
+          "thickness": 2.974
+        }
+      ]
     }
   },
   "GSS 2": {},
