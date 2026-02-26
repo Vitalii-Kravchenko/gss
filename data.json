@@ -22,20 +22,34 @@
         23,
         27.5
       ],
+      "tolerancje": {
+        "grubosc": {
+          "od": 2,
+          "do": -0.009
+        },
+        "wspolsrodkowosc": {
+          "od": 0.005,
+          "do": 0.015
+        },
+        "wysokosc": {
+          "od": 100,
+          "do": 140
+        }
+      },
       "colors": [
         {
-          "color": "#fff000",
           "name": "Żółty",
+          "color": "#fff000",
           "thickness": 2.995
         },
         {
-          "color": "#00ff00",
           "name": "Zielony",
+          "color": "#00ff00",
           "thickness": 2.984
         },
         {
-          "color": "#ff0000",
           "name": "Czerwony",
+          "color": "#ff0000",
           "thickness": 2.974
         }
       ]
