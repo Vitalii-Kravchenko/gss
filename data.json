@@ -25,11 +25,11 @@
       "tolerancje": {
         "grubosc": {
           "od": 2,
-          "do": -0.009
+          "do": -9
         },
         "wspolsrodkowosc": {
-          "od": 0.005,
-          "do": 0.015
+          "od": 5,
+          "do": 15
         },
         "wysokosc": {
           "od": 100,
