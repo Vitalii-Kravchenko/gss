@@ -1,10 +1,10 @@
 {
   "_palette": [
     { "name": "Czarny",    "color": "#2d2d2d" },
-    { "name": "Zielony",   "color": "#22c55e" },
     { "name": "Żółty",     "color": "#eab308" },
-    { "name": "Niebieski", "color": "#3b82f6" },
+    { "name": "Zielony",   "color": "#22c55e" },
     { "name": "Czerwony",  "color": "#ef4444" },
+    { "name": "Niebieski", "color": "#3b82f6" },
     { "name": "Fioletowy", "color": "#a855f7" }
   ],
   "GSS 1": {},
