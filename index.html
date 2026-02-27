@@ -361,15 +361,7 @@
   const REPO_OWNER = 'Vitalii-Kravchenko';
   const REPO_NAME  = 'gss';
 
-  let PALETTE = JSON.parse(localStorage.getItem('gss_palette') || 'null') || [
-    { name: 'Czarny',    color: '#2d2d2d' },
-    { name: 'Zielony',   color: '#22c55e' },
-    { name: 'Żółty',     color: '#eab308' },
-    { name: 'Niebieski', color: '#3b82f6' },
-    { name: 'Czerwony',  color: '#ef4444' },
-    { name: 'Fioletowy', color: '#a855f7' },
-  ];
-  function savePalette() { localStorage.setItem('gss_palette', JSON.stringify(PALETTE)); }
+  let PALETTE = [];
 
   let token = localStorage.getItem('gss_token') || '';
   let DB = {};
@@ -387,35 +379,59 @@
 
   // ── Load / Save ───────────────────────────────
   async function loadData() {
-    try {
-      const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
-      const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
-      if (!res.ok) throw new Error();
-      const json = await res.json();
-      DB = JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\n/g, '')))));
-    } catch {
-      DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
-      showToast('⚠️ Nie udało się załadować danych', 'error');
+  try {
+    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
+    const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+    if (!res.ok) throw new Error();
+    const json = await res.json();
+    const parsed = JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\n/g, '')))));
+
+    // підвантажуємо палітру з файлу якщо є
+    if (parsed._palette && parsed._palette.length) {
+      PALETTE = parsed._palette;
     }
+
+    // копіюємо тільки машини
+    DB = {};
+    ['GSS 1', 'GSS 2', 'GSS 3'].forEach(m => {
+      DB[m] = parsed[m] || {};
+    });
+
+  } catch {
+    DB = { "GSS 1": {}, "GSS 2": {}, "GSS 3": {} };
+    showToast('⚠️ Nie udało się załadować danych', 'error');
   }
+}
+
 
   async function saveData() {
-    if (!token) { showToast('⚠️ Wprowadź token w ustawieniach', 'error'); return false; }
-    try {
-      const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
-      const getRes  = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
-      const getJson = await getRes.json();
-      if (!getRes.ok) throw new Error(getJson.message);
-      const content = btoa(unescape(encodeURIComponent(JSON.stringify(DB, null, 2))));
-      const putRes  = await fetch(apiUrl, {
-        method: 'PUT',
-        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: 'Update data.json via GSS app', content, sha: getJson.sha })
-      });
-      if (!putRes.ok) { const e = await putRes.json(); throw new Error(e.message); }
-      return true;
-    } catch { return false; }
-  }
+  if (!token) { showToast('⚠️ Wprowadź token w ustawieniach', 'error'); return false; }
+  try {
+    const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
+    const getRes  = await fetch(apiUrl, {
+      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    const getJson = await getRes.json();
+    if (!getRes.ok) throw new Error(getJson.message);
+
+    // зберігаємо і палітру і машини разом
+    const payload = { _palette: PALETTE, ...DB };
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
+
+    const putRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: 'Update data.json via GSS app', content, sha: getJson.sha })
+    });
+    if (!putRes.ok) { const e = await putRes.json(); throw new Error(e.message); }
+    return true;
+  } catch { return false; }
+}
+
 
   // ── Machine ───────────────────────────────────
   function selectMachine(machine, btn) {
@@ -589,31 +605,43 @@
   }
 
   // ── Custom color ──────────────────────────────
-  function openCustomColor(paletteId, colorsListId) {
-    _customTarget = { paletteId, colorsListId };
-    document.getElementById('customColorName').value = '';
-    document.getElementById('customColorPicker').value = '#888888';
-    document.getElementById('customColorPreview').style.background = '#888888';
-    document.getElementById('customColorOverlay').classList.add('open');
-  }
-  function closeCustomColor() { document.getElementById('customColorOverlay').classList.remove('open'); _customTarget = null; }
+  async function confirmCustomColor() {
+  const name  = document.getElementById('customColorName').value.trim();
+  const color = document.getElementById('customColorPicker').value;
+  if (!name) { showToast('⚠️ Podaj nazwę koloru', 'error'); return; }
 
-  function confirmCustomColor() {
-    const name  = document.getElementById('customColorName').value.trim();
-    const color = document.getElementById('customColorPicker').value;
-    if (!name) { showToast('⚠️ Podaj nazwę selekcji', 'error'); return; }
-    PALETTE.push({ name, color });
-    savePalette();
-    closeCustomColor();
-    if (_customTarget) {
-      const { paletteId, colorsListId } = _customTarget;
-      const cur = getColorsFromList(colorsListId);
-      renderPalette(paletteId, colorsListId, cur);
-      addColorEntry(colorsListId, name, color);
-      const idx = PALETTE.length - 1;
-      document.querySelector(`#${paletteId} .palette-btn[data-index="${idx}"]`)?.classList.add('selected');
-    }
+  // перевіряємо чи вже існує
+  if (PALETTE.some(p => p.name.toLowerCase() === name.toLowerCase())) {
+    showToast('⚠️ Taki kolor już istnieje', 'error'); return;
   }
+
+  const btnOk = document.getElementById('customColorOverlay').querySelector('.btn-custom-ok');
+  btnOk.disabled = true; btnOk.textContent = '⏳...';
+
+  PALETTE.push({ name, color });
+  const ok = await saveData(); // зберігаємо в GitHub
+
+  btnOk.disabled = false; btnOk.textContent = '✅ Dodaj';
+
+  if (!ok) {
+    PALETTE.pop(); // відкатуємо якщо помилка
+    showToast('❌ Błąd zapisu. Sprawdź token', 'error');
+    return;
+  }
+
+  closeCustomColor();
+  showToast(`✅ Kolor "${name}" dodany`, 'success');
+
+  if (_customTarget) {
+    const { paletteId, colorsListId } = _customTarget;
+    const cur = getColorsFromList(colorsListId);
+    renderPalette(paletteId, colorsListId, cur);
+    addColorEntry(colorsListId, name, color);
+    const idx = PALETTE.length - 1;
+    document.querySelector(`#${paletteId} .palette-btn[data-index="${idx}"]`)?.classList.add('selected');
+  }
+}
+
 
   // ── Helpers: read tolerances ──────────────────
   function readTol(prefix) {
