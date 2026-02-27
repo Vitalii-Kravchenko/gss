@@ -238,11 +238,11 @@
     <div class="section-divider">Dane podstawowe</div>
     <div class="form-group">
       <label>Dziesięciocyfrówka</label>
-      <input type="text" id="fNum" placeholder="np. 1402291079" autocomplete="off"/>
+      <input type="text" id="fNum" placeholder="1402291079" autocomplete="off"/>
     </div>
     <div class="form-group">
       <label>Średnica (mm)</label>
-      <input type="number" id="fDiam" step="0.001" placeholder="np. 111.022"/>
+      <input type="number" id="fDiam" step="0.001" placeholder="111.022"/>
     </div>
 
     <div class="section-divider">Wartość dla kątów</div>
@@ -255,7 +255,7 @@
     <div class="section-divider">Tolerancje</div>
     <div class="form-group">
       <label>Tolerancja grubości (mm)</label>
-      <input type="number" id="fTgDo" step="0.001" placeholder="np. -0.012"/>
+      <input type="number" id="fTgDo" step="0.001" placeholder="-0.012"/>
     </div>
     <div class="form-group">
       <label>Tolerancja współśrodkowości (mm)</label>
@@ -297,40 +297,39 @@
     <div class="section-divider">Dane podstawowe</div>
     <div class="form-group">
       <label>Dziesięciocyfrówka</label>
-      <input type="text" id="eNum" autocomplete="off"/>
+      <input type="text" id="eNum" autocomplete="off" placeholder="1402291079"/>
     </div>
     <div class="form-group">
       <label>Średnica (mm)</label>
-      <input type="number" id="eDiam" step="0.001"/>
+      <input type="number" id="eDiam" step="0.001" placeholder="111.022"/>
     </div>
 
     <div class="section-divider">Wartość dla kątów</div>
     <div class="prices-row">
-      <div class="form-group"><label>20°</label><input type="number" id="eP20" step="0.1" min="0" max="99"/></div>
-      <div class="form-group"><label>25°</label><input type="number" id="eP25" step="0.1" min="0" max="99"/></div>
-      <div class="form-group"><label>30°</label><input type="number" id="eP30" step="0.1" min="0" max="99"/></div>
+      <div class="form-group"><label>20°</label><input type="number" id="eP20" step="0.1" min="0" max="99" placeholder="0.0"/></div>
+      <div class="form-group"><label>25°</label><input type="number" id="eP25" step="0.1" min="0" max="99" placeholder="0.0"/></div>
+      <div class="form-group"><label>30°</label><input type="number" id="eP30" step="0.1" min="0" max="99" placeholder="0.0"/></div>
     </div>
 
     <div class="section-divider">Tolerancje</div>
     <div class="form-group">
       <label>Tolerancja grubości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="number" id="eTgOd" step="0.001"/></div>
-        <div class="form-group"><label>Do</label><input type="number" id="eTgDo" step="0.001"/></div>
+        <div class="form-group"><label>Do</label><input type="number" id="eTgDo" step="0.001" placeholder="-0.012"/></div>
       </div>
     </div>
     <div class="form-group">
       <label>Tolerancja współśrodkowości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="number" id="eTwOd" step="0.001"/></div>
-        <div class="form-group"><label>Do</label><input type="number" id="eTwDo" step="0.001"/></div>
+        <div class="form-group"><label>Od</label><input type="number" id="eTwOd" step="0.001" placeholder="0.000"/></div>
+        <div class="form-group"><label>Do</label><input type="number" id="eTwDo" step="0.001" placeholder="-0.010"/></div>
       </div>
     </div>
     <div class="form-group">
       <label>Tolerancja wysokości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="number" id="eTyOd" step="0.001"/></div>
-        <div class="form-group"><label>Do</label><input type="number" id="eTyDo" step="0.001"/></div>
+        <div class="form-group"><label>Od</label><input type="number" id="eTyOd" step="0.001" placeholder="+0.100"/></div>
+        <div class="form-group"><label>Do</label><input type="number" id="eTyDo" step="0.001" placeholder="+0.135"/></div>
       </div>
     </div>
 
