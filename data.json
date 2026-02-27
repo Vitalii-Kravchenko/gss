@@ -1,6 +1,10 @@
 {
   "_palette": [
     {
+      "name": "STD",
+      "color": "#888888"
+    },
+    {
       "name": "Czarny",
       "color": "#2d2d2d"
     },
@@ -24,10 +28,6 @@
       "name": "Fioletowy",
       "color": "#a855f7"
     },
-    {
-      "name": "STD",
-      "color": "#888888"
-    }
   ],
   "GSS 1": {},
   "GSS 2": {},
