@@ -55,11 +55,6 @@
           "name": "STD",
           "color": "#888888",
           "thickness": 3.474
-        },
-        {
-          "name": "Tttty",
-          "color": "#f5ec00",
-          "thickness": 5535
         }
       ]
     },
