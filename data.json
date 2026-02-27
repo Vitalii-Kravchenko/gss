@@ -57,6 +57,44 @@
           "thickness": 3.474
         }
       ]
+    },
+    "14482X2058": {
+      "diameter": 99.03,
+      "prices": [
+        19.2,
+        23,
+        27.5
+      ],
+      "tolerancje": {
+        "grubosc": {
+          "do": -0.009
+        },
+        "wspolsrodkowosc": {
+          "od": -0.005,
+          "do": -0.015
+        },
+        "wysokosc": {
+          "od": 0.1,
+          "do": 0.14
+        }
+      },
+      "colors": [
+        {
+          "name": "Żółty",
+          "color": "#eab308",
+          "thickness": 2.995
+        },
+        {
+          "name": "Zielony",
+          "color": "#22c55e",
+          "thickness": 2.984
+        },
+        {
+          "name": "Czerwony",
+          "color": "#ef4444",
+          "thickness": 2.974
+        }
+      ]
     }
   },
   "GSS 2": {},
