@@ -617,12 +617,12 @@ function closeCustomColor() {
   document.getElementById('customColorOverlay').classList.remove('open');
   _customTarget = null;
 }
-  async function confirmCustomColor() {
+
+async function confirmCustomColor() {
   const name  = document.getElementById('customColorName').value.trim();
   const color = document.getElementById('customColorPicker').value;
   if (!name) { showToast('⚠️ Podaj nazwę koloru', 'error'); return; }
 
-  // перевіряємо чи вже існує
   if (PALETTE.some(p => p.name.toLowerCase() === name.toLowerCase())) {
     showToast('⚠️ Taki kolor już istnieje', 'error'); return;
   }
@@ -631,28 +631,51 @@ function closeCustomColor() {
   btnOk.disabled = true; btnOk.textContent = '⏳...';
 
   PALETTE.push({ name, color });
-  const ok = await saveData(); // зберігаємо в GitHub
+  const ok = await saveData();
 
   btnOk.disabled = false; btnOk.textContent = '✅ Dodaj';
 
   if (!ok) {
-    PALETTE.pop(); // відкатуємо якщо помилка
+    PALETTE.pop();
     showToast('❌ Błąd zapisu. Sprawdź token', 'error');
     return;
   }
 
+  const target = _customTarget;
   closeCustomColor();
   showToast(`✅ Kolor "${name}" dodany`, 'success');
 
-  if (_customTarget) {
-    const { paletteId, colorsListId } = _customTarget;
-    const cur = getColorsFromList(colorsListId);
-    renderPalette(paletteId, colorsListId, cur);
+  if (target) {
+    const { paletteId, colorsListId } = target;
+
+    const currentEntries = [];
+    document.querySelectorAll(`#${colorsListId} .color-entry`).forEach(entry => {
+      currentEntries.push({
+        name:      entry.dataset.colorName,
+        color:     entry.dataset.colorHex,
+        thickness: entry.querySelector('input[type="number"]').value
+      });
+    });
+
+    renderPalette(paletteId, colorsListId, []);
+
+    document.getElementById(colorsListId).innerHTML = '';
+    currentEntries.forEach(e => addColorEntry(colorsListId, e.name, e.color, e.thickness));
+
+    currentEntries.forEach(e => {
+      PALETTE.forEach((p, i) => {
+        if (p.name === e.name) {
+          document.querySelector(`#${paletteId} .palette-btn[data-index="${i}"]`)?.classList.add('selected');
+        }
+      });
+    });
+
     addColorEntry(colorsListId, name, color);
     const idx = PALETTE.length - 1;
     document.querySelector(`#${paletteId} .palette-btn[data-index="${idx}"]`)?.classList.add('selected');
   }
 }
+
 
 
   // ── Helpers: read tolerances ──────────────────
