@@ -29,39 +29,63 @@
       "color": "#a855f7"
     }
   ],
-  "GSS 1": {},
-  "GSS 2": {},
-  "GSS 3": {
-    "14132X2058": {
-      "diameter": 117.022,
+  "GSS 1": {
+    "1402291079": {
+      "diameter": 111.022,
       "prices": [
-        8.7,
-        13.8,
-        18.7
+        13,
+        17.5,
+        22
       ],
       "tolerancje": {
         "grubosc": {
-          "do": -0.011
+          "do": -0.012
         },
         "wspolsrodkowosc": {
-          "od": -0.005,
-          "do": -0.015
+          "od": 0,
+          "do": -0.01
         },
         "wysokosc": {
-          "od": 0.17,
-          "do": 0.21
+          "od": 0.1,
+          "do": 0.135
         }
       },
       "colors": [
         {
-          "name": "Czerwony",
-          "color": "#ef4444",
-          "thickness": 2.478
+          "name": "STD",
+          "color": "#888888",
+          "thickness": 3.474
+        }
+      ]
+    }
+  },
+  "GSS 2": {},
+  "GSS 3": {
+    "1": {
+      "diameter": 1,
+      "prices": [
+        1,
+        1,
+        1
+      ],
+      "tolerancje": {
+        "grubosc": {
+          "do": 1
         },
+        "wspolsrodkowosc": {
+          "od": 1,
+          "do": 11
+        },
+        "wysokosc": {
+          "od": 1,
+          "do": 1
+        }
+      },
+      "colors": [
         {
-          "name": "Niebieski",
-          "color": "#3b82f6",
-          "thickness": 2.467
+          "name": "Żółty",
+          "color": "#eab308",
+          "thickness": 54
         }
       ]
     }
