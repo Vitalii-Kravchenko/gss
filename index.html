@@ -273,20 +273,6 @@
     </div>
 
     <div class="section-divider">Selekcje i grubości</div>
-    <div style="display:flex;gap:8px;margin-bottom:10px;">
-  <button type="button" class="palette-btn-add"
-          style="flex:1;flex-direction:row;justify-content:center;gap:6px;padding:10px;"
-          onclick="openCustomColor('fPalette','fColorsList')">
-    <span style="font-size:1rem;">＋</span><span>Nowa selekcja</span>
-  </button>
-  <button type="button" class="palette-btn-add"
-          style="flex:1;flex-direction:row;justify-content:center;gap:6px;padding:10px;border-color:#dc2626;color:#f87171;"
-          onclick="openDeleteColor()">
-    <span style="font-size:1rem;">🗑️</span><span>Usuń selekcję</span>
-  </button>
-</div>
-
-
     <div class="form-group">
       <label class="colors-editor-label">🎨 Wybierz selekcje</label>
       <div class="color-palette" id="fPalette"></div>
@@ -349,19 +335,6 @@
     </div>
 
     <div class="section-divider">Selekcje i grubości</div>
-    <div style="display:flex;gap:8px;margin-bottom:10px;">
-  <button type="button" class="palette-btn-add"
-          style="flex:1;flex-direction:row;justify-content:center;gap:6px;padding:10px;"
-          onclick="openCustomColor('ePalette','eColorsList')">
-    <span style="font-size:1rem;">＋</span><span>Nowa selekcja</span>
-  </button>
-  <button type="button" class="palette-btn-add"
-          style="flex:1;flex-direction:row;justify-content:center;gap:6px;padding:10px;border-color:#dc2626;color:#f87171;"
-          onclick="openDeleteColor()">
-    <span style="font-size:1rem;">🗑️</span><span>Usuń selekcję</span>
-  </button>
-</div>
-
 
     <div class="form-group">
       <label class="colors-editor-label">🎨 Wybierz selekcje</label>
@@ -618,6 +591,15 @@
     addBtn.innerHTML = `<span class="palette-add-icon">＋</span><span>Nowy</span>`;
     addBtn.addEventListener('click', () => openCustomColor(paletteId, colorsListId));
     container.appendChild(addBtn);
+
+    const delBtn = document.createElement('button');
+    delBtn.type = 'button';
+    delBtn.className = 'palette-btn-add';
+    delBtn.style.cssText = 'border-color:#7f1d1d;color:#f87171;';
+    delBtn.innerHTML = `<span style="font-size:1.2rem;line-height:22px;">🗑️</span><span>Usuń</span>`;
+    delBtn.addEventListener('click', () => openDeleteColor());
+    container.appendChild(delBtn);
+
   }
 
   function togglePaletteColor(index, paletteId, colorsListId) {
