@@ -54,9 +54,9 @@
       },
       "colors": [
         {
-          "name": "123",
-          "color": "#b406c1",
-          "thickness": 1
+          "name": "Żółty",
+          "color": "#eab308",
+          "thickness": 54
         }
       ]
     }
