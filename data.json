@@ -1,110 +1,13 @@
 {
-  "GSS 1": {
-    "1402291079": {
-      "diameter": 111.022,
-      "prices": [
-        13,
-        17.5,
-        22
-      ],
-      "colors": [
-        {
-          "color": "#888888",
-          "name": "STD",
-          "thickness": 3.474
-        }
-      ]
-    },
-    "14482X2058": {
-      "diameter": 99.03,
-      "prices": [
-        19.2,
-        23,
-        27.5
-      ],
-      "tolerancje": {
-        "grubosc": {
-          "od": 0,
-          "do": -9
-        },
-        "wspolsrodkowosc": {
-          "od": 5,
-          "do": 15
-        },
-        "wysokosc": {
-          "od": 100,
-          "do": 140
-        }
-      },
-      "colors": [
-        {
-          "name": "Żółty",
-          "color": "#fff000",
-          "thickness": 2.995
-        },
-        {
-          "name": "Zielony",
-          "color": "#00ff00",
-          "thickness": 2.984
-        },
-        {
-          "name": "Czerwony",
-          "color": "#ff0000",
-          "thickness": 2.974
-        }
-      ]
-    }
-  },
+  "_palette": [
+    { "name": "Czarny",    "color": "#2d2d2d" },
+    { "name": "Zielony",   "color": "#22c55e" },
+    { "name": "Żółty",     "color": "#eab308" },
+    { "name": "Niebieski", "color": "#3b82f6" },
+    { "name": "Czerwony",  "color": "#ef4444" },
+    { "name": "Fioletowy", "color": "#a855f7" }
+  ],
+  "GSS 1": {},
   "GSS 2": {},
-  "GSS 3": {
-    "1111111": {
-      "diameter": 11,
-      "prices": [
-        1,
-        1,
-        1
-      ],
-      "tolerancje": {
-        "grubosc": {
-          "od": 1,
-          "do": 1
-        },
-        "wspolsrodkowosc": {
-          "od": 1,
-          "do": 1
-        },
-        "wysokosc": {
-          "od": 2,
-          "do": 1
-        }
-      },
-      "colors": [
-        {
-          "name": "Czarny",
-          "color": "#2d2d2d",
-          "thickness": 354
-        }
-      ]
-    },
-    "14132X2058": {
-      "diameter": 117.022,
-      "prices": [
-        8.7,
-        13.8,
-        18.7
-      ],
-      "colors": [
-        {
-          "color": "#ff0000",
-          "name": "Czerwony",
-          "thickness": 2.478
-        },
-        {
-          "color": "#0000ff",
-          "name": "Niebieski",
-          "thickness": 2.467
-        }
-      ]
-    }
-  }
+  "GSS 3": {}
 }
