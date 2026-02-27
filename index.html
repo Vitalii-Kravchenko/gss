@@ -588,9 +588,11 @@
     const addBtn = document.createElement('button');
     addBtn.type = 'button';
     addBtn.className = 'palette-btn-add';
+    addBtn.style.cssText = 'border-color:#14532d;color:#4ade80;';
     addBtn.innerHTML = `<span class="palette-add-icon">＋</span><span>Nowy</span>`;
     addBtn.addEventListener('click', () => openCustomColor(paletteId, colorsListId));
     container.appendChild(addBtn);
+
 
     const delBtn = document.createElement('button');
     delBtn.type = 'button';
