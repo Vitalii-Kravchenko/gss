@@ -31,5 +31,39 @@
   ],
   "GSS 1": {},
   "GSS 2": {},
-  "GSS 3": {}
+  "GSS 3": {
+    "14132X2058": {
+      "diameter": 117.022,
+      "prices": [
+        8.7,
+        13.8,
+        18.7
+      ],
+      "tolerancje": {
+        "grubosc": {
+          "do": -0.011
+        },
+        "wspolsrodkowosc": {
+          "od": -0.005,
+          "do": -0.015
+        },
+        "wysokosc": {
+          "od": 0.17,
+          "do": 0.21
+        }
+      },
+      "colors": [
+        {
+          "name": "Czerwony",
+          "color": "#ef4444",
+          "thickness": 2.478
+        },
+        {
+          "name": "Niebieski",
+          "color": "#3b82f6",
+          "thickness": 2.467
+        }
+      ]
+    }
+  }
 }
