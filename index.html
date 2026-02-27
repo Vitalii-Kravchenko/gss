@@ -105,7 +105,7 @@
 
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 300; align-items: center; justify-content: center; padding: 16px; }
   .modal-overlay.open { display: flex; }
-  .modal { background: #1a1b26; border: 1px solid #2e2e3e; border-radius: 18px; padding: 28px 24px; width: 100%; max-width: 440px; animation: fadeIn 0.2s ease; max-height: 90vh; overflow-y: auto; }
+  .modal { position: relative; background: #1a1b26; border: 1px solid #2e2e3e; border-radius: 18px; padding: 28px 24px; width: 100%; max-width: 440px; animation: fadeIn 0.2s ease; max-height: 90vh; overflow-y: auto; }
   .modal h2 { font-size: 1.15rem; color: #fff; margin-bottom: 6px; }
   .modal-machine { font-size: 0.82rem; color: #4e6ef2; margin-bottom: 20px; }
   .form-group { margin-bottom: 14px; }
@@ -136,7 +136,7 @@
 
   .custom-color-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 600; align-items: center; justify-content: center; padding: 16px; }
   .custom-color-overlay.open { display: flex; }
-  .custom-color-box { background: #1a1b26; border: 1px solid #2e2e3e; border-radius: 16px; padding: 24px; width: 100%; max-width: 320px; animation: fadeIn 0.2s ease; }
+  .custom-color-box { position: relative; background: #1a1b26; border: 1px solid #2e2e3e; border-radius: 16px; padding: 24px; width: 100%; max-width: 320px; animation: fadeIn 0.2s ease; }
   .custom-color-box h3 { color: #fff; font-size: 1rem; margin-bottom: 16px; }
   .color-preview-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
   .color-preview-circle { width: 40px; height: 40px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); flex-shrink: 0; }
@@ -158,7 +158,7 @@
 
   .confirm-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 500; align-items: center; justify-content: center; padding: 16px; }
   .confirm-overlay.open { display: flex; }
-  .confirm-box { background: #1a1b26; border: 1px solid #dc2626; border-radius: 16px; padding: 28px 24px; width: 100%; max-width: 360px; text-align: center; animation: fadeIn 0.2s ease; }
+  .confirm-box { position: relative; background: #1a1b26; border: 1px solid #dc2626; border-radius: 16px; padding: 28px 24px; width: 100%; max-width: 360px; text-align: center; animation: fadeIn 0.2s ease; }
   .confirm-box h3 { color: #f87171; font-size: 1.1rem; margin-bottom: 10px; }
   .confirm-box p  { color: #aaa; font-size: 0.9rem; margin-bottom: 22px; }
   .confirm-box strong { color: #fff; }
@@ -182,6 +182,18 @@
 .delete-color-item.selected { border-color: #dc2626; background: #2a1010; }
 .delete-color-item-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); flex-shrink: 0; }
 .delete-color-item-name { font-size: 0.9rem; color: #ccc; flex: 1; }
+
+    .modal-close-btn {
+  position: absolute; top: 16px; right: 16px;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1.5px solid #2e2e3e; background: #12131d;
+  color: #aaa; font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  z-index: 10; flex-shrink: 0;
+}
+.modal-close-btn:active { background: #2e2e3e; color: #fff; transform: scale(0.93); }
+
 
   </style>
 </head>
@@ -219,6 +231,7 @@
 <!-- ═══════════════ ADD MODAL ═══════════════ -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
+    <button class="modal-close-btn" onclick="closeModal()">✕</button>
     <h2>➕ Nowa panewka</h2>
     <p class="modal-machine" id="modalMachineName"></p>
 
@@ -282,6 +295,7 @@
 <!-- ═══════════════ EDIT MODAL ═══════════════ -->
 <div class="modal-overlay" id="editModalOverlay">
   <div class="modal">
+    <button class="modal-close-btn" onclick="closeModal()">✕</button>
     <h2>✏️ Edycja</h2>
     <p class="modal-machine" id="editModalMachine"></p>
     <input type="hidden" id="eOrigNum"/>
@@ -349,6 +363,7 @@
 <!-- ═══════════════ DELETE CONFIRM ═══════════════ -->
 <div class="confirm-overlay" id="confirmOverlay">
   <div class="confirm-box">
+    <button class="modal-close-btn" onclick="closeConfirm()">✕</button>
     <h3>🗑️ Usunąć wpis?</h3>
     <p>Numer <strong id="confirmNum"></strong> zostanie usunięty z <strong id="confirmMachine"></strong>. Tej operacji nie można cofnąć.</p>
     <div class="confirm-actions">
@@ -361,6 +376,7 @@
 <!-- ═══════════════ CUSTOM COLOR MODAL ═══════════════ -->
   <div class="custom-color-overlay" id="deleteColorOverlay">
   <div class="custom-color-box" style="max-width:360px;">
+    <button class="modal-close-btn" onclick="closeDeleteColor()">✕</button>
     <h3>🗑️ Usuń selekcję</h3>
     <p style="color:#8a8aaa;font-size:0.85rem;margin-bottom:14px;">Wybierz selekcję do usunięcia:</p>
     <div id="deleteColorList" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto;margin-bottom:16px;"></div>
@@ -374,6 +390,7 @@
 </div>
 <div class="custom-color-overlay" id="customColorOverlay">
   <div class="custom-color-box">
+    <button class="modal-close-btn" onclick="closeCustomColor()">✕</button>
     <h3>➕ Nowa selekcja</h3>
     <div class="color-preview-row">
       <div class="color-preview-circle" id="customColorPreview" style="background:#888888"></div>
@@ -988,11 +1005,6 @@ async function confirmDeleteColor() {
     if (!document.getElementById('searchWrap').contains(e.target))
       document.getElementById('dropdown').innerHTML = '';
   });
-  document.getElementById('modalOverlay').addEventListener('click',       function(e) { if (e.target===this) closeModal(); });
-  document.getElementById('editModalOverlay').addEventListener('click',   function(e) { if (e.target===this) closeEditModal(); });
-  document.getElementById('confirmOverlay').addEventListener('click',     function(e) { if (e.target===this) closeConfirm(); });
-  document.getElementById('customColorOverlay').addEventListener('click', function(e) { if (e.target===this) closeCustomColor(); });
-  document.getElementById('deleteColorOverlay').addEventListener('click', function(e) { if (e.target===this) closeDeleteColor(); });
 
 
   // ── Init ──────────────────────────────────────
