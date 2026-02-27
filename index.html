@@ -172,6 +172,17 @@
   .toast.show    { opacity: 1; }
   .toast.success { border-color: #10b981; color: #10b981; }
   .toast.error   { border-color: #e05252; color: #e05252; }
+    .delete-color-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 10px;
+  border: 2px solid #2e2e3e; background: #12131d;
+  cursor: pointer; transition: border-color 0.15s;
+}
+.delete-color-item:active { transform: scale(0.97); }
+.delete-color-item.selected { border-color: #dc2626; background: #2a1010; }
+.delete-color-item-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); flex-shrink: 0; }
+.delete-color-item-name { font-size: 0.9rem; color: #ccc; flex: 1; }
+
   </style>
 </head>
 <body>
@@ -249,6 +260,12 @@
     </div>
 
     <div class="section-divider">Selekcje i grubości</div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+  <button type="button" class="btn-delete"
+          style="padding:7px 14px;font-size:0.8rem;border-radius:8px;"
+          onclick="openDeleteColor()">🗑️ Usuń selekcję</button>
+</div>
+
     <div class="form-group">
       <label class="colors-editor-label">🎨 Wybierz selekcje</label>
       <div class="color-palette" id="fPalette"></div>
@@ -310,6 +327,12 @@
     </div>
 
     <div class="section-divider">Selekcje i grubości</div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+  <button type="button" class="btn-delete"
+          style="padding:7px 14px;font-size:0.8rem;border-radius:8px;"
+          onclick="openDeleteColor()">🗑️ Usuń selekcję</button>
+</div>
+
     <div class="form-group">
       <label class="colors-editor-label">🎨 Wybierz selekcje</label>
       <div class="color-palette" id="ePalette"></div>
@@ -336,6 +359,19 @@
 </div>
 
 <!-- ═══════════════ CUSTOM COLOR MODAL ═══════════════ -->
+  <div class="custom-color-overlay" id="deleteColorOverlay">
+  <div class="custom-color-box" style="max-width:360px;">
+    <h3>🗑️ Usuń selekcję</h3>
+    <p style="color:#8a8aaa;font-size:0.85rem;margin-bottom:14px;">Wybierz selekcję do usunięcia:</p>
+    <div id="deleteColorList" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto;margin-bottom:16px;"></div>
+    <div class="custom-color-actions">
+      <button class="btn-custom-cancel" onclick="closeDeleteColor()">Anuluj</button>
+      <button class="btn-custom-ok" id="btnConfirmDeleteColor"
+              onclick="confirmDeleteColor()"
+              style="background:#dc2626;" disabled>🗑️ Usuń</button>
+    </div>
+  </div>
+</div>
 <div class="custom-color-overlay" id="customColorOverlay">
   <div class="custom-color-box">
     <h3>➕ Nowa selekcja</h3>
@@ -676,6 +712,93 @@ async function confirmCustomColor() {
   }
 }
 
+// ── Delete color from palette ─────────────────
+let _selectedColorToDelete = null;
+
+function openDeleteColor() {
+  _selectedColorToDelete = null;
+  const list = document.getElementById('deleteColorList');
+  list.innerHTML = '';
+
+  if (!PALETTE.length) {
+    list.innerHTML = '<p style="color:#555;text-align:center;font-size:0.85rem;">Brak selekcji do usunięcia</p>';
+  } else {
+    PALETTE.forEach((p, i) => {
+      const item = document.createElement('div');
+      item.className = 'delete-color-item';
+      item.dataset.index = i;
+      item.innerHTML = `
+        <div class="delete-color-item-dot" style="background:${p.color}"></div>
+        <div class="delete-color-item-name">${p.name}</div>
+      `;
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.delete-color-item').forEach(el => el.classList.remove('selected'));
+        item.classList.add('selected');
+        _selectedColorToDelete = i;
+        document.getElementById('btnConfirmDeleteColor').disabled = false;
+      });
+      list.appendChild(item);
+    });
+  }
+
+  document.getElementById('btnConfirmDeleteColor').disabled = true;
+  document.getElementById('deleteColorOverlay').classList.add('open');
+}
+
+function closeDeleteColor() {
+  document.getElementById('deleteColorOverlay').classList.remove('open');
+  _selectedColorToDelete = null;
+}
+
+async function confirmDeleteColor() {
+  if (_selectedColorToDelete === null) return;
+
+  const btnDel = document.getElementById('btnConfirmDeleteColor');
+  btnDel.disabled = true; btnDel.textContent = '⏳...';
+
+  const removed = PALETTE.splice(_selectedColorToDelete, 1)[0];
+  const ok = await saveData();
+
+  btnDel.disabled = false; btnDel.textContent = '🗑️ Usuń';
+
+  if (!ok) {
+    PALETTE.splice(_selectedColorToDelete, 0, removed);
+    showToast('❌ Błąd zapisu. Sprawdź token', 'error');
+    return;
+  }
+
+  closeDeleteColor();
+  showToast(`✅ Selekcja "${removed.name}" usunięta`, 'success');
+
+  // оновлюємо палітру в обох відкритих модалях
+  ['fPalette', 'ePalette'].forEach(paletteId => {
+    const el = document.getElementById(paletteId);
+    if (!el) return;
+    const colorsListId = paletteId === 'fPalette' ? 'fColorsList' : 'eColorsList';
+
+    // зберігаємо поточні записи
+    const currentEntries = [];
+    document.querySelectorAll(`#${colorsListId} .color-entry`).forEach(entry => {
+      if (entry.dataset.colorName !== removed.name) {
+        currentEntries.push({
+          name:      entry.dataset.colorName,
+          color:     entry.dataset.colorHex,
+          thickness: entry.querySelector('input[type="number"]').value
+        });
+      }
+    });
+
+    renderPalette(paletteId, colorsListId, []);
+    document.getElementById(colorsListId).innerHTML = '';
+    currentEntries.forEach(e => addColorEntry(colorsListId, e.name, e.color, e.thickness));
+    currentEntries.forEach(e => {
+      PALETTE.forEach((p, i) => {
+        if (p.name === e.name)
+          document.querySelector(`#${paletteId} .palette-btn[data-index="${i}"]`)?.classList.add('selected');
+      });
+    });
+  });
+}
 
 
   // ── Helpers: read tolerances ──────────────────
@@ -869,6 +992,8 @@ async function confirmCustomColor() {
   document.getElementById('editModalOverlay').addEventListener('click',   function(e) { if (e.target===this) closeEditModal(); });
   document.getElementById('confirmOverlay').addEventListener('click',     function(e) { if (e.target===this) closeConfirm(); });
   document.getElementById('customColorOverlay').addEventListener('click', function(e) { if (e.target===this) closeCustomColor(); });
+  document.getElementById('deleteColorOverlay').addEventListener('click', function(e) { if (e.target===this) closeDeleteColor(); });
+
 
   // ── Init ──────────────────────────────────────
   if (localStorage.getItem('gss_token')) {
