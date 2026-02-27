@@ -605,6 +605,18 @@
   }
 
   // ── Custom color ──────────────────────────────
+  function openCustomColor(paletteId, colorsListId) {
+  _customTarget = { paletteId, colorsListId };
+  document.getElementById('customColorName').value = '';
+  document.getElementById('customColorPicker').value = '#888888';
+  document.getElementById('customColorPreview').style.background = '#888888';
+  document.getElementById('customColorOverlay').classList.add('open');
+}
+
+function closeCustomColor() {
+  document.getElementById('customColorOverlay').classList.remove('open');
+  _customTarget = null;
+}
   async function confirmCustomColor() {
   const name  = document.getElementById('customColorName').value.trim();
   const color = document.getElementById('customColorPicker').value;
