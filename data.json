@@ -31,34 +31,5 @@
   ],
   "GSS 1": {},
   "GSS 2": {},
-  "GSS 3": {
-    "1": {
-      "diameter": 1,
-      "prices": [
-        1,
-        1,
-        1
-      ],
-      "tolerancje": {
-        "grubosc": {
-          "do": 1
-        },
-        "wspolsrodkowosc": {
-          "od": 1,
-          "do": 11
-        },
-        "wysokosc": {
-          "od": 1,
-          "do": 1
-        }
-      },
-      "colors": [
-        {
-          "name": "Żółty",
-          "color": "#eab308",
-          "thickness": 54
-        }
-      ]
-    }
-  }
+  "GSS 3": {}
 }
