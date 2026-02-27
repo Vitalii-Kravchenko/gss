@@ -231,10 +231,7 @@
     <div class="section-divider">Tolerancje</div>
     <div class="form-group">
       <label>Tolerancja grubości (mm)</label>
-      <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="number" id="fTgOd" step="0.001" placeholder="-0.010"/></div>
-        <div class="form-group"><label>Do</label><input type="number" id="fTgDo" step="0.001" placeholder="+0.010"/></div>
-      </div>
+      <input type="number" id="fTgDo" step="0.001" placeholder="np. 0.010"/>
     </div>
     <div class="form-group">
       <label>Tolerancja współśrodkowości (mm)</label>
@@ -480,7 +477,7 @@
     const fmt = (v) => v !== undefined && v !== '' ? v : '—';
     const tolHTML = `
       <div class="info-row">
-        <div class="info-pill">Tol. grubości<span>${tol.grubosc ? fmt(tol.grubosc.od)+' / '+fmt(tol.grubosc.do)+' mm' : '—'}</span></div>
+        <div class="info-pill">Tol. grubości<span>${tol.grubosc ? fmt(tol.grubosc.do)+' mm' : '—'}</span></div>
         <div class="info-pill">Tol. wsp.środ.<span>${tol.wspolsrodkowosc ? fmt(tol.wspolsrodkowosc.od)+' / '+fmt(tol.wspolsrodkowosc.do)+' mm' : '—'}</span></div>
         <div class="info-pill">Tol. wysokości<span>${tol.wysokosc ? fmt(tol.wysokosc.od)+' / '+fmt(tol.wysokosc.do)+' mm' : '—'}</span></div>
       </div>`;
@@ -620,32 +617,36 @@
 
   // ── Helpers: read tolerances ──────────────────
   function readTol(prefix) {
-    return {
-      grubosc:          { od: parseFloat(document.getElementById(`${prefix}TgOd`).value), do: parseFloat(document.getElementById(`${prefix}TgDo`).value) },
-      wspolsrodkowosc:  { od: parseFloat(document.getElementById(`${prefix}TwOd`).value), do: parseFloat(document.getElementById(`${prefix}TwDo`).value) },
-      wysokosc:         { od: parseFloat(document.getElementById(`${prefix}TyOd`).value), do: parseFloat(document.getElementById(`${prefix}TyDo`).value) },
-    };
-  }
+  return {
+    grubosc:         { do: parseFloat(document.getElementById(`${prefix}TgDo`).value) },
+    wspolsrodkowosc: { od: parseFloat(document.getElementById(`${prefix}TwOd`).value), do: parseFloat(document.getElementById(`${prefix}TwDo`).value) },
+    wysokosc:        { od: parseFloat(document.getElementById(`${prefix}TyOd`).value), do: parseFloat(document.getElementById(`${prefix}TyDo`).value) },
+  };
+}
+
   function tolValid(t) {
-    return !Object.values(t).some(v => isNaN(v.od) || isNaN(v.do));
-  }
+  return !isNaN(t.grubosc.do) &&
+         !isNaN(t.wspolsrodkowosc.od) && !isNaN(t.wspolsrodkowosc.do) &&
+         !isNaN(t.wysokosc.od)        && !isNaN(t.wysokosc.do);
+}
+
   function fillTol(prefix, tol) {
-    const t = tol || {};
-    document.getElementById(`${prefix}TgOd`).value = t.grubosc?.od         ?? '';
-    document.getElementById(`${prefix}TgDo`).value = t.grubosc?.do         ?? '';
-    document.getElementById(`${prefix}TwOd`).value = t.wspolsrodkowosc?.od ?? '';
-    document.getElementById(`${prefix}TwDo`).value = t.wspolsrodkowosc?.do ?? '';
-    document.getElementById(`${prefix}TyOd`).value = t.wysokosc?.od        ?? '';
-    document.getElementById(`${prefix}TyDo`).value = t.wysokosc?.do        ?? '';
-  }
+  const t = tol || {};
+  document.getElementById(`${prefix}TgDo`).value = t.grubosc?.do         ?? '';
+  document.getElementById(`${prefix}TwOd`).value = t.wspolsrodkowosc?.od ?? '';
+  document.getElementById(`${prefix}TwDo`).value = t.wspolsrodkowosc?.do ?? '';
+  document.getElementById(`${prefix}TyOd`).value = t.wysokosc?.od        ?? '';
+  document.getElementById(`${prefix}TyDo`).value = t.wysokosc?.do        ?? '';
+}
+
 
   // ── Add Modal ─────────────────────────────────
   function openModal() {
     if (!currentMachine) { showToast('⚠️ Najpierw wybierz maszynę', 'error'); return; }
     if (!token)          { showToast('⚠️ Wprowadź token w ustawieniach ⚙️', 'error'); return; }
     document.getElementById('modalMachineName').textContent = currentMachine;
-    ['fNum','fDiam','fP20','fP25','fP30','fTgOd','fTgDo','fTwOd','fTwDo','fTyOd','fTyDo']
-      .forEach(id => document.getElementById(id).value = '');
+    ['fNum','fDiam','fP20','fP25','fP30','fTgDo','fTwOd','fTwDo','fTyOd','fTyDo']
+  .forEach(id => document.getElementById(id).value = '');
     document.getElementById('fColorsList').innerHTML = '';
     renderPalette('fPalette', 'fColorsList', []);
     document.getElementById('modalOverlay').classList.add('open');
