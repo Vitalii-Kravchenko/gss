@@ -58,6 +58,34 @@
         }
       ]
     },
+    "1414101058": {
+      "diameter": 85.522,
+      "prices": [
+        24.3,
+        27.9,
+        31.7
+      ],
+      "tolerancje": {
+        "grubosc": {
+          "do": -0.011
+        },
+        "wspolsrodkowosc": {
+          "od": -0.015,
+          "do": -0.025
+        },
+        "wysokosc": {
+          "od": 0.12,
+          "do": 0.155
+        }
+      },
+      "colors": [
+        {
+          "name": "STD",
+          "color": "#888888",
+          "thickness": 2.231
+        }
+      ]
+    },
     "14482X2058": {
       "diameter": 99.03,
       "prices": [
