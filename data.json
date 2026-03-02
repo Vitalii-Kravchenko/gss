@@ -123,6 +123,44 @@
           "thickness": 2.974
         }
       ]
+    },
+    "18011X2032": {
+      "diameter": 100.03,
+      "prices": [
+        17.2,
+        21.5,
+        25.8
+      ],
+      "tolerancje": {
+        "grubosc": {
+          "do": -0.01
+        },
+        "wspolsrodkowosc": {
+          "od": -0.012,
+          "do": -0.02
+        },
+        "wysokosc": {
+          "od": 0.135,
+          "do": 0.18
+        }
+      },
+      "colors": [
+        {
+          "name": "Żółty",
+          "color": "#eab308",
+          "thickness": 1.99
+        },
+        {
+          "name": "Zielony",
+          "color": "#22c55e",
+          "thickness": 1.98
+        },
+        {
+          "name": "Czerwony",
+          "color": "#ef4444",
+          "thickness": 1.97
+        }
+      ]
     }
   },
   "GSS 2": {},
