@@ -717,7 +717,7 @@ async function confirmCustomColor() {
       currentEntries.push({
         name:      entry.dataset.colorName,
         color:     entry.dataset.colorHex,
-        thickness: entry.querySelector('input[type="number"]').value
+        thickness: entry.querySelector('input').value
       });
     });
 
@@ -811,7 +811,7 @@ async function confirmDeleteColor() {
         currentEntries.push({
           name:      entry.dataset.colorName,
           color:     entry.dataset.colorHex,
-          thickness: entry.querySelector('input[type="number"]').value
+          thickness: entry.querySelector('input').value
         });
       }
     });
