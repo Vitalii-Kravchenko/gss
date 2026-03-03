@@ -98,15 +98,15 @@
       ],
       "tolerancje": {
         "grubosc": {
-          "do": -0.012
+          "do": "-0.012"
         },
         "wspolsrodkowosc": {
-          "od": -0.01,
-          "do": -0.02
+          "od": "-0.010",
+          "do": "-0.020"
         },
         "wysokosc": {
-          "od": 0.17,
-          "do": 0.21
+          "od": "0.170",
+          "do": "0.210"
         }
       },
       "colors": [
