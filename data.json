@@ -163,7 +163,36 @@
       ]
     }
   },
-  "GSS 2": {},
+  "GSS 2": {
+    "1377201039": {
+      "diameter": 123.135,
+      "prices": [
+        6.1,
+        11.4,
+        16.7
+      ],
+      "tolerancje": {
+        "grubosc": {
+          "do": -0.012
+        },
+        "wspolsrodkowosc": {
+          "od": 0,
+          "do": -0.01
+        },
+        "wysokosc": {
+          "od": 0.08,
+          "do": 0.12
+        }
+      },
+      "colors": [
+        {
+          "name": "STD",
+          "color": "#888888",
+          "thickness": 2.52
+        }
+      ]
+    }
+  },
   "GSS 3": {
     "1": {
       "diameter": 1,
