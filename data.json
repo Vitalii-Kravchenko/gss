@@ -1,231 +1,119 @@
 {
-  "_palette": [
-    {
-      "name": "STD",
-      "color": "#888888"
-    },
-    {
-      "name": "Czarny",
-      "color": "#2d2d2d"
-    },
-    {
-      "name": "Żółty",
-      "color": "#eab308"
-    },
-    {
-      "name": "Zielony",
-      "color": "#22c55e"
-    },
-    {
-      "name": "Czerwony",
-      "color": "#ef4444"
-    },
-    {
-      "name": "Niebieski",
-      "color": "#3b82f6"
-    },
-    {
-      "name": "Fioletowy",
-      "color": "#a855f7"
-    }
+  "palette": [
+    { "name": "STD",      "color": "#888888" },
+    { "name": "Czarny",   "color": "#2d2d2d" },
+    { "name": "Żółty",    "color": "#eab308" },
+    { "name": "Zielony",  "color": "#22c55e" },
+    { "name": "Czerwony", "color": "#ef4444" },
+    { "name": "Niebieski","color": "#3b82f6" },
+    { "name": "Fioletowy","color": "#a855f7" }
   ],
-  "GSS 1": {
+  "entries": {
     "1402291079": {
       "diameter": 111.022,
       "force": 12000,
-      "prices": [
-        13,
-        17.5,
-        22
-      ],
       "tolerancje": {
-        "grubosc": {
-          "do": "-0.012"
-        },
-        "wspolsrodkowosc": {
-          "od": "0.000",
-          "do": "-0.010"
-        },
-        "wysokosc": {
-          "od": "0.100",
-          "do": "0.135"
-        }
+        "grubosc":         { "do": "-0.012" },
+        "wspolsrodkowosc": { "od": "0.000",  "do": "-0.010" },
+        "wysokosc":        { "od": "0.100",  "do": "0.135"  }
       },
       "colors": [
-        {
-          "name": "STD",
-          "color": "#888888",
-          "thickness": 3.474
-        }
-      ]
+        { "name": "STD", "color": "#888888", "thickness": "3.474" }
+      ],
+      "machines": {
+        "GSS 1": { "prices": [13,   17.5, 22]  },
+        "GSS 2": { "prices": [0,    0,    0]   },
+        "GSS 3": { "prices": [0,    0,    0]   }
+      }
     },
     "1414101058": {
       "diameter": 85.522,
       "force": 6500,
-      "prices": [
-        24.3,
-        27.9,
-        31.7
-      ],
       "tolerancje": {
-        "grubosc": {
-          "do": "-0.011"
-        },
-        "wspolsrodkowosc": {
-          "od": "-0.015",
-          "do": "-0.025"
-        },
-        "wysokosc": {
-          "od": "0.120",
-          "do": "0.155"
-        }
+        "grubosc":         { "do": "-0.011" },
+        "wspolsrodkowosc": { "od": "-0.015", "do": "-0.025" },
+        "wysokosc":        { "od": "0.120",  "do": "0.155"  }
       },
       "colors": [
-        {
-          "name": "STD",
-          "color": "#888888",
-          "thickness": 2.231
-        }
-      ]
+        { "name": "STD", "color": "#888888", "thickness": "2.231" }
+      ],
+      "machines": {
+        "GSS 1": { "prices": [24.3, 27.9, 31.7] },
+        "GSS 2": { "prices": [0,    0,    0]     },
+        "GSS 3": { "prices": [0,    0,    0]     }
+      }
     },
     "1484202039": {
       "diameter": 127.025,
       "force": 8500,
-      "prices": [
-        0.4,
-        5.6,
-        11
-      ],
       "tolerancje": {
-        "grubosc": {
-          "do": "-0.012"
-        },
-        "wspolsrodkowosc": {
-          "od": "-0.010",
-          "do": "-0.020"
-        },
-        "wysokosc": {
-          "od": "0.170",
-          "do": "0.210"
-        }
+        "grubosc":         { "do": "-0.012" },
+        "wspolsrodkowosc": { "od": "-0.010", "do": "-0.020" },
+        "wysokosc":        { "od": "0.170",  "do": "0.210"  }
       },
       "colors": [
-        {
-          "name": "STD",
-          "color": "#888888",
-          "thickness": 2.967
-        }
-      ]
+        { "name": "STD", "color": "#888888", "thickness": "2.967" }
+      ],
+      "machines": {
+        "GSS 1": { "prices": [0.4, 5.6, 11] },
+        "GSS 2": { "prices": [0,   0,   0]  },
+        "GSS 3": { "prices": [0,   0,   0]  }
+      }
     },
     "14482X2058": {
       "diameter": 99.03,
       "force": 9500,
-      "prices": [
-        19.2,
-        23,
-        27.5
-      ],
       "tolerancje": {
-        "grubosc": {
-          "do": "-0.009"
-        },
-        "wspolsrodkowosc": {
-          "od": "-0.005",
-          "do": "-0.015"
-        },
-        "wysokosc": {
-          "od": "0.100",
-          "do": "0.140"
-        }
+        "grubosc":         { "do": "-0.009" },
+        "wspolsrodkowosc": { "od": "-0.005", "do": "-0.015" },
+        "wysokosc":        { "od": "0.100",  "do": "0.140"  }
       },
       "colors": [
-        {
-          "name": "Żółty",
-          "color": "#eab308",
-          "thickness": 2.995
-        },
-        {
-          "name": "Zielony",
-          "color": "#22c55e",
-          "thickness": 2.984
-        },
-        {
-          "name": "Czerwony",
-          "color": "#ef4444",
-          "thickness": 2.974
-        }
-      ]
+        { "name": "Żółty",   "color": "#eab308", "thickness": "2.995" },
+        { "name": "Zielony", "color": "#22c55e", "thickness": "2.984" },
+        { "name": "Czerwony","color": "#ef4444", "thickness": "2.974" }
+      ],
+      "machines": {
+        "GSS 1": { "prices": [19.2, 23,   27.5] },
+        "GSS 2": { "prices": [0,    0,    0]    },
+        "GSS 3": { "prices": [0,    0,    0]    }
+      }
     },
     "18011X2032": {
       "diameter": 100.03,
       "force": 8000,
-      "prices": [
-        17.2,
-        21.5,
-        25.8
-      ],
       "tolerancje": {
-        "grubosc": {
-          "do": "-0.010"
-        },
-        "wspolsrodkowosc": {
-          "od": "-0.012",
-          "do": "-0.020"
-        },
-        "wysokosc": {
-          "od": "0.135",
-          "do": "0.180"
-        }
+        "grubosc":         { "do": "-0.010" },
+        "wspolsrodkowosc": { "od": "-0.012", "do": "-0.020" },
+        "wysokosc":        { "od": "0.135",  "do": "0.180"  }
       },
       "colors": [
-        {
-          "name": "Żółty",
-          "color": "#eab308",
-          "thickness": "1.990"
-        },
-        {
-          "name": "Zielony",
-          "color": "#22c55e",
-          "thickness": "1.980"
-        },
-        {
-          "name": "Czerwony",
-          "color": "#ef4444",
-          "thickness": "1.970"
-        }
-      ]
-    }
-  },
-  "GSS 2": {
+        { "name": "Żółty",   "color": "#eab308", "thickness": "1.990" },
+        { "name": "Zielony", "color": "#22c55e", "thickness": "1.980" },
+        { "name": "Czerwony","color": "#ef4444", "thickness": "1.970" }
+      ],
+      "machines": {
+        "GSS 1": { "prices": [17.2, 21.5, 25.8] },
+        "GSS 2": { "prices": [0,    0,    0]     },
+        "GSS 3": { "prices": [0,    0,    0]     }
+      }
+    },
     "1377201039": {
       "diameter": 123.135,
       "force": 9000,
-      "prices": [
-        6.1,
-        11.4,
-        16.7
-      ],
       "tolerancje": {
-        "grubosc": {
-          "do": "-0.012"
-        },
-        "wspolsrodkowosc": {
-          "od": "0.000",
-          "do": "-0.010"
-        },
-        "wysokosc": {
-          "od": "0.080",
-          "do": "0.120"
-        }
+        "grubosc":         { "do": "-0.012" },
+        "wspolsrodkowosc": { "od": "0.000",  "do": "-0.010" },
+        "wysokosc":        { "od": "0.080",  "do": "0.120"  }
       },
       "colors": [
-        {
-          "name": "STD",
-          "color": "#888888",
-          "thickness": 2.52
-        }
-      ]
+        { "name": "STD", "color": "#888888", "thickness": "2.520" }
+      ],
+      "machines": {
+        "GSS 1": { "prices": [0,   0,    0]    },
+        "GSS 2": { "prices": [6.1, 11.4, 16.7] },
+        "GSS 3": { "prices": [0,   0,    0]    }
+      }
     }
-  },
-  "GSS 3": {}
+  }
 }
