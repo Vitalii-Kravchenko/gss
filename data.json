@@ -34,53 +34,6 @@
     }
   ],
   "entries": {
-    "2222": {
-      "diameter": 22,
-      "force": 2,
-      "tolerancje": {
-        "grubosc": {
-          "do": "2"
-        },
-        "wspolsrodkowosc": {
-          "od": "2",
-          "do": "2"
-        },
-        "wysokosc": {
-          "od": "2",
-          "do": "0.175"
-        }
-      },
-      "colors": [
-        {
-          "name": "STD",
-          "color": "#888888",
-          "thickness": "22"
-        }
-      ],
-      "machines": {
-        "GSS 1": {
-          "prices": [
-            0,
-            0,
-            0
-          ]
-        },
-        "GSS 2": {
-          "prices": [
-            0,
-            0,
-            0
-          ]
-        },
-        "GSS 3": {
-          "prices": [
-            2,
-            2,
-            2
-          ]
-        }
-      }
-    },
     "1377201039": {
       "diameter": 123.135,
       "force": 9000,
