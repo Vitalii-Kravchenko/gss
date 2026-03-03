@@ -643,7 +643,7 @@
       </div>
       <div class="color-entry-thick">
         <label>Grubość (mm):</label>
-        <input type="number" step="0.001" placeholder="np. 3.474" value="${thickness}"/>
+        <input type="text" inputmode="decimal" placeholder="np. 3.474" value="${thickness ?? ''}">
       </div>`;
     list.appendChild(div);
   }
@@ -660,10 +660,10 @@
 
   function getColorsFromList(colorsListId) {
     const result = [];
-    for (const entry of document.querySelectorAll(`#${colorsListId} .color-entry`)) {
-      const thickness = parseFloat(entry.querySelector('input[type="number"]').value);
-      if (!entry.dataset.colorName || isNaN(thickness)) return null;
-      result.push({ name: entry.dataset.colorName, color: entry.dataset.colorHex, thickness });
+    for (const entry of document.querySelectorAll(`${colorsListId} .color-entry`)) {
+      const raw = cleanNum(entry.querySelector('input').value);
+      if (!entry.dataset.colorName || raw === '' || isNaN(pf(raw))) return null;
+      result.push({ name: entry.dataset.colorName, color: entry.dataset.colorHex, thickness: raw });
     }
     return result;
   }
