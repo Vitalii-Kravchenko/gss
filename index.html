@@ -245,6 +245,12 @@
       <input type="number" id="fDiam" step="0.001" placeholder="111.022"/>
     </div>
 
+    <div class="form-group">
+      <label>Siła docisku N</label>
+      <input type="number" id="fForce" step="1" placeholder="np. 12000">
+    </div>
+
+
     <div class="section-divider">Wartość dla kątów</div>
     <div class="prices-row">
       <div class="form-group"><label>20°</label><input type="number" id="fP20" step="0.1" min="0" max="99" placeholder="0.0"/></div>
@@ -303,6 +309,12 @@
       <label>Średnica (mm)</label>
       <input type="number" id="eDiam" step="0.001" placeholder="111.022"/>
     </div>
+
+    <div class="form-group">
+      <label>Siła docisku N</label>
+      <input type="number" id="eForce" step="1" placeholder="np. 12000">
+    </div>
+
 
     <div class="section-divider">Wartość dla kątów</div>
     <div class="prices-row">
@@ -559,7 +571,8 @@
         </div>
         <div class="info-row">
           <div class="info-pill">Średnica panewki<span>${item.diameter} mm</span></div>
-        </div>
+          ${item.force != null ? `<div class="info-pill">Siła docisku<span>${item.force} N</span></div>` : ''}
+        </div>`;
         ${colorsHTML}
         ${tolHTML}
         <div class="angles">${anglesHTML}</div>
@@ -847,7 +860,7 @@ async function confirmDeleteColor() {
     if (!currentMachine) { showToast('⚠️ Najpierw wybierz maszynę', 'error'); return; }
     if (!token)          { showToast('⚠️ Wprowadź token w ustawieniach ⚙️', 'error'); return; }
     document.getElementById('modalMachineName').textContent = currentMachine;
-    ['fNum','fDiam','fP20','fP25','fP30','fTgDo','fTwOd','fTwDo','fTyOd','fTyDo']
+    ['fNum','fDiam','fForce','fP20','fP25','fP30','fTgDo','fTwOd','fTwDo','fTyOd','fTyDo']
   .forEach(id => document.getElementById(id).value = '');
     document.getElementById('fColorsList').innerHTML = '';
     renderPalette('fPalette', 'fColorsList', []);
@@ -858,6 +871,7 @@ async function confirmDeleteColor() {
   async function saveEntry() {
     const num    = document.getElementById('fNum').value.trim();
     const diam   = parseFloat(document.getElementById('fDiam').value);
+    const force = parseFloat(document.getElementById('fForce').value);
     const p20    = parseFloat(document.getElementById('fP20').value);
     const p25    = parseFloat(document.getElementById('fP25').value);
     const p30    = parseFloat(document.getElementById('fP30').value);
@@ -873,7 +887,7 @@ async function confirmDeleteColor() {
 
     const btn = document.getElementById('btnSave');
     btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
-    DB[currentMachine][num] = { diameter: diam, prices: [p20,p25,p30], tolerancje: tol, colors };
+    DB[currentMachine][num] = { diameter: diam, force: isNaN(force) ? null : force, prices: [p20,p25,p30], tolerancje: tol, colors };
     const ok = await saveData();
     btn.disabled = false; btn.textContent = '💾 Zapisz';
 
@@ -889,6 +903,7 @@ async function confirmDeleteColor() {
     document.getElementById('eOrigNum').value = id;
     document.getElementById('eNum').value     = id;
     document.getElementById('eDiam').value    = item.diameter;
+    document.getElementById('eForce').value = item.force ?? '';
     document.getElementById('eP20').value     = item.prices[0];
     document.getElementById('eP25').value     = item.prices[1];
     document.getElementById('eP30').value     = item.prices[2];
@@ -914,6 +929,7 @@ async function confirmDeleteColor() {
     const origNum = document.getElementById('eOrigNum').value;
     const newNum  = document.getElementById('eNum').value.trim();
     const diam    = parseFloat(document.getElementById('eDiam').value);
+    const force = parseFloat(document.getElementById('eForce').value);
     const p20     = parseFloat(document.getElementById('eP20').value);
     const p25     = parseFloat(document.getElementById('eP25').value);
     const p30     = parseFloat(document.getElementById('eP30').value);
@@ -931,7 +947,7 @@ async function confirmDeleteColor() {
     btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
     const oldData = { ...DB[currentMachine][origNum] };
     delete DB[currentMachine][origNum];
-    DB[currentMachine][newNum] = { diameter: diam, prices: [p20,p25,p30], tolerancje: tol, colors };
+    DB[currentMachine][newNum] = { diameter: diam, force: isNaN(force) ? null : force, prices: [p20,p25,p30], tolerancje: tol, colors };
     const ok = await saveData();
     btn.disabled = false; btn.textContent = '💾 Zapisz zmiany';
 
