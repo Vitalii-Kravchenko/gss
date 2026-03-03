@@ -660,7 +660,7 @@
 
   function getColorsFromList(colorsListId) {
     const result = [];
-    for (const entry of document.querySelectorAll(`${colorsListId} .color-entry`)) {
+    for (const entry of document.querySelectorAll(`#${colorsListId} .color-entry`)) {
       const raw = cleanNum(entry.querySelector('input').value);
       if (!entry.dataset.colorName || raw === '' || isNaN(pf(raw))) return null;
       result.push({ name: entry.dataset.colorName, color: entry.dataset.colorHex, thickness: raw });
