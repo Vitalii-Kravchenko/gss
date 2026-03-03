@@ -259,20 +259,20 @@
     <div class="section-divider">Tolerancje</div>
     <div class="form-group">
       <label>Tolerancja grubości (mm)</label>
-      <input type="number" id="fTgDo" step="0.001" placeholder="-0.012"/>
+      <input type="text" inputmode="decimal" id="fTgDo" placeholder="-0.012">
     </div>
     <div class="form-group">
       <label>Tolerancja współśrodkowości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="number" id="fTwOd" step="0.001" placeholder="0.000"/></div>
-        <div class="form-group"><label>Do</label><input type="number" id="fTwDo" step="0.001" placeholder="-0.010"/></div>
+        <div class="form-group"><label>Od</label><input type="text" inputmode="decimal" id="fTwOd" placeholder="0.000"></div>
+        <div class="form-group"><label>Do</label><input type="text" inputmode="decimal" id="fTwDo" placeholder="-0.010"></div>
       </div>
     </div>
     <div class="form-group">
       <label>Tolerancja wysokości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="number" id="fTyOd" step="0.001" placeholder="+0.100"/></div>
-        <div class="form-group"><label>Do</label><input type="number" id="fTyDo" step="0.001" placeholder="+0.135"/></div>
+        <div class="form-group"><label>Od</label><input type="text" inputmode="decimal" id="fTyOd" placeholder="0.100"></div>
+        <div class="form-group"><label>Do</label><input type="text" inputmode="decimal" id="fTyDo" placeholder="0.135"></div>
       </div>
     </div>
 
@@ -324,21 +324,21 @@
     <div class="form-group">
       <label>Tolerancja grubości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Do</label><input type="number" id="eTgDo" step="0.001" placeholder="-0.012"/></div>
+        <div class="form-group"><label>Do</label><input type="text" inputmode="decimal" id="eTgDo" placeholder="-0.012"></div>
       </div>
     </div>
     <div class="form-group">
       <label>Tolerancja współśrodkowości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="number" id="eTwOd" step="0.001" placeholder="0.000"/></div>
-        <div class="form-group"><label>Do</label><input type="number" id="eTwDo" step="0.001" placeholder="-0.010"/></div>
+        <div class="form-group"><label>Od</label><input type="text" inputmode="decimal" id="eTwOd" placeholder="0.000"></div>
+        <div class="form-group"><label>Do</label><input type="text" inputmode="decimal" id="eTwDo" placeholder="-0.010"></div>
       </div>
     </div>
     <div class="form-group">
       <label>Tolerancja wysokości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="number" id="eTyOd" step="0.001" placeholder="+0.100"/></div>
-        <div class="form-group"><label>Do</label><input type="number" id="eTyDo" step="0.001" placeholder="+0.135"/></div>
+        <div class="form-group"><label>Od</label><input type="text" inputmode="decimal" id="eTyOd" placeholder="0.100"></div>
+        <div class="form-group"><label>Do</label><input type="text" inputmode="decimal" id="eTyDo" placeholder="0.135"></div>
       </div>
     </div>
 
@@ -418,6 +418,8 @@
   let currentMachine = null;
   let _activePaletteId = null;
   let _customTarget    = null;
+  const pf = v => parseFloat(String(v).replace(',', '.').replace('+', '').trim());
+  const cleanNum = v => String(v).replace(',', '.').replace('+', '').trim();
 
   // ── Config ────────────────────────────────────
   function saveConfig() {
@@ -829,18 +831,20 @@ async function confirmDeleteColor() {
 
   // ── Helpers: read tolerances ──────────────────
   function readTol(prefix) {
+  const c = id => cleanNum(document.getElementById(id).value);
   return {
-    grubosc:         { do: parseFloat(document.getElementById(`${prefix}TgDo`).value) },
-    wspolsrodkowosc: { od: parseFloat(document.getElementById(`${prefix}TwOd`).value), do: parseFloat(document.getElementById(`${prefix}TwDo`).value) },
-    wysokosc:        { od: parseFloat(document.getElementById(`${prefix}TyOd`).value), do: parseFloat(document.getElementById(`${prefix}TyDo`).value) },
-  };
-}
+      grubosc:         { do: c(prefix+'TgDo') },
+      wspolsrodkowosc: { od: c(prefix+'TwOd'), do: c(prefix+'TwDo') },
+      wysokosc:        { od: c(prefix+'TyOd'), do: c(prefix+'TyDo') }
+    };
+  }
 
   function tolValid(t) {
-  return !isNaN(t.grubosc.do) &&
-         !isNaN(t.wspolsrodkowosc.od) && !isNaN(t.wspolsrodkowosc.do) &&
-         !isNaN(t.wysokosc.od)        && !isNaN(t.wysokosc.do);
-}
+  const v = s => s !== '' && !isNaN(pf(s));
+  return v(t.grubosc.do) &&
+         v(t.wspolsrodkowosc.od) && v(t.wspolsrodkowosc.do) &&
+         v(t.wysokosc.od)        && v(t.wysokosc.do);
+  }
 
   function fillTol(prefix, tol) {
   const t = tol || {};
