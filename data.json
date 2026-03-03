@@ -27,56 +27,13 @@
     {
       "name": "Fioletowy",
       "color": "#a855f7"
+    },
+    {
+      "name": "Ооо",
+      "color": "#888888"
     }
   ],
   "entries": {
-    "11111111": {
-      "diameter": 22,
-      "force": 22,
-      "tolerancje": {
-        "grubosc": {
-          "do": "2"
-        },
-        "wspolsrodkowosc": {
-          "od": "2",
-          "do": "2"
-        },
-        "wysokosc": {
-          "od": "0.11",
-          "do": "-0.11"
-        }
-      },
-      "colors": [
-        {
-          "name": "Czarny",
-          "color": "#2d2d2d",
-          "thickness": "11"
-        }
-      ],
-      "machines": {
-        "GSS 1": {
-          "prices": [
-            0,
-            0,
-            0
-          ]
-        },
-        "GSS 2": {
-          "prices": [
-            1,
-            1,
-            1
-          ]
-        },
-        "GSS 3": {
-          "prices": [
-            22,
-            2,
-            22.2
-          ]
-        }
-      }
-    },
     "1377201039": {
       "diameter": 123.135,
       "force": 9000,
