@@ -362,7 +362,7 @@
   <div class="confirm-box">
     <button class="modal-close-btn" onclick="closeConfirm()">✕</button>
     <h3>🗑️ Usunąć wpis?</h3>
-    <p>Numer <strong id="confirmNum"></strong> zostanie usunięty z <strong>GSS</strong>. Tej operacji nie można cofnąć.</p>
+    <p>Numer <strong id="confirmNum"></strong> zostanie <strong>trwale usunięty z bazy danych</strong>. Tej operacji nie można cofnąć.</p>
     <div class="confirm-actions">
       <button class="btn-confirm-cancel" onclick="closeConfirm()">Anuluj</button>
       <button class="btn-confirm-delete" onclick="confirmDelete()">Usuń</button>
@@ -1025,7 +1025,6 @@ async function confirmDeleteColor() {
   function openConfirm(id) {
     pendingDeleteId = id;
     document.getElementById('confirmNum').textContent     = `#${id}`;
-    document.getElementById('confirmMachine').textContent = currentMachine;
     document.getElementById('confirmOverlay').classList.add('open');
   }
   function closeConfirm() { pendingDeleteId = null; document.getElementById('confirmOverlay').classList.remove('open'); }
