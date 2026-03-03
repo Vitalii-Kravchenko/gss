@@ -64,11 +64,6 @@
           "name": "444",
           "color": "#888888",
           "thickness": "555"
-        },
-        {
-          "name": "666",
-          "color": "#888888",
-          "thickness": "23.3"
         }
       ],
       "machines": {
