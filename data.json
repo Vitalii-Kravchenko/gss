@@ -38,6 +38,63 @@
     }
   ],
   "entries": {
+    "11111111": {
+      "diameter": 11,
+      "force": 1,
+      "tolerancje": {
+        "grubosc": {
+          "do": "1"
+        },
+        "wspolsrodkowosc": {
+          "od": "1",
+          "do": "1"
+        },
+        "wysokosc": {
+          "od": "0.11",
+          "do": "-0.11"
+        }
+      },
+      "colors": [
+        {
+          "name": "Czarny",
+          "color": "#2d2d2d",
+          "thickness": "11"
+        },
+        {
+          "name": "444",
+          "color": "#888888",
+          "thickness": "555"
+        },
+        {
+          "name": "666",
+          "color": "#888888",
+          "thickness": "23.3"
+        }
+      ],
+      "machines": {
+        "GSS 1": {
+          "prices": [
+            0,
+            0,
+            0
+          ]
+        },
+        "GSS 2": {
+          "prices": [
+            1,
+            1,
+            1
+          ]
+        },
+        "GSS 3": {
+          "prices": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
     "1377201039": {
       "diameter": 123.135,
       "force": 9000,
