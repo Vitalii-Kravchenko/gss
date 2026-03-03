@@ -543,7 +543,7 @@
       div.className = 'dropdown-item';
       div.innerHTML = `
         <span># <span class="match-highlight">${id.slice(0, query.length)}</span>${id.slice(query.length)}</span>
-        <span class="dim-info">⌀${item.diameter} · ${(item.colors||[]).length} sel.</span>
+        <span class="dim-info">⌀${parseFloat(item.diameter).toFixed(3)} · ${(item.colors||[]).length} sel.</span>
       `;
       div.addEventListener('click', () => selectResult(id, item));
       dropdown.appendChild(div);
@@ -597,7 +597,7 @@
           ${bushingIcon()}
         </div>
         <div class="info-row">
-          <div class="info-pill">Średnica panewki<span>${item.diameter} mm</span></div>
+          <div class="info-pill">Średnica panewki<span>${parseFloat(item.diameter).toFixed(3)} mm</span></div>
           ${item.force != null ? `<div class="info-pill">Siła docisku<span>${item.force} N</span></div>` : ''}
         </div>
         ${colorsHTML}
@@ -941,7 +941,7 @@ async function confirmDeleteColor() {
     document.getElementById('editModalMachine').textContent = currentMachine;
     document.getElementById('eOrigNum').value = id;
     document.getElementById('eNum').value     = id;
-    document.getElementById('eDiam').value    = item.diameter;
+    document.getElementById('eDiam').value    = parseFloat(item.diameter).toFixed(3);
     document.getElementById('eForce').value = item.force ?? '';
     fillTol('e', item.tolerancje);
 
