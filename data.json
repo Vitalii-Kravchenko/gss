@@ -207,15 +207,15 @@
       ],
       "tolerancje": {
         "grubosc": {
-          "do": -0.012
+          "do": "-0.012"
         },
         "wspolsrodkowosc": {
-          "od": 0,
-          "do": -0.01
+          "od": "0.000",
+          "do": "-0.010"
         },
         "wysokosc": {
-          "od": 0.08,
-          "do": 0.12
+          "od": "0.080",
+          "do": "0.120"
         }
       },
       "colors": [
