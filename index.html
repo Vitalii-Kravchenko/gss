@@ -277,20 +277,20 @@
     <div class="section-divider">Tolerancje</div>
     <div class="form-group">
       <label>Tolerancja grubości (mm)</label>
-      <input type="text" inputmode="decimal" id="fTgDo" placeholder="-0.012">
+      <input type="text" id="fTgDo" placeholder="-0.012">
     </div>
     <div class="form-group">
       <label>Tolerancja współśrodkowości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" inputmode="decimal" id="fTwOd" placeholder="0.000"></div>
-        <div class="form-group"><label>Do</label><input type="text" inputmode="decimal" id="fTwDo" placeholder="-0.010"></div>
+        <div class="form-group"><label>Od</label><input type="text" id="fTwOd" placeholder="0.000"></div>
+        <div class="form-group"><label>Do</label><input type="text" id="fTwDo" placeholder="-0.010"></div>
       </div>
     </div>
     <div class="form-group">
       <label>Tolerancja wysokości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" inputmode="decimal" id="fTyOd" placeholder="0.100"></div>
-        <div class="form-group"><label>Do</label><input type="text" inputmode="decimal" id="fTyDo" placeholder="0.135"></div>
+        <div class="form-group"><label>Od</label><input type="text" id="fTyOd" placeholder="0.100"></div>
+        <div class="form-group"><label>Do</label><input type="text" id="fTyDo" placeholder="0.135"></div>
       </div>
     </div>
 
@@ -342,21 +342,21 @@
     <div class="form-group">
       <label>Tolerancja grubości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Do</label><input type="text" inputmode="decimal" id="eTgDo" placeholder="-0.012"></div>
+        <div class="form-group"><label>Do</label><input type="text" id="eTgDo" placeholder="-0.012"></div>
       </div>
     </div>
     <div class="form-group">
       <label>Tolerancja współśrodkowości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" inputmode="decimal" id="eTwOd" placeholder="0.000"></div>
-        <div class="form-group"><label>Do</label><input type="text" inputmode="decimal" id="eTwDo" placeholder="-0.010"></div>
+        <div class="form-group"><label>Od</label><input type="text" id="eTwOd" placeholder="0.000"></div>
+        <div class="form-group"><label>Do</label><input type="text" id="eTwDo" placeholder="-0.010"></div>
       </div>
     </div>
     <div class="form-group">
       <label>Tolerancja wysokości (mm)</label>
       <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" inputmode="decimal" id="eTyOd" placeholder="0.100"></div>
-        <div class="form-group"><label>Do</label><input type="text" inputmode="decimal" id="eTyDo" placeholder="0.135"></div>
+        <div class="form-group"><label>Od</label><input type="text" id="eTyOd" placeholder="0.100"></div>
+        <div class="form-group"><label>Do</label><input type="text" id="eTyDo" placeholder="0.135"></div>
       </div>
     </div>
 
@@ -706,7 +706,7 @@
       </div>
       <div class="color-entry-thick">
         <label>Grubość (mm):</label>
-        <input type="text" inputmode="decimal" placeholder="np. 3.474" value="${thickness ?? ''}">
+        <input type="text" placeholder="np. 3.474" value="${thickness ?? ''}">
       </div>`;
     list.appendChild(div);
   }
