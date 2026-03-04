@@ -35,11 +35,11 @@
       "force": 11000,
       "tolerancje": {
         "grubosc": {
-          "do": "0.008"
+          "do": "-0.012"
         },
         "wspolsrodkowosc": {
-          "od": "0.000",
-          "do": "0.008"
+          "od": "0.002",
+          "do": "-0.016"
         },
         "wysokosc": {
           "od": "0.100",
