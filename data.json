@@ -30,6 +30,53 @@
     }
   ],
   "entries": {
+    "1377100039": {
+      "diameter": 116.807,
+      "force": 11000,
+      "tolerancje": {
+        "grubosc": {
+          "do": "0.008"
+        },
+        "wspolsrodkowosc": {
+          "od": "0.000",
+          "do": "0.008"
+        },
+        "wysokosc": {
+          "od": "0.100",
+          "do": "0.150"
+        }
+      },
+      "colors": [
+        {
+          "name": "STD",
+          "color": "#888888",
+          "thickness": "2.358"
+        }
+      ],
+      "machines": {
+        "GSS 1": {
+          "prices": [
+            6.7,
+            11.6,
+            16.7
+          ]
+        },
+        "GSS 2": {
+          "prices": [
+            0,
+            0,
+            0
+          ]
+        },
+        "GSS 3": {
+          "prices": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
     "1377201039": {
       "diameter": 123.135,
       "force": 9000,
