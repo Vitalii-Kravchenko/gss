@@ -500,9 +500,11 @@
       .filter(s => s != null);
   }
 
-  function getNextSlot() {
-    const used = getUsedSlots();
-    return used.length ? Math.max(...used) + 1 : 1;
+  function getNextSlot(excludeId = null) {
+    const used = new Set(getUsedSlots(excludeId));
+    let n = 1;
+    while (used.has(n)) n++;
+    return n;
   }
 
   function isSlotUsed(num, excludeId = null) {
