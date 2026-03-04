@@ -43,23 +43,13 @@
   .search-wrap input:focus { border-color: #4e6ef2; }
   .search-wrap input::placeholder { color: #555; }
   .search-wrap input:disabled { opacity: 0.4; cursor: not-allowed; }
-    .search-clear {
-  display: none;
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #666;
-  font-size: 1.1rem;
-  cursor: pointer;
-  padding: 4px 8px;
-  line-height: 1;
-  transition: color 0.15s;
-}
-.search-clear:hover { color: #fff; }
-
+  .search-clear {
+    display: none; position: absolute; right: 14px; top: 50%;
+    transform: translateY(-50%); background: none; border: none;
+    color: #666; font-size: 1.1rem; cursor: pointer; padding: 4px 8px;
+    line-height: 1; transition: color 0.15s;
+  }
+  .search-clear:hover { color: #fff; }
 
   .dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #1e1f2e; border: 1px solid #2e2e3e; border-radius: 12px; z-index: 100; box-shadow: 0 8px 30px rgba(0,0,0,0.5); max-height: 260px; overflow-y: auto; }
   .dropdown:empty { display: none; }
@@ -83,6 +73,27 @@
   .card-id { font-size: clamp(1.1rem, 4vw, 1.3rem); font-weight: 700; color: #4e6ef2; letter-spacing: 1px; }
   .card-machine { font-size: 0.78rem; color: #666; margin-top: 3px; }
   .bushing-icon { width: 60px; height: 44px; flex-shrink: 0; }
+
+  /* ── Slot section ── */
+  .slot-section {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    background: #12131d; border: 1px solid #2a2b3a; border-radius: 10px;
+    padding: 10px 14px; margin-bottom: 14px;
+  }
+  .slot-found {
+    font-size: 0.88rem; color: #aab4cc; line-height: 1.4; flex: 1;
+  }
+  .slot-found strong { color: #f0c060; font-size: 1rem; }
+  .slot-missing-text {
+    font-size: 0.85rem; color: #666; line-height: 1.4; flex: 1; font-style: italic;
+  }
+  .btn-slot-action {
+    flex-shrink: 0; padding: 7px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; border: 1px solid #2563eb; background: #1e3a5f; color: #60a5fa;
+    white-space: nowrap; transition: opacity 0.15s;
+  }
+  .btn-slot-action.add { border-color: #059669; background: #064e3b; color: #34d399; }
+  .btn-slot-action:active { opacity: 0.65; transform: scale(0.97); }
 
   .info-row { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
   .info-pill { background: #12131d; border-radius: 8px; padding: 8px 14px; font-size: clamp(0.75rem, 2.8vw, 0.85rem); color: #aab4cc; border: 1px solid #2a2b3a; flex: 1; min-width: 100px; text-align: center; }
@@ -129,6 +140,8 @@
   .form-group label { display: block; font-size: 0.82rem; color: #8a8aaa; margin-bottom: 5px; }
   .form-group input { width: 100%; padding: 11px 14px; border-radius: 10px; border: 1.5px solid #2e2e3e; background: #12131d; color: #fff; outline: none; transition: border-color 0.2s; }
   .form-group input:focus { border-color: #4e6ef2; }
+  .form-group input.input-error { border-color: #dc2626 !important; }
+  .form-group .field-error { font-size: 0.78rem; color: #e05252; margin-top: 4px; min-height: 16px; display: block; }
   .prices-row { display: flex; gap: 8px; }
   .prices-row .form-group { flex: 1; }
   .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
@@ -185,33 +198,38 @@
   .btn-confirm-delete { flex: 1; padding: 11px; border-radius: 10px; border: none; background: #dc2626; color: #fff; font-weight: 700; cursor: pointer; }
   .btn-confirm-delete:active { background: #b91c1c; transform: scale(0.97); }
 
+  /* ── Slot Modal ── */
+  .slot-modal-wrap { position: relative; background: #1a1b26; border: 1px solid #2e2e3e; border-radius: 18px; padding: 28px 24px; width: 100%; max-width: 360px; animation: fadeIn 0.2s ease; }
+  .slot-modal-wrap h2 { font-size: 1.1rem; color: #fff; margin-bottom: 20px; }
+  .slot-hint { font-size: 0.8rem; color: #555; margin-top: 4px; }
+  .slot-field-error { font-size: 0.8rem; color: #e05252; min-height: 18px; display: block; margin-top: 4px; }
+
+  .delete-color-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-radius: 10px;
+    border: 2px solid #2e2e3e; background: #12131d;
+    cursor: pointer; transition: border-color 0.15s;
+  }
+  .delete-color-item:active { transform: scale(0.97); }
+  .delete-color-item.selected { border-color: #dc2626; background: #2a1010; }
+  .delete-color-item-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); flex-shrink: 0; }
+  .delete-color-item-name { font-size: 0.9rem; color: #ccc; flex: 1; }
+
+  .modal-close-btn {
+    position: absolute; top: 16px; right: 16px;
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1.5px solid #2e2e3e; background: #12131d;
+    color: #aaa; font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, color 0.15s;
+    z-index: 10; flex-shrink: 0;
+  }
+  .modal-close-btn:active { background: #2e2e3e; color: #fff; transform: scale(0.93); }
+
   .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #1e1f2e; border: 1px solid #2e2e3e; border-radius: 12px; padding: 12px 22px; color: #fff; font-size: 0.9rem; z-index: 400; opacity: 0; transition: opacity 0.3s; white-space: nowrap; pointer-events: none; }
   .toast.show    { opacity: 1; }
   .toast.success { border-color: #10b981; color: #10b981; }
   .toast.error   { border-color: #e05252; color: #e05252; }
-    .delete-color-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 12px; border-radius: 10px;
-  border: 2px solid #2e2e3e; background: #12131d;
-  cursor: pointer; transition: border-color 0.15s;
-}
-.delete-color-item:active { transform: scale(0.97); }
-.delete-color-item.selected { border-color: #dc2626; background: #2a1010; }
-.delete-color-item-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); flex-shrink: 0; }
-.delete-color-item-name { font-size: 0.9rem; color: #ccc; flex: 1; }
-
-    .modal-close-btn {
-  position: absolute; top: 16px; right: 16px;
-  width: 34px; height: 34px; border-radius: 50%;
-  border: 1.5px solid #2e2e3e; background: #12131d;
-  color: #aaa; font-size: 1.1rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s, color 0.15s;
-  z-index: 10; flex-shrink: 0;
-}
-.modal-close-btn:active { background: #2e2e3e; color: #fff; transform: scale(0.93); }
-
-
   </style>
 </head>
 <body>
@@ -265,6 +283,14 @@
     <div class="form-group">
       <label>Siła docisku N</label>
       <input type="number" id="fForce" step="1" placeholder="np. 12000">
+    </div>
+
+    <div class="section-divider">Schowek</div>
+    <div class="form-group">
+      <label>Numer w schowku (opcjonalny)</label>
+      <input type="number" id="fSlot" min="1" step="1" placeholder="zostanie przydzielony automatycznie" oninput="validateSlotField('fSlot','fSlotError',null)"/>
+      <span class="field-error" id="fSlotError"></span>
+      <span class="slot-hint">Jeśli pole puste — wzornik zostanie dodany bez numeru schowku</span>
     </div>
 
     <div class="section-divider">Wartość dla kątów</div>
@@ -330,6 +356,13 @@
       <input type="number" id="eForce" step="1" placeholder="np. 12000">
     </div>
 
+    <div class="section-divider">Schowek</div>
+    <div class="form-group">
+      <label>Numer w schowku</label>
+      <input type="number" id="eSlot" min="1" step="1" placeholder="brak numeru" oninput="validateSlotField('eSlot','eSlotError', document.getElementById('eOrigNum').value)"/>
+      <span class="field-error" id="eSlotError"></span>
+      <span class="slot-hint">Wyczyść pole, aby usunąć wzornik ze schowku</span>
+    </div>
 
     <div class="section-divider">Wartość dla kątów</div>
     <div class="prices-row">
@@ -361,7 +394,6 @@
     </div>
 
     <div class="section-divider">Selekcje i grubości</div>
-
     <div class="form-group">
       <label class="colors-editor-label">🎨 Wybierz selekcje</label>
       <div class="color-palette" id="ePalette"></div>
@@ -388,8 +420,27 @@
   </div>
 </div>
 
+<!-- ═══════════════ SLOT MODAL ═══════════════ -->
+<div class="modal-overlay" id="slotModalOverlay">
+  <div class="slot-modal-wrap">
+    <button class="modal-close-btn" onclick="closeSlotModal()">✕</button>
+    <h2 id="slotModalTitle">📦 Dodaj wzornik do schowku</h2>
+    <div class="form-group">
+      <label>Numer w schowku</label>
+      <input type="number" id="slotInput" min="1" step="1" placeholder="1"
+             oninput="validateSlotInput()"/>
+      <span class="slot-field-error" id="slotInputError"></span>
+      <span class="slot-hint" id="slotHint"></span>
+    </div>
+    <div class="modal-actions" style="margin-top:20px;">
+      <button class="btn-cancel" onclick="closeSlotModal()">Anuluj</button>
+      <button class="btn-save" id="btnSlotSave" onclick="saveSlot()">💾 Zapisz</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════ CUSTOM COLOR MODAL ═══════════════ -->
-  <div class="custom-color-overlay" id="deleteColorOverlay">
+<div class="custom-color-overlay" id="deleteColorOverlay">
   <div class="custom-color-box" style="max-width:360px;">
     <button class="modal-close-btn" onclick="closeDeleteColor()">✕</button>
     <h3>🗑️ Usuń selekcję</h3>
@@ -436,29 +487,81 @@
   let currentMachine = null;
   let _activePaletteId = null;
   let _customTarget    = null;
+  let _slotTargetId    = null;   // id запису для якого відкритий slot modal
+
   const pf = v => parseFloat(String(v).replace(',', '.').replace('+', '').trim());
   const cleanNum = v => String(v).replace(',', '.').replace('+', '').trim();
+
+  // ── Slot helpers ──────────────────────────────
+  function getUsedSlots(excludeId = null) {
+    return Object.entries(DB)
+      .filter(([id]) => id !== excludeId)
+      .map(([, e]) => e.slot)
+      .filter(s => s != null);
+  }
+
+  function getNextSlot() {
+    const used = getUsedSlots();
+    return used.length ? Math.max(...used) + 1 : 1;
+  }
+
+  function isSlotUsed(num, excludeId = null) {
+    return getUsedSlots(excludeId).includes(num);
+  }
+
+  // Validate slot field in add/edit modals (live)
+  function validateSlotField(inputId, errorId, excludeId) {
+    const val = document.getElementById(inputId).value.trim();
+    const errEl = document.getElementById(errorId);
+    const inp = document.getElementById(inputId);
+    if (val === '') { errEl.textContent = ''; inp.classList.remove('input-error'); return true; }
+    const num = parseInt(val);
+    if (isNaN(num) || num < 1) {
+      errEl.textContent = '⚠️ Wpisz poprawny numer (min. 1)';
+      inp.classList.add('input-error'); return false;
+    }
+    if (isSlotUsed(num, excludeId)) {
+      errEl.textContent = `⚠️ Numer ${num} jest już zajęty w schowku`;
+      inp.classList.add('input-error'); return false;
+    }
+    errEl.textContent = '';
+    inp.classList.remove('input-error');
+    return true;
+  }
+
+  // Validate slot in slot modal
+  function validateSlotInput() {
+    const val = document.getElementById('slotInput').value.trim();
+    const errEl = document.getElementById('slotInputError');
+    const inp = document.getElementById('slotInput');
+    if (val === '') { errEl.textContent = ''; inp.classList.remove('input-error'); return false; }
+    const num = parseInt(val);
+    if (isNaN(num) || num < 1) {
+      errEl.textContent = '⚠️ Wpisz poprawny numer (min. 1)';
+      inp.classList.add('input-error'); return false;
+    }
+    if (isSlotUsed(num, _slotTargetId)) {
+      errEl.textContent = `⚠️ Numer ${num} jest już zajęty w schowku`;
+      inp.classList.add('input-error'); return false;
+    }
+    errEl.textContent = '';
+    inp.classList.remove('input-error');
+    return true;
+  }
 
   // ── Config ────────────────────────────────────
   async function saveConfig() {
     const t = document.getElementById('cfgToken').value.trim();
     if (!t) { showToast('⚠️ Wprowadź token', 'error'); return; }
-  
     const test = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, {
       headers: { Authorization: `token ${t}` }
     });
-  
-    if (!test.ok) {
-      showToast('❌ Token nieprawidłowy!', 'error');
-      return;
-    }
-  
+    if (!test.ok) { showToast('❌ Token nieprawidłowy!', 'error'); return; }
     token = t;
     localStorage.setItem('gss_token', token);
     showToast('✅ Token zapisany', 'success');
     document.getElementById('configBar').removeAttribute('open');
   }
-
 
   // ── Load / Save ───────────────────────────────
   async function loadData() {
@@ -468,20 +571,16 @@
       if (!res.ok) throw new Error();
       const json = await res.json();
       const parsed = JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\n/g, '')))));
-  
       if (parsed.palette?.length) PALETTE = parsed.palette;
-  
-      // Нова структура
       if (parsed.entries) {
         DB = parsed.entries;
-      }
-      // Міграція старого формату
-      else {
+      } else {
         DB = {};
         ['GSS 1','GSS 2','GSS 3'].forEach(m => {
           Object.entries(parsed[m] || {}).forEach(([id, item]) => {
             if (!DB[id]) {
               DB[id] = {
+                slot: null,
                 diameter: item.diameter,
                 force: item.force ?? null,
                 tolerancje: item.tolerancje,
@@ -493,71 +592,60 @@
           });
         });
       }
+      // Ensure all entries have slot field
+      Object.values(DB).forEach(e => { if (!('slot' in e)) e.slot = null; });
     } catch {
       DB = {};
       showToast('Nie udało się załadować danych', 'error');
     }
   }
 
-
-
   async function saveData() {
-  if (!token) { showToast('⚠️ Wprowadź token w ustawieniach', 'error'); return false; }
-  try {
-    const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
-    const getRes  = await fetch(apiUrl, {
-      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
-    });
-    const getJson = await getRes.json();
-    if (!getRes.ok) throw new Error(getJson.message);
-
-    // зберігаємо і палітру і машини разом
-    const payload = { palette: PALETTE, entries: DB };
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
-
-    const putRes = await fetch(apiUrl, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `token ${token}`,
-        'Accept': 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ message: 'Update data.json via GSS app', content, sha: getJson.sha })
-    });
-    if (!putRes.ok) { const e = await putRes.json(); throw new Error(e.message); }
-    return true;
-  } catch { return false; }
-}
-
+    if (!token) { showToast('⚠️ Wprowadź token w ustawieniach', 'error'); return false; }
+    try {
+      const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
+      const getRes  = await fetch(apiUrl, {
+        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+      });
+      const getJson = await getRes.json();
+      if (!getRes.ok) throw new Error(getJson.message);
+      const payload = { palette: PALETTE, entries: DB };
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
+      const putRes = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: 'Update data.json via GSS app', content, sha: getJson.sha })
+      });
+      if (!putRes.ok) { const e = await putRes.json(); throw new Error(e.message); }
+      return true;
+    } catch { return false; }
+  }
 
   // ── Machine ───────────────────────────────────
   function selectMachine(machine, btn) {
-  currentMachine = machine;
-  document.querySelectorAll('.machine-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const inp = document.getElementById('searchInput');
-  inp.disabled = false;
-  inp.placeholder = 'Szukaj numeru...';
-  document.getElementById('dropdown').innerHTML = '';
-
-  const currentId = inp.value.trim();
-  if (currentId && DB[currentId]) {
-    selectResult(currentId, DB[currentId]);
-  } else {
-    document.getElementById('results').innerHTML = '<p class="hint">Wpisz numer, aby wyszukać</p>';
+    currentMachine = machine;
+    document.querySelectorAll('.machine-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const inp = document.getElementById('searchInput');
+    inp.disabled = false;
+    inp.placeholder = 'Szukaj numeru...';
+    document.getElementById('dropdown').innerHTML = '';
+    const currentId = inp.value.trim();
+    if (currentId && DB[currentId]) {
+      selectResult(currentId, DB[currentId]);
+    } else {
+      document.getElementById('results').innerHTML = '<p class="hint">Wpisz numer, aby wyszukać</p>';
+    }
   }
-}
-
 
   function clearSearch() {
-  const inp = document.getElementById('searchInput');
-  inp.value = '';
-  document.getElementById('dropdown').innerHTML = '';
-  document.getElementById('results').innerHTML = '<p class="hint">Wpisz numer, aby wyszukać</p>';
-  document.getElementById('searchClear').style.display = 'none';
-  inp.focus();
-}
-
+    const inp = document.getElementById('searchInput');
+    inp.value = '';
+    document.getElementById('dropdown').innerHTML = '';
+    document.getElementById('results').innerHTML = '<p class="hint">Wpisz numer, aby wyszukać</p>';
+    document.getElementById('searchClear').style.display = 'none';
+    inp.focus();
+  }
 
   // ── Search ────────────────────────────────────
   function handleInput(e) {
@@ -567,12 +655,8 @@
     document.getElementById('results').innerHTML = '';
     dropdown.innerHTML = '';
     if (!query) { document.getElementById('results').innerHTML = '<p class="hint">Wpisz numer, aby wyszukać</p>'; return; }
-
-    const matched = Object.entries(DB)
-  .filter(([id]) => id.toLowerCase().startsWith(query.toLowerCase()));
-
+    const matched = Object.entries(DB).filter(([id]) => id.toLowerCase().startsWith(query.toLowerCase()));
     if (!matched.length) { dropdown.innerHTML = `<div class="dropdown-empty">❌ Numer "${query}" nie istnieje w bazie</div>`; return; }
-
     matched.forEach(([id, item]) => {
       const div = document.createElement('div');
       div.className = 'dropdown-item';
@@ -594,6 +678,23 @@
     const colors = item.colors || [];
     const tol    = item.tolerancje || {};
 
+    // ── Slot section ──
+    const slot = item.slot ?? null;
+    const slotEditBtn = token
+      ? `<button class="btn-slot-action${slot == null ? ' add' : ''}" onclick="openSlotModal('${id}')">
+           ${slot == null ? '➕ Dodaj wzornik' : '✏️'}
+         </button>`
+      : '';
+
+    const slotHTML = `
+      <div class="slot-section">
+        ${slot != null
+          ? `<div class="slot-found">📦 Ten wzornik leży w schowku pod numerem <strong>${slot}</strong></div>`
+          : `<div class="slot-missing-text">❓ Wzornik gdzieś się zgubił. Może poszukać go w szafce na dole?</div>`
+        }
+        ${slotEditBtn}
+      </div>`;
+
     const colorsHTML = colors.length ? `
       <div class="colors-section">
         <div class="colors-label">🎨 Selekcje i grubości</div>
@@ -614,10 +715,10 @@
       </div>`;
 
     const anglesHTML = [20, 25, 30].map((deg, i) => `
-    <div class="angle-box">
-      <div class="angle-deg">${deg}</div>
-      <div class="angle-val">${parseFloat(prices[i]).toFixed(1)}</div>
-    </div>`).join('');
+      <div class="angle-box">
+        <div class="angle-deg">${deg}</div>
+        <div class="angle-val">${parseFloat(prices[i]).toFixed(1)}</div>
+      </div>`).join('');
 
     const actionsHTML = token ? `
       <div class="card-actions">
@@ -631,6 +732,7 @@
           <div><div class="card-id"># ${id}</div><div class="card-machine">${currentMachine}</div></div>
           ${bushingIcon()}
         </div>
+        ${slotHTML}
         <div class="info-row">
           <div class="info-pill">Średnica panewki<span>${parseFloat(item.diameter).toFixed(3)} mm</span></div>
           ${item.force != null ? `<div class="info-pill">Siła docisku<span>${item.force} N</span></div>` : ''}
@@ -642,12 +744,59 @@
       </div>`;
   }
 
+  // ── Slot Modal ────────────────────────────────
+  function openSlotModal(id) {
+    _slotTargetId = id;
+    const item = DB[id];
+    const hasSlot = item.slot != null;
+    document.getElementById('slotModalTitle').textContent = hasSlot ? '📦 Zmień numer w schowku' : '📦 Dodaj wzornik do schowku';
+    const nextSlot = getNextSlot();
+    document.getElementById('slotInput').value = hasSlot ? item.slot : nextSlot;
+    document.getElementById('slotInput').classList.remove('input-error');
+    document.getElementById('slotInputError').textContent = '';
+    document.getElementById('slotHint').textContent = hasSlot
+      ? `Aktualny numer: ${item.slot}. Następny wolny: ${nextSlot}`
+      : `Następny wolny numer: ${nextSlot}`;
+    document.getElementById('slotModalOverlay').classList.add('open');
+  }
+
+  function closeSlotModal() {
+    document.getElementById('slotModalOverlay').classList.remove('open');
+    _slotTargetId = null;
+  }
+
+  async function saveSlot() {
+    if (!_slotTargetId) return;
+    if (!validateSlotInput()) { showToast('⚠️ Popraw numer schowku', 'error'); return; }
+
+    const val = document.getElementById('slotInput').value.trim();
+    const num = parseInt(val);
+
+    const btn = document.getElementById('btnSlotSave');
+    btn.disabled = true; btn.textContent = '⏳...';
+
+    const oldSlot = DB[_slotTargetId].slot;
+    DB[_slotTargetId].slot = num;
+    const ok = await saveData();
+
+    btn.disabled = false; btn.textContent = '💾 Zapisz';
+
+    if (ok) {
+      const id = _slotTargetId;
+      closeSlotModal();
+      showToast(`✅ Wzornik dodany do schowku pod numerem ${num}`, 'success');
+      selectResult(id, DB[id]);
+    } else {
+      DB[_slotTargetId].slot = oldSlot;
+      showToast('❌ Błąd zapisu. Sprawdź token', 'error');
+    }
+  }
+
   // ── Palette ───────────────────────────────────
   function renderPalette(paletteId, colorsListId, selectedColors) {
     _activePaletteId = paletteId;
     const container  = document.getElementById(paletteId);
     container.innerHTML = '';
-
     PALETTE.forEach((p, i) => {
       const selected = (selectedColors || []).some(c => c.name === p.name);
       const btn = document.createElement('button');
@@ -658,7 +807,6 @@
       btn.addEventListener('click', () => togglePaletteColor(i, paletteId, colorsListId));
       container.appendChild(btn);
     });
-
     const addBtn = document.createElement('button');
     addBtn.type = 'button';
     addBtn.className = 'palette-btn-add';
@@ -666,8 +814,6 @@
     addBtn.innerHTML = `<span class="palette-add-icon">＋</span><span>Nowy</span>`;
     addBtn.addEventListener('click', () => openCustomColor(paletteId, colorsListId));
     container.appendChild(addBtn);
-
-
     const delBtn = document.createElement('button');
     delBtn.type = 'button';
     delBtn.className = 'palette-btn-add';
@@ -675,7 +821,6 @@
     delBtn.innerHTML = `<span style="font-size:1.2rem;line-height:22px;">🗑️</span><span>Usuń</span>`;
     delBtn.addEventListener('click', () => openDeleteColor());
     container.appendChild(delBtn);
-
   }
 
   function togglePaletteColor(index, paletteId, colorsListId) {
@@ -733,199 +878,142 @@
 
   // ── Custom color ──────────────────────────────
   function openCustomColor(paletteId, colorsListId) {
-  _customTarget = { paletteId, colorsListId };
-  document.getElementById('customColorName').value = '';
-  document.getElementById('customColorPicker').value = '#888888';
-  document.getElementById('customColorPreview').style.background = '#888888';
-  document.getElementById('customColorOverlay').classList.add('open');
-}
-
-function closeCustomColor() {
-  document.getElementById('customColorOverlay').classList.remove('open');
-  _customTarget = null;
-}
-
-async function confirmCustomColor() {
-  const name  = document.getElementById('customColorName').value.trim();
-  const color = document.getElementById('customColorPicker').value;
-  if (!name) { showToast('⚠️ Podaj nazwę koloru', 'error'); return; }
-
-  if (PALETTE.some(p => p.name.toLowerCase() === name.toLowerCase())) {
-    showToast('⚠️ Taki kolor już istnieje', 'error'); return;
+    _customTarget = { paletteId, colorsListId };
+    document.getElementById('customColorName').value = '';
+    document.getElementById('customColorPicker').value = '#888888';
+    document.getElementById('customColorPreview').style.background = '#888888';
+    document.getElementById('customColorOverlay').classList.add('open');
   }
-
-  const btnOk = document.getElementById('customColorOverlay').querySelector('.btn-custom-ok');
-  btnOk.disabled = true; btnOk.textContent = '⏳...';
-
-  PALETTE.push({ name, color });
-  const ok = await saveData();
-
-  btnOk.disabled = false; btnOk.textContent = '✅ Dodaj';
-
-  if (!ok) {
-    PALETTE.pop();
-    showToast('❌ Błąd zapisu. Sprawdź token', 'error');
-    return;
+  function closeCustomColor() {
+    document.getElementById('customColorOverlay').classList.remove('open');
+    _customTarget = null;
   }
-
-  const target = _customTarget;
-  closeCustomColor();
-  showToast(`✅ Kolor "${name}" dodany`, 'success');
-
-  if (target) {
-    const { paletteId, colorsListId } = target;
-
-    const currentEntries = [];
-    document.querySelectorAll(`#${colorsListId} .color-entry`).forEach(entry => {
-      currentEntries.push({
-        name:      entry.dataset.colorName,
-        color:     entry.dataset.colorHex,
-        thickness: entry.querySelector('input').value
+  async function confirmCustomColor() {
+    const name  = document.getElementById('customColorName').value.trim();
+    const color = document.getElementById('customColorPicker').value;
+    if (!name) { showToast('⚠️ Podaj nazwę koloru', 'error'); return; }
+    if (PALETTE.some(p => p.name.toLowerCase() === name.toLowerCase())) {
+      showToast('⚠️ Taki kolor już istnieje', 'error'); return;
+    }
+    const btnOk = document.getElementById('customColorOverlay').querySelector('.btn-custom-ok');
+    btnOk.disabled = true; btnOk.textContent = '⏳...';
+    PALETTE.push({ name, color });
+    const ok = await saveData();
+    btnOk.disabled = false; btnOk.textContent = '✅ Dodaj';
+    if (!ok) { PALETTE.pop(); showToast('❌ Błąd zapisu. Sprawdź token', 'error'); return; }
+    const target = _customTarget;
+    closeCustomColor();
+    showToast(`✅ Kolor "${name}" dodany`, 'success');
+    if (target) {
+      const { paletteId, colorsListId } = target;
+      const currentEntries = [];
+      document.querySelectorAll(`#${colorsListId} .color-entry`).forEach(entry => {
+        currentEntries.push({ name: entry.dataset.colorName, color: entry.dataset.colorHex, thickness: entry.querySelector('input').value });
       });
-    });
-
-    renderPalette(paletteId, colorsListId, []);
-
-    document.getElementById(colorsListId).innerHTML = '';
-    currentEntries.forEach(e => addColorEntry(colorsListId, e.name, e.color, e.thickness));
-
-    currentEntries.forEach(e => {
-      PALETTE.forEach((p, i) => {
-        if (p.name === e.name) {
-          document.querySelector(`#${paletteId} .palette-btn[data-index="${i}"]`)?.classList.add('selected');
-        }
-      });
-    });
-
-    addColorEntry(colorsListId, name, color);
-    const idx = PALETTE.length - 1;
-    document.querySelector(`#${paletteId} .palette-btn[data-index="${idx}"]`)?.classList.add('selected');
-  }
-}
-
-// ── Delete color from palette ─────────────────
-let _selectedColorToDelete = null;
-
-function openDeleteColor() {
-  _selectedColorToDelete = null;
-  const list = document.getElementById('deleteColorList');
-  list.innerHTML = '';
-
-  if (!PALETTE.length) {
-    list.innerHTML = '<p style="color:#555;text-align:center;font-size:0.85rem;">Brak selekcji do usunięcia</p>';
-  } else {
-    PALETTE.forEach((p, i) => {
-      const item = document.createElement('div');
-      item.className = 'delete-color-item';
-      item.dataset.index = i;
-      item.innerHTML = `
-        <div class="delete-color-item-dot" style="background:${p.color}"></div>
-        <div class="delete-color-item-name">${p.name}</div>
-      `;
-      item.addEventListener('click', () => {
-        document.querySelectorAll('.delete-color-item').forEach(el => el.classList.remove('selected'));
-        item.classList.add('selected');
-        _selectedColorToDelete = i;
-        document.getElementById('btnConfirmDeleteColor').disabled = false;
-      });
-      list.appendChild(item);
-    });
-  }
-
-  document.getElementById('btnConfirmDeleteColor').disabled = true;
-  document.getElementById('deleteColorOverlay').classList.add('open');
-}
-
-function closeDeleteColor() {
-  document.getElementById('deleteColorOverlay').classList.remove('open');
-  _selectedColorToDelete = null;
-}
-
-async function confirmDeleteColor() {
-  if (_selectedColorToDelete === null) return;
-
-  const btnDel = document.getElementById('btnConfirmDeleteColor');
-  btnDel.disabled = true; btnDel.textContent = '⏳...';
-
-  const removed = PALETTE.splice(_selectedColorToDelete, 1)[0];
-  const ok = await saveData();
-
-  btnDel.disabled = false; btnDel.textContent = '🗑️ Usuń';
-
-  if (!ok) {
-    PALETTE.splice(_selectedColorToDelete, 0, removed);
-    showToast('❌ Błąd zapisu. Sprawdź token', 'error');
-    return;
-  }
-
-  closeDeleteColor();
-  showToast(`✅ Selekcja "${removed.name}" usunięta`, 'success');
-
-  // оновлюємо палітру в обох відкритих модалях
-  ['fPalette', 'ePalette'].forEach(paletteId => {
-    const el = document.getElementById(paletteId);
-    if (!el) return;
-    const colorsListId = paletteId === 'fPalette' ? 'fColorsList' : 'eColorsList';
-
-    // зберігаємо поточні записи
-    const currentEntries = [];
-    document.querySelectorAll(`#${colorsListId} .color-entry`).forEach(entry => {
-      if (entry.dataset.colorName !== removed.name) {
-        currentEntries.push({
-          name:      entry.dataset.colorName,
-          color:     entry.dataset.colorHex,
-          thickness: entry.querySelector('input').value
+      renderPalette(paletteId, colorsListId, []);
+      document.getElementById(colorsListId).innerHTML = '';
+      currentEntries.forEach(e => addColorEntry(colorsListId, e.name, e.color, e.thickness));
+      currentEntries.forEach(e => {
+        PALETTE.forEach((p, i) => {
+          if (p.name === e.name) document.querySelector(`#${paletteId} .palette-btn[data-index="${i}"]`)?.classList.add('selected');
         });
-      }
-    });
+      });
+      addColorEntry(colorsListId, name, color);
+      const idx = PALETTE.length - 1;
+      document.querySelector(`#${paletteId} .palette-btn[data-index="${idx}"]`)?.classList.add('selected');
+    }
+  }
 
-    renderPalette(paletteId, colorsListId, []);
-    document.getElementById(colorsListId).innerHTML = '';
-    currentEntries.forEach(e => addColorEntry(colorsListId, e.name, e.color, e.thickness));
-    currentEntries.forEach(e => {
+  // ── Delete color from palette ─────────────────
+  let _selectedColorToDelete = null;
+  function openDeleteColor() {
+    _selectedColorToDelete = null;
+    const list = document.getElementById('deleteColorList');
+    list.innerHTML = '';
+    if (!PALETTE.length) {
+      list.innerHTML = '<p style="color:#555;text-align:center;font-size:0.85rem;">Brak selekcji do usunięcia</p>';
+    } else {
       PALETTE.forEach((p, i) => {
-        if (p.name === e.name)
-          document.querySelector(`#${paletteId} .palette-btn[data-index="${i}"]`)?.classList.add('selected');
+        const item = document.createElement('div');
+        item.className = 'delete-color-item';
+        item.dataset.index = i;
+        item.innerHTML = `<div class="delete-color-item-dot" style="background:${p.color}"></div><div class="delete-color-item-name">${p.name}</div>`;
+        item.addEventListener('click', () => {
+          document.querySelectorAll('.delete-color-item').forEach(el => el.classList.remove('selected'));
+          item.classList.add('selected');
+          _selectedColorToDelete = i;
+          document.getElementById('btnConfirmDeleteColor').disabled = false;
+        });
+        list.appendChild(item);
+      });
+    }
+    document.getElementById('btnConfirmDeleteColor').disabled = true;
+    document.getElementById('deleteColorOverlay').classList.add('open');
+  }
+  function closeDeleteColor() { document.getElementById('deleteColorOverlay').classList.remove('open'); _selectedColorToDelete = null; }
+  async function confirmDeleteColor() {
+    if (_selectedColorToDelete === null) return;
+    const btnDel = document.getElementById('btnConfirmDeleteColor');
+    btnDel.disabled = true; btnDel.textContent = '⏳...';
+    const removed = PALETTE.splice(_selectedColorToDelete, 1)[0];
+    const ok = await saveData();
+    btnDel.disabled = false; btnDel.textContent = '🗑️ Usuń';
+    if (!ok) { PALETTE.splice(_selectedColorToDelete, 0, removed); showToast('❌ Błąd zapisu. Sprawdź token', 'error'); return; }
+    closeDeleteColor();
+    showToast(`✅ Selekcja "${removed.name}" usunięta`, 'success');
+    ['fPalette', 'ePalette'].forEach(paletteId => {
+      const el = document.getElementById(paletteId);
+      if (!el) return;
+      const colorsListId = paletteId === 'fPalette' ? 'fColorsList' : 'eColorsList';
+      const currentEntries = [];
+      document.querySelectorAll(`#${colorsListId} .color-entry`).forEach(entry => {
+        if (entry.dataset.colorName !== removed.name)
+          currentEntries.push({ name: entry.dataset.colorName, color: entry.dataset.colorHex, thickness: entry.querySelector('input').value });
+      });
+      renderPalette(paletteId, colorsListId, []);
+      document.getElementById(colorsListId).innerHTML = '';
+      currentEntries.forEach(e => addColorEntry(colorsListId, e.name, e.color, e.thickness));
+      currentEntries.forEach(e => {
+        PALETTE.forEach((p, i) => {
+          if (p.name === e.name) document.querySelector(`#${paletteId} .palette-btn[data-index="${i}"]`)?.classList.add('selected');
+        });
       });
     });
-  });
-}
-
+  }
 
   // ── Helpers: read tolerances ──────────────────
   function readTol(prefix) {
-  const c = id => cleanNum(document.getElementById(id).value);
-  return {
+    const c = id => cleanNum(document.getElementById(id).value);
+    return {
       grubosc:         { do: c(prefix+'TgDo') },
       wspolsrodkowosc: { od: c(prefix+'TwOd'), do: c(prefix+'TwDo') },
       wysokosc:        { od: c(prefix+'TyOd'), do: c(prefix+'TyDo') }
     };
   }
-
   function tolValid(t) {
-  const v = s => s !== '' && !isNaN(pf(s));
-  return v(t.grubosc.do) &&
-         v(t.wspolsrodkowosc.od) && v(t.wspolsrodkowosc.do) &&
-         v(t.wysokosc.od)        && v(t.wysokosc.do);
+    const v = s => s !== '' && !isNaN(pf(s));
+    return v(t.grubosc.do) && v(t.wspolsrodkowosc.od) && v(t.wspolsrodkowosc.do) && v(t.wysokosc.od) && v(t.wysokosc.do);
   }
-
   function fillTol(prefix, tol) {
-  const t = tol || {};
-  document.getElementById(`${prefix}TgDo`).value = t.grubosc?.do         ?? '';
-  document.getElementById(`${prefix}TwOd`).value = t.wspolsrodkowosc?.od ?? '';
-  document.getElementById(`${prefix}TwDo`).value = t.wspolsrodkowosc?.do ?? '';
-  document.getElementById(`${prefix}TyOd`).value = t.wysokosc?.od        ?? '';
-  document.getElementById(`${prefix}TyDo`).value = t.wysokosc?.do        ?? '';
-}
-
+    const t = tol || {};
+    document.getElementById(`${prefix}TgDo`).value = t.grubosc?.do         ?? '';
+    document.getElementById(`${prefix}TwOd`).value = t.wspolsrodkowosc?.od ?? '';
+    document.getElementById(`${prefix}TwDo`).value = t.wspolsrodkowosc?.do ?? '';
+    document.getElementById(`${prefix}TyOd`).value = t.wysokosc?.od        ?? '';
+    document.getElementById(`${prefix}TyDo`).value = t.wysokosc?.do        ?? '';
+  }
 
   // ── Add Modal ─────────────────────────────────
   function openModal() {
     if (!currentMachine) { showToast('⚠️ Najpierw wybierz maszynę', 'error'); return; }
     if (!token)          { showToast('⚠️ Wprowadź token w ustawieniach ⚙️', 'error'); return; }
     document.getElementById('modalMachineName').textContent = currentMachine;
-    ['fNum','fDiam','fForce','fP20','fP25','fP30','fTgDo','fTwOd','fTwDo','fTyOd','fTyDo']
-  .forEach(id => document.getElementById(id).value = '');
+    ['fNum','fDiam','fForce','fP20','fP25','fP30','fTgDo','fTwOd','fTwDo','fTyOd','fTyDo'].forEach(id => document.getElementById(id).value = '');
+    // Pre-fill slot with next sequential
+    const nextSlot = getNextSlot();
+    document.getElementById('fSlot').value = nextSlot;
+    document.getElementById('fSlotError').textContent = '';
+    document.getElementById('fSlot').classList.remove('input-error');
     document.getElementById('fColorsList').innerHTML = '';
     renderPalette('fPalette', 'fColorsList', []);
     document.getElementById('modalOverlay').classList.add('open');
@@ -935,12 +1023,17 @@ async function confirmDeleteColor() {
   async function saveEntry() {
     const num    = document.getElementById('fNum').value.trim();
     const diam   = parseFloat(document.getElementById('fDiam').value);
-    const force = parseFloat(document.getElementById('fForce').value);
+    const force  = parseFloat(document.getElementById('fForce').value);
     const p20    = parseFloat(document.getElementById('fP20').value);
     const p25    = parseFloat(document.getElementById('fP25').value);
     const p30    = parseFloat(document.getElementById('fP30').value);
     const tol    = readTol('f');
     const colors = getColorsFromList('fColorsList');
+
+    // Validate slot
+    const slotRaw = document.getElementById('fSlot').value.trim();
+    const slotNum = slotRaw !== '' ? parseInt(slotRaw) : null;
+    if (!validateSlotField('fSlot','fSlotError', null)) { showToast('⚠️ Popraw numer schowku', 'error'); return; }
 
     if (!num || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('⚠️ Wypełnij wszystkie pola', 'error'); return; }
     if (!tolValid(tol))    { showToast('⚠️ Wypełnij wszystkie tolerancje', 'error'); return; }
@@ -954,15 +1047,23 @@ async function confirmDeleteColor() {
       'GSS 2': { prices: currentMachine === 'GSS 2' ? [p20,p25,p30] : [0,0,0] },
       'GSS 3': { prices: currentMachine === 'GSS 3' ? [p20,p25,p30] : [0,0,0] }
     };
-    
+
     const btn = document.getElementById('btnSave');
     btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
-    DB[num] = { diameter: diam, force: isNaN(force) ? null : force, tolerancje: tol, colors, machines };
+    DB[num] = { slot: slotNum, diameter: diam, force: isNaN(force) ? null : force, tolerancje: tol, colors, machines };
     const ok = await saveData();
     btn.disabled = false; btn.textContent = '💾 Zapisz';
 
-    if (ok) { closeModal(); showToast(`✅ Numer ${num} zapisany`, 'success'); }
-    else    { delete DB[num]; showToast('❌ Błąd. Sprawdź token', 'error'); }
+    if (ok) {
+      closeModal();
+      const msg = slotNum != null
+        ? `✅ Numer ${num} zapisany. Wzornik dodany do schowku pod numerem ${slotNum}`
+        : `✅ Numer ${num} zapisany`;
+      showToast(msg, 'success');
+    } else {
+      delete DB[num];
+      showToast('❌ Błąd. Sprawdź token', 'error');
+    }
   }
 
   // ── Edit Modal ────────────────────────────────
@@ -977,9 +1078,12 @@ async function confirmDeleteColor() {
     document.getElementById('eOrigNum').value = id;
     document.getElementById('eNum').value     = id;
     document.getElementById('eDiam').value    = parseFloat(item.diameter).toFixed(3);
-    document.getElementById('eForce').value = item.force ?? '';
+    document.getElementById('eForce').value   = item.force ?? '';
+    // Slot
+    document.getElementById('eSlot').value = item.slot ?? '';
+    document.getElementById('eSlotError').textContent = '';
+    document.getElementById('eSlot').classList.remove('input-error');
     fillTol('e', item.tolerancje);
-
     const list = document.getElementById('eColorsList');
     list.innerHTML = '';
     const saved = item.colors || [];
@@ -987,85 +1091,74 @@ async function confirmDeleteColor() {
     saved.forEach(c => {
       addColorEntry('eColorsList', c.name, c.color || '#888888', c.thickness);
       PALETTE.forEach((p, i) => {
-        if (p.name === c.name)
-          document.querySelector(`#ePalette .palette-btn[data-index="${i}"]`)?.classList.add('selected');
+        if (p.name === c.name) document.querySelector(`#ePalette .palette-btn[data-index="${i}"]`)?.classList.add('selected');
       });
     });
-
     document.getElementById('editModalOverlay').classList.add('open');
   }
   function closeEditModal() { document.getElementById('editModalOverlay').classList.remove('open'); }
 
   async function saveEdit() {
-  const origNum = document.getElementById('eOrigNum').value;
-  const newNum  = document.getElementById('eNum').value.trim();
-  const diam    = parseFloat(document.getElementById('eDiam').value);
-  const force   = parseFloat(document.getElementById('eForce').value);
-  const p20     = parseFloat(document.getElementById('eP20').value);
-  const p25     = parseFloat(document.getElementById('eP25').value);
-  const p30     = parseFloat(document.getElementById('eP30').value);
-  const tol     = readTol('e');
-  const colors  = getColorsFromList('eColorsList');
+    const origNum = document.getElementById('eOrigNum').value;
+    const newNum  = document.getElementById('eNum').value.trim();
+    const diam    = parseFloat(document.getElementById('eDiam').value);
+    const force   = parseFloat(document.getElementById('eForce').value);
+    const p20     = parseFloat(document.getElementById('eP20').value);
+    const p25     = parseFloat(document.getElementById('eP25').value);
+    const p30     = parseFloat(document.getElementById('eP30').value);
+    const tol     = readTol('e');
+    const colors  = getColorsFromList('eColorsList');
 
-  if (!newNum || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('⚠️ Wypełnij wszystkie pola', 'error'); return; }
-  if (!tolValid(tol))  { showToast('⚠️ Wypełnij wszystkie tolerancje', 'error'); return; }
-  if (colors === null) { showToast('⚠️ Wypełnij grubości dla wszystkich selekcji', 'error'); return; }
-  if (!colors.length)  { showToast('⚠️ Wybierz przynajmniej jedną selekcję', 'error'); return; }
-  if ([p20,p25,p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
-  if (newNum !== origNum && DB[newNum]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
+    // Validate slot
+    const slotRaw = document.getElementById('eSlot').value.trim();
+    const slotNum = slotRaw !== '' ? parseInt(slotRaw) : null;
+    if (!validateSlotField('eSlot','eSlotError', origNum)) { showToast('⚠️ Popraw numer schowku', 'error'); return; }
 
-  const btn = document.getElementById('btnEditSave');
-  btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
+    if (!newNum || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('⚠️ Wypełnij wszystkie pola', 'error'); return; }
+    if (!tolValid(tol))  { showToast('⚠️ Wypełnij wszystkie tolerancje', 'error'); return; }
+    if (colors === null) { showToast('⚠️ Wypełnij grubości dla wszystkich selekcji', 'error'); return; }
+    if (!colors.length)  { showToast('⚠️ Wybierz przynajmniej jedną selekcję', 'error'); return; }
+    if ([p20,p25,p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
+    if (newNum !== origNum && DB[newNum]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
 
-  // Зберігаємо копію для відкату
-  const oldData = JSON.parse(JSON.stringify(DB[origNum]));
+    const btn = document.getElementById('btnEditSave');
+    btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
 
-  // Перейменування якщо номер змінився
-  if (newNum !== origNum) {
-    DB[newNum] = { ...DB[origNum] };
-    delete DB[origNum];
-  }
+    const oldData = JSON.parse(JSON.stringify(DB[origNum]));
+    if (newNum !== origNum) { DB[newNum] = { ...DB[origNum] }; delete DB[origNum]; }
+    const target = newNum;
+    DB[target].slot = slotNum;
+    DB[target].diameter = diam;
+    DB[target].force = isNaN(force) ? null : force;
+    DB[target].tolerancje = tol;
+    DB[target].colors = colors;
+    if (!DB[target].machines) DB[target].machines = {};
+    DB[target].machines[currentMachine] = { prices: [p20, p25, p30] };
 
-  // Оновлюємо дані ДО збереження
-  const target = newNum;
-  DB[target].diameter = diam;
-  DB[target].force = isNaN(force) ? null : force;
-  DB[target].tolerancje = tol;
-  DB[target].colors = colors;
-  if (!DB[target].machines) DB[target].machines = {};
-  DB[target].machines[currentMachine] = { prices: [p20, p25, p30] };
+    const ok = await saveData();
+    btn.disabled = false; btn.textContent = '💾 Zapisz zmiany';
 
-  const ok = await saveData();
-  btn.disabled = false; btn.textContent = '💾 Zapisz zmiany';
-
-  if (ok) {
-    closeEditModal();
-    showToast(`✅ Numer ${newNum} zaktualizowany`, 'success');
-    selectResult(newNum, DB[newNum]);
-    document.getElementById('searchInput').value = newNum;
-  } else {
-    // Відкат
-    if (newNum !== origNum) {
-      delete DB[newNum];
-      DB[origNum] = oldData;
+    if (ok) {
+      closeEditModal();
+      showToast(`✅ Numer ${newNum} zaktualizowany`, 'success');
+      selectResult(newNum, DB[newNum]);
+      document.getElementById('searchInput').value = newNum;
     } else {
-      DB[origNum] = oldData;
+      if (newNum !== origNum) { delete DB[newNum]; DB[origNum] = oldData; }
+      else { DB[origNum] = oldData; }
+      showToast('❌ Błąd zapisu', 'error');
     }
-    showToast('❌ Błąd zapisu', 'error');
   }
-}
 
   // ── Delete ────────────────────────────────────
   let pendingDeleteId = null;
   function openConfirm(id) {
     pendingDeleteId = id;
-    document.getElementById('confirmNum').textContent     = `#${id}`;
+    document.getElementById('confirmNum').textContent = `#${id}`;
     document.getElementById('confirmOverlay').classList.add('open');
   }
   function closeConfirm() { pendingDeleteId = null; document.getElementById('confirmOverlay').classList.remove('open'); }
-
   async function confirmDelete() {
-    
     if (!pendingDeleteId) return;
     const id = pendingDeleteId;
     const backup = { ...DB[id] };
@@ -1104,7 +1197,7 @@ async function confirmDeleteColor() {
   function showToast(msg, type = '') {
     const t = document.getElementById('toast');
     t.textContent = msg; t.className = `toast ${type} show`;
-    setTimeout(() => t.classList.remove('show'), 3000);
+    setTimeout(() => t.classList.remove('show'), 3500);
   }
 
   // ── Listeners ─────────────────────────────────
@@ -1112,7 +1205,6 @@ async function confirmDeleteColor() {
     if (!document.getElementById('searchWrap').contains(e.target))
       document.getElementById('dropdown').innerHTML = '';
   });
-
 
   // ── Init ──────────────────────────────────────
   if (localStorage.getItem('gss_token')) {
