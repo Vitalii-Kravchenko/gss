@@ -811,7 +811,7 @@
     const slot = item.slot ?? null;
     const slotEditBtn = token
       ? `<button class="btn-slot-action${slot == null ? ' add' : ''}" onclick="openSlotModal('${id}')">
-           ${slot == null ? '➕ Dodaj wzornik' : '✏️'}
+           ${slot == null ? '<span style="font-size:1.15em;font-weight:900;line-height:1">+</span> Dodaj wzornik' : '🖊️'}
          </button>`
       : '';
 
