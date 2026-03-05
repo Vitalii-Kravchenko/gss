@@ -958,6 +958,7 @@
     closeConfirmSlot();
     const id = _slotTargetId;
     const oldSlot = DB[id].slot;
+    showToast('⏳ Usuwam wzornik ze schowku...', '');
     DB[id].slot = null;
     const ok = await saveData();
     if (ok) {
