@@ -608,7 +608,7 @@
       const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
       // Завжди отримуємо СВІЖІ дані з GitHub перед записом
       const getRes = await fetch(apiUrl, {
-        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Cache-Control': 'no-cache' }
+        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
       });
       const getJson = await getRes.json();
       if (!getRes.ok) throw new Error(getJson.message);
