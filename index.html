@@ -906,18 +906,17 @@
 
     const val = document.getElementById('slotInput').value.trim();
     const num = parseInt(val);
-
-    const btn = document.getElementById('btnSlotSave');
-    btn.disabled = true; btn.textContent = '⏳...';
-
     const oldSlot = DB[_slotTargetId].slot;
+
     if (num === oldSlot) {
       showToast(`ℹ️ Wzornik już jest pod numerem ${num} — nic nie zmieniono`, '');
       return;
     }
+
+    const btn = document.getElementById('btnSlotSave');
+    btn.disabled = true; btn.textContent = '⏳...';
     DB[_slotTargetId].slot = num;
     const ok = await saveData();
-
     btn.disabled = false; btn.textContent = '💾 Zapisz';
 
     if (ok) {
@@ -1212,7 +1211,6 @@
     btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
     DB[num] = { slot: slotNum, diameter: diam, force: isNaN(force) ? null : force, tolerancje: tol, colors, machines };
     const ok = await saveData();
-    btn.disabled = false; btn.textContent = '💾 Zapisz';
 
     if (ok) {
       closeModal();
