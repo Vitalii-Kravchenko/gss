@@ -587,6 +587,18 @@
   </div>
 </div>
 
+<!-- ═══════════════ CONFIRM COLOR DELETE ═══════════════ -->
+<div class="confirm-overlay" id="confirmColorOverlay">
+  <div class="confirm-box">
+    <h3>🗑️ Usunąć selekcję?</h3>
+    <p>Selekcja <strong id="confirmColorName"></strong> zostanie <strong>usunięta z palety</strong>. Tej operacji nie można cofnąć.</p>
+    <div class="confirm-actions">
+      <button class="btn-confirm-cancel" onclick="closeConfirmColor()">Anuluj</button>
+      <button class="btn-confirm-delete" onclick="confirmDeleteColorFinal()">Usuń</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════ CUSTOM COLOR MODAL ═══════════════ -->
 <div class="custom-color-overlay" id="deleteColorOverlay">
   <div class="custom-color-box" style="max-width:360px;">
@@ -597,8 +609,8 @@
     <div class="custom-color-actions">
       <button class="btn-custom-cancel" onclick="closeDeleteColor()">Anuluj</button>
       <button class="btn-custom-ok" id="btnConfirmDeleteColor"
-              onclick="confirmDeleteColor()"
-              style="background:#dc2626;" disabled>🗑️ Usuń</button>
+              onclick="askConfirmColor()"
+              style="background:var(--red);" disabled>🗑️ Usuń</button>
     </div>
   </div>
 </div>
@@ -1160,15 +1172,23 @@
     document.getElementById('deleteColorOverlay').classList.add('open');
   }
   function closeDeleteColor() { document.getElementById('deleteColorOverlay').classList.remove('open'); _selectedColorToDelete = null; }
-  async function confirmDeleteColor() {
+  function closeConfirmColor() { document.getElementById('confirmColorOverlay').classList.remove('open'); }
+  function askConfirmColor() {
     if (_selectedColorToDelete === null) return;
-    const btnDel = document.getElementById('btnConfirmDeleteColor');
-    btnDel.disabled = true; btnDel.textContent = '⏳...';
+    const name = PALETTE[_selectedColorToDelete].name;
+    document.getElementById('confirmColorName').textContent = `"${name}"`;
+    document.getElementById('deleteColorOverlay').classList.remove('open');
+    document.getElementById('confirmColorOverlay').classList.add('open');
+  }
+  async function confirmDeleteColorFinal() {
+    closeConfirmColor();
+    if (_selectedColorToDelete === null) return;
+    showLoading('⏳ Usuwam selekcję...');
     const removed = PALETTE.splice(_selectedColorToDelete, 1)[0];
     const ok = await saveData();
-    btnDel.disabled = false; btnDel.textContent = '🗑️ Usuń';
+    hideLoading();
     if (!ok) { PALETTE.splice(_selectedColorToDelete, 0, removed); showToast('❌ Błąd zapisu. Sprawdź token', 'error'); return; }
-    closeDeleteColor();
+    _selectedColorToDelete = null;
     showToast(`✅ Selekcja "${removed.name}" usunięta`, 'success');
     ['fPalette', 'ePalette'].forEach(paletteId => {
       const el = document.getElementById(paletteId);
