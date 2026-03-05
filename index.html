@@ -226,6 +226,10 @@
   }
   .modal-close-btn:active { background: #2e2e3e; color: #fff; transform: scale(0.93); }
 
+  .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 450; align-items: center; justify-content: center; }
+  .loading-overlay.show { display: flex; }
+  .loading-box { background: #1e1f2e; border: 1px solid #2e2e3e; border-radius: 14px; padding: 20px 32px; color: #fff; font-size: 1rem; font-weight: 600; text-align: center; }
+
   .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #1e1f2e; border: 1px solid #2e2e3e; border-radius: 12px; padding: 12px 22px; color: #fff; font-size: 0.9rem; z-index: 400; opacity: 0; transition: opacity 0.3s; white-space: nowrap; pointer-events: none; }
   .toast.show    { opacity: 1; }
   .toast.success { border-color: #10b981; color: #10b981; }
@@ -595,6 +599,7 @@
   </div>
 </div>
 
+<div class="loading-overlay" id="loadingOverlay"><div class="loading-box" id="loadingMsg"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -958,9 +963,10 @@
     closeConfirmSlot();
     const id = _slotTargetId;
     const oldSlot = DB[id].slot;
-    showToast('⏳ Usuwam wzornik ze schowku...', '');
+    showLoading('⏳ Usuwam wzornik ze schowku...');
     DB[id].slot = null;
     const ok = await saveData();
+    hideLoading();
     if (ok) {
       _slotTargetId = null;
       showToast('✅ Wzornik usunięty ze schowku', 'success');
@@ -1343,8 +1349,9 @@
     const backup = { ...DB[id] };
     delete DB[id];
     closeConfirm();
-    showToast('⏳ Usuwam...', '');
+    showLoading('⏳ Usuwam...');
     const ok = await saveData();
+    hideLoading();
     if (ok) {
       document.getElementById('results').innerHTML = '<p class="hint">Wpis usunięty. Wpisz nowy numer.</p>';
       document.getElementById('searchInput').value = '';
@@ -1373,6 +1380,14 @@
   }
 
   // ── Toast ─────────────────────────────────────
+  function showLoading(msg) {
+    document.getElementById('loadingMsg').textContent = msg;
+    document.getElementById('loadingOverlay').classList.add('show');
+  }
+  function hideLoading() {
+    document.getElementById('loadingOverlay').classList.remove('show');
+  }
+
   function showToast(msg, type = '') {
     const t = document.getElementById('toast');
     t.textContent = msg; t.className = `toast ${type} show`;
