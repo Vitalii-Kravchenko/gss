@@ -525,6 +525,19 @@
   </div>
 </div>
 
+<!-- ═══════════════ CONFIRM SLOT DELETE ═══════════════ -->
+<div class="confirm-overlay" id="confirmSlotOverlay">
+  <div class="confirm-box">
+    <button class="modal-close-btn" onclick="closeConfirmSlot()">✕</button>
+    <h3>🗑️ Usunąć wzornik ze schowku?</h3>
+    <p>Wzornik pod numerem <strong id="confirmSlotNum"></strong> zostanie <strong>usunięty ze schowku</strong>. Można go później dodać ponownie.</p>
+    <div class="confirm-actions">
+      <button class="btn-confirm-cancel" onclick="closeConfirmSlot()">Anuluj</button>
+      <button class="btn-confirm-delete" onclick="confirmDeleteSlot()">Usuń</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════ SLOT MODAL ═══════════════ -->
 <div class="modal-overlay" id="slotModalOverlay">
   <div class="slot-modal-wrap">
@@ -931,9 +944,20 @@
   }
 
 
-  async function deleteSlot() {
+  function deleteSlot() {
     if (!_slotTargetId) return;
-    if (!confirm('Usunąć wzornik ze schowku?')) return;
+    const item = DB[_slotTargetId];
+    document.getElementById('confirmSlotNum').textContent = item.slot;
+    closeSlotModal();
+    document.getElementById('confirmSlotOverlay').classList.add('open');
+  }
+
+  function closeConfirmSlot() {
+    document.getElementById('confirmSlotOverlay').classList.remove('open');
+  }
+
+  async function confirmDeleteSlot() {
+    closeConfirmSlot();
     const btn = document.getElementById('btnSlotDelete');
     btn.disabled = true; btn.textContent = '⏳...';
     const oldSlot = DB[_slotTargetId].slot;
@@ -942,7 +966,7 @@
     btn.disabled = false; btn.textContent = '🗑️ Usuń wzornik ze schowku';
     if (ok) {
       const id = _slotTargetId;
-      closeSlotModal();
+      _slotTargetId = null;
       showToast('✅ Wzornik usunięty ze schowku', 'success');
       selectResult(id, DB[id]);
     } else {
