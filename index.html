@@ -956,19 +956,17 @@
 
   async function confirmDeleteSlot() {
     closeConfirmSlot();
-    const btn = document.getElementById('btnSlotDelete');
-    btn.disabled = true; btn.textContent = '⏳...';
-    const oldSlot = DB[_slotTargetId].slot;
-    DB[_slotTargetId].slot = null;
+    const id = _slotTargetId;
+    const oldSlot = DB[id].slot;
+    DB[id].slot = null;
     const ok = await saveData();
-    btn.disabled = false; btn.textContent = '🗑️ Usuń wzornik ze schowku';
     if (ok) {
-      const id = _slotTargetId;
       _slotTargetId = null;
       showToast('✅ Wzornik usunięty ze schowku', 'success');
       selectResult(id, DB[id]);
     } else {
-      DB[_slotTargetId].slot = oldSlot;
+      DB[id].slot = oldSlot;
+      _slotTargetId = null;
       showToast('❌ Błąd zapisu. Sprawdź token', 'error');
     }
   }
