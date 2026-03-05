@@ -617,8 +617,7 @@
       let freshDB = DB;
       let freshPalette = PALETTE;
       try {
-        const freshParsed = JSON.parse(decodeURIComponent(escape(atob(getJson.content.replace(/
-/g, '')))));
+        const freshParsed = JSON.parse(decodeURIComponent(escape(atob(getJson.content.replace(/\n/g, '')))));
         if (freshParsed.entries) {
           // Беремо базу з GitHub як основу, поверх накладаємо наші зміни
           freshDB = Object.assign({}, freshParsed.entries, DB);
