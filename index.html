@@ -912,8 +912,6 @@
 
     const oldSlot = DB[_slotTargetId].slot;
     if (num === oldSlot) {
-      const id = _slotTargetId;
-      closeSlotModal();
       showToast(`ℹ️ Wzornik już jest pod numerem ${num} — nic nie zmieniono`, '');
       return;
     }
