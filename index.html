@@ -946,7 +946,7 @@
     if (!_slotTargetId) return;
     const item = DB[_slotTargetId];
     document.getElementById('confirmSlotNum').textContent = item.slot;
-    closeSlotModal();
+    document.getElementById('slotModalOverlay').classList.remove('open');
     document.getElementById('confirmSlotOverlay').classList.add('open');
   }
 
