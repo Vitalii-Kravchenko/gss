@@ -761,6 +761,79 @@
           ]
         }
       }
+    },
+    "18073X5079": {
+      "slot": null,
+      "diameter": 102.33,
+      "force": 8500,
+      "tolerancje": {
+        "grubosc": {
+          "do": "-0.007"
+        },
+        "wspolsrodkowosc": {
+          "od": "-0.005",
+          "do": "-0.015"
+        },
+        "wysokosc": {
+          "od": "0.100",
+          "do": "0.150"
+        }
+      },
+      "colors": [
+        {
+          "name": "Czarny",
+          "color": "#2d2d2d",
+          "thickness": "3.138"
+        },
+        {
+          "name": "Żółty",
+          "color": "#eab308",
+          "thickness": "3.130"
+        },
+        {
+          "name": "Zielony",
+          "color": "#22c55e",
+          "thickness": "3.122"
+        },
+        {
+          "name": "Czerwony",
+          "color": "#ef4444",
+          "thickness": "3.114"
+        },
+        {
+          "name": "Fioletowy",
+          "color": "#a855f7",
+          "thickness": "3.106"
+        },
+        {
+          "name": "Niebieski",
+          "color": "#3b82f6",
+          "thickness": "3.098"
+        }
+      ],
+      "machines": {
+        "GSS 1": {
+          "prices": [
+            0,
+            0,
+            0
+          ]
+        },
+        "GSS 2": {
+          "prices": [
+            0,
+            0,
+            0
+          ]
+        },
+        "GSS 3": {
+          "prices": [
+            17,
+            21,
+            25
+          ]
+        }
+      }
     }
   }
 }
