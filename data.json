@@ -415,7 +415,7 @@
       }
     },
     "1840382039": {
-      "slot": null,
+      "slot": 5,
       "diameter": 113.065,
       "force": 9000,
       "tolerancje": {
