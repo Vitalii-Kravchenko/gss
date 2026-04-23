@@ -559,7 +559,7 @@
       }
     },
     "1840391032": {
-      "slot": null,
+      "slot": 10,
       "diameter": 113.065,
       "force": 9000,
       "tolerancje": {
