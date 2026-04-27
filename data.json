@@ -750,6 +750,54 @@
         }
       }
     },
+    "1892102045": {
+      "slot": null,
+      "diameter": 100.022,
+      "force": 8500,
+      "tolerancje": {
+        "grubosc": {
+          "do": "-0.010"
+        },
+        "wspolsrodkowosc": {
+          "od": "-0.010",
+          "do": "-0.020"
+        },
+        "wysokosc": {
+          "od": "0.135",
+          "do": "0.180"
+        }
+      },
+      "colors": [
+        {
+          "name": "STD",
+          "color": "#888888",
+          "thickness": "2.485"
+        }
+      ],
+      "machines": {
+        "GSS 1": {
+          "prices": [
+            0,
+            0,
+            0
+          ]
+        },
+        "GSS 2": {
+          "prices": [
+            17.8,
+            22.1,
+            26.3
+          ]
+        },
+        "GSS 3": {
+          "prices": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
     "14482X2058": {
       "diameter": 99.03,
       "force": 9500,
