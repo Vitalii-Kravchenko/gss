@@ -1130,6 +1130,59 @@
           ]
         }
       }
+    },
+    "11863X8079": {
+      "slot": null,
+      "diameter": 117.022,
+      "force": 11000,
+      "tolerancje": {
+        "grubosc": {
+          "do": "-0.006"
+        },
+        "wspolsrodkowosc": {
+          "od": "0.000",
+          "do": "-0.008"
+        },
+        "wysokosc": {
+          "od": "0.120",
+          "do": "0.170"
+        }
+      },
+      "colors": [
+        {
+          "name": "2 paski",
+          "color": "#0061fe",
+          "thickness": "3.462"
+        },
+        {
+          "name": "1 pasek",
+          "color": "#0061fe",
+          "thickness": "3.456"
+        }
+      ],
+      "machines": {
+        "GSS 1": {
+          "prices": [
+            0,
+            0,
+            0
+          ]
+        },
+        "GSS 2": {
+          "prices": [
+            9.2,
+            14.2,
+            18.9
+          ]
+        },
+        "GSS 3": {
+          "prices": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
     }
   }
 }
