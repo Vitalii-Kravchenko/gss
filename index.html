@@ -3,58 +3,78 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="theme-color" content="#0a0b0d"/>
   <title>GSS Panewki</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<h1>GSS</h1>
+<div class="app-shell">
 
-<div class="tabs-nav">
-  <button class="tab-btn active" onclick="switchTab('search', this)">🔍 Panewki</button>
-  <button class="tab-btn" onclick="switchTab('calc', this)">🧮 Kalkulator</button>
-</div>
+  <header class="app-header">
+    <h1>GSS</h1>
+    <p class="app-subtitle">Panewki · Kalkulator</p>
+  </header>
 
-<!-- ═══ TAB: SEARCH ═══ -->
-<div class="tab-panel active" id="tab-search">
+  <nav class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('search', this)">
+      <span class="tab-icon">🔍</span><span>Panewki</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('calc', this)">
+      <span class="tab-icon">🧮</span><span>Kalkulator</span>
+    </button>
+  </nav>
 
-  <details class="config-bar" id="configBar">
-    <summary>⚙️ Ustawienia (tylko dla administratora)</summary>
-    <div class="config-fields">
-      <input type="password" id="cfgToken" placeholder="GitHub Token (tylko dla admina)"/>
-      <button class="btn-config-save" onclick="saveConfig()">💾 Zapisz token</button>
+  <!-- ═══ TAB: SEARCH ═══ -->
+  <section class="tab-panel active" id="tab-search">
+
+    <details class="config-bar" id="configBar">
+      <summary>
+        <span class="config-icon">⚙️</span>
+        <span>Ustawienia (admin)</span>
+        <span class="config-chevron">▾</span>
+      </summary>
+      <div class="config-fields">
+        <input type="password" id="cfgToken" placeholder="GitHub Token"/>
+        <button class="btn-config-save" onclick="saveConfig()">💾 Zapisz token</button>
+      </div>
+    </details>
+
+    <div class="machine-selector" role="tablist">
+      <button class="machine-btn" onclick="selectMachine('GSS 1', this)">GSS 1</button>
+      <button class="machine-btn" onclick="selectMachine('GSS 2', this)">GSS 2</button>
+      <button class="machine-btn" onclick="selectMachine('GSS 3', this)">GSS 3</button>
     </div>
-  </details>
 
-  <div class="machine-selector">
-    <button class="machine-btn" onclick="selectMachine('GSS 1', this)">GSS 1</button>
-    <button class="machine-btn" onclick="selectMachine('GSS 2', this)">GSS 2</button>
-    <button class="machine-btn" onclick="selectMachine('GSS 3', this)">GSS 3</button>
-  </div>
+    <div class="search-wrap" id="searchWrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" inputmode="numeric" autocomplete="off"
+             placeholder="Najpierw wybierz maszynę..."
+             oninput="handleInput(event)" disabled/>
+      <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+      <div class="dropdown" id="dropdown"></div>
+    </div>
 
-  <div class="search-wrap" id="searchWrap">
-    <input type="text" id="searchInput" inputmode="numeric" autocomplete="off"
-           placeholder="Najpierw wybierz maszynę..."
-           oninput="handleInput(event)" disabled/>
-    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
-    <div class="dropdown" id="dropdown"></div>
-  </div>
+    <div class="results" id="results">
+      <div class="empty-state">
+        <div class="empty-icon">⬆</div>
+        <p>Najpierw wybierz maszynę</p>
+      </div>
+    </div>
 
-  <div class="results" id="results">
-    <p class="hint">Najpierw wybierz maszynę ↑</p>
-  </div>
+    <button class="fab fab-add" id="fabAdd" onclick="openModal()" title="Dodaj numer" aria-label="Dodaj nowy numer">＋</button>
 
-  <button class="fab fab-add" id="fabAdd" onclick="openModal()" title="Dodaj numer">＋</button>
+  </section>
 
-</div><!-- end tab-search -->
-
-<!-- ═══ TAB: CALCULATOR ═══ -->
-<div class="tab-panel" id="tab-calc">
-  <div class="calc-wrap">
+  <!-- ═══ TAB: CALCULATOR ═══ -->
+  <section class="tab-panel" id="tab-calc">
     <div class="calc-card">
-      <h2>🧮 Kalkulator do suwmiarki</h2>
-      <p class="calc-subtitle">Oblicz wartości dla wybranych kątów.</p>
+      <header class="calc-header">
+        <h2>🧮 Kalkulator do suwmiarki</h2>
+        <p>Oblicz wartości dla wybranych kątów</p>
+      </header>
+
       <div class="calc-group">
         <label>Średnica (mm)</label>
         <input type="number" id="cDiam" placeholder="np. 111.022" step="0.001" inputmode="decimal"/>
@@ -67,82 +87,51 @@
         <label>Własny kąt (opcjonalnie)</label>
         <input type="number" id="cAngle" placeholder="np. 23" step="0.01" inputmode="decimal"/>
       </div>
+
       <button class="btn-calc" onclick="calcRun()">Oblicz</button>
       <div class="calc-error" id="cError"></div>
+
       <div class="calc-results" id="cResults">
         <div class="calc-main-result" id="cMainResult" style="display:none"></div>
-        <div class="calc-row"><span class="calc-row-angle">20°</span><span class="calc-row-val" id="cVal20">—</span></div>
-        <div class="calc-row"><span class="calc-row-angle">25°</span><span class="calc-row-val" id="cVal25">—</span></div>
-        <div class="calc-row"><span class="calc-row-angle">30°</span><span class="calc-row-val" id="cVal30">—</span></div>
+        <div class="calc-grid">
+          <div class="calc-row"><span class="calc-row-angle">20°</span><span class="calc-row-val" id="cVal20">—</span></div>
+          <div class="calc-row"><span class="calc-row-angle">25°</span><span class="calc-row-val" id="cVal25">—</span></div>
+          <div class="calc-row"><span class="calc-row-angle">30°</span><span class="calc-row-val" id="cVal30">—</span></div>
+        </div>
       </div>
-      <p class="calc-formula">Formuła: (średnica − 2 × grubość) × π ÷ 360 × kąt</p>
+
+      <p class="calc-formula">(średnica − 2 × grubość) × π ÷ 360 × kąt</p>
     </div>
-  </div>
-</div><!-- end tab-calc -->
+  </section>
+
+</div><!-- /app-shell -->
 
 <!-- ═══════════════ ADD MODAL ═══════════════ -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <button class="modal-close-btn" onclick="closeModal()">✕</button>
+    <button class="modal-close-btn" onclick="closeModal()" aria-label="Zamknij">✕</button>
     <h2>➕ Nowa panewka</h2>
     <p class="modal-machine" id="modalMachineName"></p>
 
-    <div class="section-divider">Dane podstawowe</div>
     <div class="form-group">
       <label>Dziesięciocyfrówka</label>
-      <input type="text" id="fNum" placeholder="1402291079" autocomplete="off"/>
-    </div>
-    <div class="form-group">
-      <label>Średnica (mm)</label>
-      <input type="number" id="fDiam" step="0.001" placeholder="111.022"/>
-    </div>
-    <div class="form-group">
-      <label>Siła docisku N</label>
-      <input type="number" id="fForce" step="1" placeholder="np. 12000">
+      <input type="text" id="fNum" placeholder="1402291079" autocomplete="off" inputmode="numeric"/>
     </div>
 
-    <div class="section-divider">Schowek</div>
     <div class="form-group">
       <label>Numer w schowku (opcjonalny)</label>
       <input type="number" id="fSlot" min="1" step="1"
              placeholder="zostanie przydzielony automatycznie"
              oninput="validateSlotField('fSlot','fSlotError',null)"/>
       <span class="field-error" id="fSlotError"></span>
-      <span class="slot-hint">Jeśli pole puste — wzornik zostanie dodany bez numeru schowku.</span>
+      <span class="slot-hint">Puste pole — wzornik bez numeru schowku.</span>
     </div>
 
     <div class="section-divider">Wartość dla kątów</div>
     <div class="prices-row">
-      <div class="form-group"><label>20°</label><input type="number" id="fP20" step="0.1" min="0" max="99" placeholder="0.0"/></div>
-      <div class="form-group"><label>25°</label><input type="number" id="fP25" step="0.1" min="0" max="99" placeholder="0.0"/></div>
-      <div class="form-group"><label>30°</label><input type="number" id="fP30" step="0.1" min="0" max="99" placeholder="0.0"/></div>
-    </div>
-
-    <div class="section-divider">Tolerancje</div>
-    <div class="form-group">
-      <label>Tolerancja grubości (mm)</label>
-      <input type="text" id="fTgDo" placeholder="-0.012">
-    </div>
-    <div class="form-group">
-      <label>Tolerancja współśrodkowości (mm)</label>
-      <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" id="fTwOd" placeholder="0.000"></div>
-        <div class="form-group"><label>Do</label><input type="text" id="fTwDo" placeholder="-0.010"></div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Tolerancja wysokości (mm)</label>
-      <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" id="fTyOd" placeholder="0.100"></div>
-        <div class="form-group"><label>Do</label><input type="text" id="fTyDo" placeholder="0.135"></div>
-      </div>
-    </div>
-
-    <div class="section-divider">Selekcje i grubości</div>
-    <div class="form-group">
-      <label class="colors-editor-label">🎨 Wybierz selekcje</label>
-      <div class="color-palette" id="fPalette"></div>
-      <div id="fColorsList"></div>
+      <div class="form-group"><label>20°</label><input type="number" id="fP20" step="0.1" min="0" max="99" placeholder="0.0" inputmode="decimal"/></div>
+      <div class="form-group"><label>25°</label><input type="number" id="fP25" step="0.1" min="0" max="99" placeholder="0.0" inputmode="decimal"/></div>
+      <div class="form-group"><label>30°</label><input type="number" id="fP30" step="0.1" min="0" max="99" placeholder="0.0" inputmode="decimal"/></div>
     </div>
 
     <div class="modal-actions">
@@ -155,68 +144,29 @@
 <!-- ═══════════════ EDIT MODAL ═══════════════ -->
 <div class="modal-overlay" id="editModalOverlay">
   <div class="modal">
-    <button class="modal-close-btn" onclick="closeEditModal()">✕</button>
+    <button class="modal-close-btn" onclick="closeEditModal()" aria-label="Zamknij">✕</button>
     <h2>✏️ Edycja</h2>
     <p class="modal-machine" id="editModalMachine"></p>
     <input type="hidden" id="eOrigNum"/>
 
-    <div class="section-divider">Dane podstawowe</div>
     <div class="form-group">
       <label>Dziesięciocyfrówka</label>
-      <input type="text" id="eNum" autocomplete="off" placeholder="1402291079"/>
-    </div>
-    <div class="form-group">
-      <label>Średnica (mm)</label>
-      <input type="number" id="eDiam" step="0.001" placeholder="111.022"/>
-    </div>
-    <div class="form-group">
-      <label>Siła docisku N</label>
-      <input type="number" id="eForce" step="1" placeholder="np. 12000">
+      <input type="text" id="eNum" autocomplete="off" placeholder="1402291079" inputmode="numeric"/>
     </div>
 
-    <div class="section-divider">Schowek</div>
     <div class="form-group">
       <label>Numer w schowku</label>
       <input type="number" id="eSlot" min="1" step="1" placeholder="brak numeru"
              oninput="validateSlotField('eSlot','eSlotError', document.getElementById('eOrigNum').value)"/>
       <span class="field-error" id="eSlotError"></span>
-      <span class="slot-hint">Wyczyść pole, aby usunąć wzornik ze schowku</span>
+      <span class="slot-hint">Wyczyść pole, aby usunąć wzornik ze schowku.</span>
     </div>
 
     <div class="section-divider">Wartość dla kątów</div>
     <div class="prices-row">
-      <div class="form-group"><label>20°</label><input type="number" id="eP20" step="0.1" min="0" max="99" placeholder="0.0"/></div>
-      <div class="form-group"><label>25°</label><input type="number" id="eP25" step="0.1" min="0" max="99" placeholder="0.0"/></div>
-      <div class="form-group"><label>30°</label><input type="number" id="eP30" step="0.1" min="0" max="99" placeholder="0.0"/></div>
-    </div>
-
-    <div class="section-divider">Tolerancje</div>
-    <div class="form-group">
-      <label>Tolerancja grubości (mm)</label>
-      <div class="prices-row">
-        <div class="form-group"><label>Do</label><input type="text" id="eTgDo" placeholder="-0.012"></div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Tolerancja współśrodkowości (mm)</label>
-      <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" id="eTwOd" placeholder="0.000"></div>
-        <div class="form-group"><label>Do</label><input type="text" id="eTwDo" placeholder="-0.010"></div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Tolerancja wysokości (mm)</label>
-      <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" id="eTyOd" placeholder="0.100"></div>
-        <div class="form-group"><label>Do</label><input type="text" id="eTyDo" placeholder="0.135"></div>
-      </div>
-    </div>
-
-    <div class="section-divider">Selekcje i grubości</div>
-    <div class="form-group">
-      <label class="colors-editor-label">🎨 Wybierz selekcje</label>
-      <div class="color-palette" id="ePalette"></div>
-      <div id="eColorsList"></div>
+      <div class="form-group"><label>20°</label><input type="number" id="eP20" step="0.1" min="0" max="99" placeholder="0.0" inputmode="decimal"/></div>
+      <div class="form-group"><label>25°</label><input type="number" id="eP25" step="0.1" min="0" max="99" placeholder="0.0" inputmode="decimal"/></div>
+      <div class="form-group"><label>30°</label><input type="number" id="eP30" step="0.1" min="0" max="99" placeholder="0.0" inputmode="decimal"/></div>
     </div>
 
     <div class="modal-actions">
@@ -253,73 +203,21 @@
 <!-- ═══════════════ SLOT MODAL ═══════════════ -->
 <div class="modal-overlay" id="slotModalOverlay">
   <div class="slot-modal-wrap">
-    <button class="modal-close-btn" onclick="closeSlotModal()">✕</button>
+    <button class="modal-close-btn" onclick="closeSlotModal()" aria-label="Zamknij">✕</button>
     <h2 id="slotModalTitle">📦 Dodaj wzornik do schowku</h2>
     <div class="form-group">
       <label>Numer w schowku</label>
-      <input type="number" id="slotInput" min="1" step="1" placeholder="1"
+      <input type="number" id="slotInput" min="1" step="1" placeholder="1" inputmode="numeric"
              oninput="validateSlotInput()"/>
-      <span class="slot-field-error" id="slotInputError"></span>
+      <span class="field-error" id="slotInputError"></span>
       <span class="slot-hint" id="slotHint"></span>
     </div>
-    <button id="btnSlotDelete" onclick="deleteSlot()"
-      style="display:none;width:100%;padding:10px;border-radius:3px;border:1px solid var(--red);
-      background:transparent;color:#e05050;font-family:'Barlow Condensed',sans-serif;font-weight:700;
-      letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-top:12px;font-size:0.95rem;">
+    <button id="btnSlotDelete" class="btn-slot-delete" onclick="deleteSlot()">
       🗑️ Usuń wzornik ze schowku
     </button>
-    <div class="modal-actions" style="margin-top:10px;">
+    <div class="modal-actions">
       <button class="btn-cancel" onclick="closeSlotModal()">Anuluj</button>
       <button class="btn-save" id="btnSlotSave" onclick="saveSlot()">💾 Zapisz</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ CONFIRM COLOR DELETE ═══════════════ -->
-<div class="confirm-overlay" id="confirmColorOverlay">
-  <div class="confirm-box">
-    <h3>🗑️ Usunąć selekcję?</h3>
-    <p>Selekcja <strong id="confirmColorName"></strong> zostanie <strong>usunięta z palety</strong>. Tej operacji nie można cofnąć.</p>
-    <div class="confirm-actions">
-      <button class="btn-confirm-cancel" onclick="closeConfirmColor()">Anuluj</button>
-      <button class="btn-confirm-delete" onclick="confirmDeleteColorFinal()">Usuń</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ DELETE COLOR MODAL ═══════════════ -->
-<div class="custom-color-overlay" id="deleteColorOverlay">
-  <div class="custom-color-box" style="max-width:360px;">
-    <button class="modal-close-btn" onclick="closeDeleteColor()">✕</button>
-    <h3>🗑️ Usuń selekcję</h3>
-    <p style="color:var(--text2);font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;margin-bottom:14px;letter-spacing:0.5px;">Wybierz selekcję do usunięcia:</p>
-    <div id="deleteColorList" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto;margin-bottom:16px;"></div>
-    <div class="custom-color-actions">
-      <button class="btn-custom-cancel" onclick="closeDeleteColor()">Anuluj</button>
-      <button class="btn-custom-ok" id="btnConfirmDeleteColor"
-              onclick="askConfirmColor()"
-              style="background:var(--red);" disabled>🗑️ Usuń</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ ADD COLOR MODAL ═══════════════ -->
-<div class="custom-color-overlay" id="customColorOverlay">
-  <div class="custom-color-box">
-    <button class="modal-close-btn" onclick="closeCustomColor()">✕</button>
-    <h3>➕ Nowa selekcja</h3>
-    <div class="color-preview-row">
-      <div class="color-preview-circle" id="customColorPreview" style="background:#888888"></div>
-      <input type="color" id="customColorPicker" value="#888888"
-             oninput="document.getElementById('customColorPreview').style.background=this.value"/>
-    </div>
-    <div class="form-group">
-      <label>Nazwa selekcji</label>
-      <input type="text" id="customColorName" placeholder="np. Pomarańczowy" autocomplete="off"/>
-    </div>
-    <div class="custom-color-actions">
-      <button class="btn-custom-cancel" onclick="closeCustomColor()">Anuluj</button>
-      <button class="btn-custom-ok" onclick="confirmCustomColor()">✅ Dodaj</button>
     </div>
   </div>
 </div>
@@ -334,7 +232,6 @@
 <script src="js/config.js"></script>
 <script src="js/db.js"></script>
 <script src="js/slots.js"></script>
-<script src="js/palette.js"></script>
 <script src="js/search.js"></script>
 <script src="js/modals.js"></script>
 <script src="js/calculator.js"></script>
