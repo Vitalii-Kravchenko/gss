@@ -133,6 +133,7 @@ h1 {
 .dropdown-item:active { background: rgba(232,160,32,0.08); color: var(--white); }
 .match-highlight { color: var(--accent); font-weight: 700; }
 .dim-info { margin-left: auto; font-size: 0.75rem; color: var(--text3); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.5px; }
+.slot-chip { margin-left: 8px; color: var(--accent); font-family: 'DM Mono', monospace; font-size: 0.75rem; }
 .dropdown-empty { padding: 14px 18px; color: var(--red); font-size: 0.9rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.5px; }
 .dropdown::-webkit-scrollbar { width: 4px; }
 .dropdown::-webkit-scrollbar-track { background: var(--surface); }

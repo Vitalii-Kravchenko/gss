@@ -43,9 +43,10 @@ function handleInput(e) {
   matched.forEach(([id, item]) => {
     const div = document.createElement('div');
     div.className = 'dropdown-item';
+    const slotChip = item.slot != null ? `<span class="slot-chip">📦 ${item.slot}</span>` : '';
     div.innerHTML = `
       <span># <span class="match-highlight">${id.slice(0, query.length)}</span>${id.slice(query.length)}</span>
-      <span class="dim-info">⌀${parseFloat(item.diameter).toFixed(3)}</span>
+      <span class="dim-info">⌀${parseFloat(item.diameter).toFixed(3)}${slotChip}</span>
     `;
     div.addEventListener('click', () => selectResult(id, item));
     dropdown.appendChild(div);
