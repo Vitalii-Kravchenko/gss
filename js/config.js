@@ -5,12 +5,7 @@ const REPO_NAME  = 'gss';
 // ── App state ──────────────────────────────────
 let token = localStorage.getItem('gss_token') || '';
 let DB = {};
-let PALETTE = [];
 let currentMachine = null;
-
-// ── Helpers ────────────────────────────────────
-const pf       = v => parseFloat(String(v).replace(',', '.').replace('+', '').trim());
-const cleanNum  = v => String(v).replace(',', '.').replace('+', '').trim();
 
 // ── Config save ────────────────────────────────
 async function saveConfig() {

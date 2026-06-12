@@ -45,7 +45,7 @@ function handleInput(e) {
     div.className = 'dropdown-item';
     div.innerHTML = `
       <span># <span class="match-highlight">${id.slice(0, query.length)}</span>${id.slice(query.length)}</span>
-      <span class="dim-info">⌀${parseFloat(item.diameter).toFixed(3)} · ${(item.colors||[]).length} sel.</span>
+      <span class="dim-info">⌀${parseFloat(item.diameter).toFixed(3)}</span>
     `;
     div.addEventListener('click', () => selectResult(id, item));
     dropdown.appendChild(div);
@@ -58,8 +58,6 @@ function selectResult(id, item) {
   document.getElementById('searchInput').value = id;
 
   const prices = item.machines?.[currentMachine]?.prices || [0, 0, 0];
-  const colors = item.colors || [];
-  const tol    = item.tolerancje || {};
   const slot   = item.slot ?? null;
 
   const slotEditBtn = token
@@ -76,25 +74,6 @@ function selectResult(id, item) {
         ? `<div class="slot-found">📦 Ten wzornik leży w schowku pod numerem <strong>${slot}</strong></div>`
         : `<div class="slot-missing-text">⚠️ Wzornik gdzieś się zgubił. Może poszukać go w szafce na dole?</div>`}
       ${slotEditBtn}
-    </div>`;
-
-  const colorsHTML = colors.length ? `
-    <div class="colors-section">
-      <div class="colors-label">🎨 Selekcje i grubości</div>
-      ${colors.map(c => `
-        <div class="color-row">
-          <div class="color-dot" style="background:${c.color}"></div>
-          <div class="color-name">${c.name}</div>
-          <div class="color-thick">${c.thickness} mm</div>
-        </div>`).join('')}
-    </div>` : '';
-
-  const fmt = v => (v !== undefined && v !== '') ? v : '—';
-  const tolHTML = `
-    <div class="info-row">
-      <div class="info-pill">Tol. grubości<span>${tol.grubosc ? fmt(tol.grubosc.do)+' mm' : '—'}</span></div>
-      <div class="info-pill">Tol. wsp.środ.<span>${tol.wspolsrodkowosc ? fmt(tol.wspolsrodkowosc.od)+' / '+fmt(tol.wspolsrodkowosc.do)+' mm' : '—'}</span></div>
-      <div class="info-pill">Tol. wysokości<span>${tol.wysokosc ? fmt(tol.wysokosc.od)+' / '+fmt(tol.wysokosc.do)+' mm' : '—'}</span></div>
     </div>`;
 
   const anglesHTML = [20, 25, 30].map((deg, i) => `
@@ -120,8 +99,6 @@ function selectResult(id, item) {
         <div class="info-pill">Średnica panewki<span>${parseFloat(item.diameter).toFixed(3)} mm</span></div>
         ${item.force != null ? `<div class="info-pill">Siła docisku<span>${item.force} N</span></div>` : ''}
       </div>
-      ${colorsHTML}
-      ${tolHTML}
       <div class="angles">${anglesHTML}</div>
       ${actionsHTML}
     </div>`;

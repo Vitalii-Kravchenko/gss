@@ -1,39 +1,13 @@
-// ── Tolerance helpers ──────────────────────────
-function readTol(prefix) {
-  const c = id => cleanNum(document.getElementById(id).value);
-  return {
-    grubosc:         { do: c(prefix+'TgDo') },
-    wspolsrodkowosc: { od: c(prefix+'TwOd'), do: c(prefix+'TwDo') },
-    wysokosc:        { od: c(prefix+'TyOd'), do: c(prefix+'TyDo') }
-  };
-}
-
-function tolValid(t) {
-  const v = s => s !== '' && !isNaN(pf(s));
-  return v(t.grubosc.do) && v(t.wspolsrodkowosc.od) && v(t.wspolsrodkowosc.do) && v(t.wysokosc.od) && v(t.wysokosc.do);
-}
-
-function fillTol(prefix, tol) {
-  const t = tol || {};
-  document.getElementById(`${prefix}TgDo`).value = t.grubosc?.do         ?? '';
-  document.getElementById(`${prefix}TwOd`).value = t.wspolsrodkowosc?.od ?? '';
-  document.getElementById(`${prefix}TwDo`).value = t.wspolsrodkowosc?.do ?? '';
-  document.getElementById(`${prefix}TyOd`).value = t.wysokosc?.od        ?? '';
-  document.getElementById(`${prefix}TyDo`).value = t.wysokosc?.do        ?? '';
-}
-
 // ── Add modal ──────────────────────────────────
 function openModal() {
   if (!currentMachine) { showToast('⚠️ Najpierw wybierz maszynę', 'error'); return; }
   if (!token)          { showToast('⚠️ Wprowadź token w ustawieniach ⚙️', 'error'); return; }
   document.getElementById('modalMachineName').textContent = currentMachine;
-  ['fNum','fDiam','fForce','fP20','fP25','fP30','fTgDo','fTwOd','fTwDo','fTyOd','fTyDo'].forEach(id => document.getElementById(id).value = '');
+  ['fNum','fDiam','fForce','fP20','fP25','fP30'].forEach(id => document.getElementById(id).value = '');
   const nextSlot = getNextSlot();
   document.getElementById('fSlot').value = nextSlot;
   document.getElementById('fSlotError').textContent = '';
   document.getElementById('fSlot').classList.remove('input-error');
-  document.getElementById('fColorsList').innerHTML = '';
-  renderPalette('fPalette', 'fColorsList', []);
   document.getElementById('modalOverlay').classList.add('open');
 }
 
@@ -48,17 +22,12 @@ async function saveEntry() {
   const p20    = parseFloat(document.getElementById('fP20').value);
   const p25    = parseFloat(document.getElementById('fP25').value);
   const p30    = parseFloat(document.getElementById('fP30').value);
-  const tol    = readTol('f');
-  const colors = getColorsFromList('fColorsList');
 
   const slotRaw = document.getElementById('fSlot').value.trim();
   const slotNum = slotRaw !== '' ? parseInt(slotRaw) : null;
   if (!validateSlotField('fSlot', 'fSlotError', null)) { showToast('⚠️ Popraw numer schowku', 'error'); return; }
 
   if (!num || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('⚠️ Wypełnij wszystkie pola', 'error'); return; }
-  if (!tolValid(tol))    { showToast('⚠️ Wypełnij wszystkie tolerancje', 'error'); return; }
-  if (colors === null)   { showToast('⚠️ Wypełnij grubości dla wszystkich selekcji', 'error'); return; }
-  if (!colors.length)    { showToast('⚠️ Wybierz przynajmniej jedną selekcję', 'error'); return; }
   if ([p20,p25,p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
   if (DB[num]) { showToast('Taki numer już istnieje', 'error'); return; }
 
@@ -70,7 +39,7 @@ async function saveEntry() {
 
   const btn = document.getElementById('btnSave');
   btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
-  DB[num] = { slot: slotNum, diameter: diam, force: isNaN(force) ? null : force, tolerancje: tol, colors, machines };
+  DB[num] = { slot: slotNum, diameter: diam, force: isNaN(force) ? null : force, machines };
   const ok = await saveData();
 
   if (ok) {
@@ -102,16 +71,6 @@ function openEditModal(id) {
   document.getElementById('eSlot').value    = item.slot ?? '';
   document.getElementById('eSlotError').textContent = '';
   document.getElementById('eSlot').classList.remove('input-error');
-  fillTol('e', item.tolerancje);
-  document.getElementById('eColorsList').innerHTML = '';
-  const saved = item.colors || [];
-  renderPalette('ePalette', 'eColorsList', saved);
-  saved.forEach(c => {
-    addColorEntry('eColorsList', c.name, c.color || '#888888', c.thickness);
-    PALETTE.forEach((p, i) => {
-      if (p.name === c.name) document.querySelector(`#ePalette .palette-btn[data-index="${i}"]`)?.classList.add('selected');
-    });
-  });
   document.getElementById('editModalOverlay').classList.add('open');
 }
 
@@ -127,17 +86,12 @@ async function saveEdit() {
   const p20     = parseFloat(document.getElementById('eP20').value);
   const p25     = parseFloat(document.getElementById('eP25').value);
   const p30     = parseFloat(document.getElementById('eP30').value);
-  const tol     = readTol('e');
-  const colors  = getColorsFromList('eColorsList');
 
   const slotRaw = document.getElementById('eSlot').value.trim();
   const slotNum = slotRaw !== '' ? parseInt(slotRaw) : null;
   if (!validateSlotField('eSlot', 'eSlotError', origNum)) { showToast('⚠️ Popraw numer schowku', 'error'); return; }
 
   if (!newNum || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('⚠️ Wypełnij wszystkie pola', 'error'); return; }
-  if (!tolValid(tol))  { showToast('⚠️ Wypełnij wszystkie tolerancje', 'error'); return; }
-  if (colors === null) { showToast('⚠️ Wypełnij grubości dla wszystkich selekcji', 'error'); return; }
-  if (!colors.length)  { showToast('⚠️ Wybierz przynajmniej jedną selekcję', 'error'); return; }
   if ([p20,p25,p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
   if (newNum !== origNum && DB[newNum]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
 
@@ -150,8 +104,6 @@ async function saveEdit() {
   DB[target].slot = slotNum;
   DB[target].diameter = diam;
   DB[target].force = isNaN(force) ? null : force;
-  DB[target].tolerancje = tol;
-  DB[target].colors = colors;
   if (!DB[target].machines) DB[target].machines = {};
   DB[target].machines[currentMachine] = { prices: [p20, p25, p30] };
 
