@@ -70,7 +70,7 @@ function selectResult(id, item) {
     : '';
 
   const slotHTML = `
-    <div class="slot-section">
+    <div class="slot-section ${slot != null ? 'stored' : 'missing'}">
       ${slot != null
         ? `<div class="slot-found">📦 Ten wzornik leży w schowku pod numerem <strong>${slot}</strong></div>`
         : `<div class="slot-missing-text">⚠️ Wzornik gdzieś się zgubił. Może poszukać go w szafce na dole?</div>`}
@@ -92,8 +92,8 @@ function selectResult(id, item) {
   document.getElementById('results').innerHTML = `
     <div class="card">
       <div class="card-top">
-        <div><div class="card-id"># ${id}</div><div class="card-machine">${currentMachine}</div></div>
-        ${bushingIcon()}
+        <div class="card-id"># ${id}</div>
+        <div class="card-machine">${currentMachine}</div>
       </div>
       ${slotHTML}
       <div class="info-row">
@@ -105,19 +105,3 @@ function selectResult(id, item) {
     </div>`;
 }
 
-// ── SVG icon ───────────────────────────────────
-function bushingIcon() {
-  return `<svg class="bushing-icon" viewBox="0 0 60 44" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="mg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d0d8e8"/><stop offset="40%" stop-color="#a8b4c8"/><stop offset="100%" stop-color="#6a7a90"/></linearGradient>
-      <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8a9ab0"/><stop offset="100%" stop-color="#4a5a6e"/></linearGradient>
-      <linearGradient id="sg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="rgba(255,255,255,0.45)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient>
-    </defs>
-    <path d="M 4,34 A 26,26 0 0,1 56,34 L 48,34 A 18,18 0 0,0 12,34 Z" fill="url(#mg)" stroke="#8a9ab0" stroke-width="0.8"/>
-    <rect x="4" y="34" width="8" height="6" rx="1" fill="url(#ig)" stroke="#6a7a90" stroke-width="0.5"/>
-    <rect x="48" y="34" width="8" height="6" rx="1" fill="url(#ig)" stroke="#6a7a90" stroke-width="0.5"/>
-    <rect x="4" y="40" width="52" height="3" rx="1.5" fill="#5a6a80" stroke="#4a5a6e" stroke-width="0.5"/>
-    <path d="M 8,34 A 22,22 0 0,1 52,34 L 48,34 A 18,18 0 0,0 12,34 Z" fill="url(#sg)" opacity="0.6"/>
-    <path d="M 6,26 A 24,24 0 0,1 54,26" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.2" stroke-linecap="round"/>
-  </svg>`;
-}

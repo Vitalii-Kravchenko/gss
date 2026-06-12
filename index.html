@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>GSS Panewki</title>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -206,13 +206,10 @@
       <span class="slot-field-error" id="slotInputError"></span>
       <span class="slot-hint" id="slotHint"></span>
     </div>
-    <button id="btnSlotDelete" onclick="deleteSlot()"
-      style="display:none;width:100%;padding:10px;border-radius:3px;border:1px solid var(--red);
-      background:transparent;color:#e05050;font-family:'Barlow Condensed',sans-serif;font-weight:700;
-      letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-top:12px;font-size:0.95rem;">
+    <button id="btnSlotDelete" class="btn-slot-delete" onclick="deleteSlot()" style="display:none;">
       🗑️ Usuń wzornik ze schowku
     </button>
-    <div class="modal-actions" style="margin-top:10px;">
+    <div class="modal-actions">
       <button class="btn-cancel" onclick="closeSlotModal()">Anuluj</button>
       <button class="btn-save" id="btnSlotSave" onclick="saveSlot()">💾 Zapisz</button>
     </div>
