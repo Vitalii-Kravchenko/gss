@@ -118,33 +118,6 @@
       <div class="form-group"><label>30°</label><input type="number" id="fP30" step="0.1" min="0" max="99" placeholder="0.0"/></div>
     </div>
 
-    <div class="section-divider">Tolerancje</div>
-    <div class="form-group">
-      <label>Tolerancja grubości (mm)</label>
-      <input type="text" id="fTgDo" placeholder="-0.012">
-    </div>
-    <div class="form-group">
-      <label>Tolerancja współśrodkowości (mm)</label>
-      <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" id="fTwOd" placeholder="0.000"></div>
-        <div class="form-group"><label>Do</label><input type="text" id="fTwDo" placeholder="-0.010"></div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Tolerancja wysokości (mm)</label>
-      <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" id="fTyOd" placeholder="0.100"></div>
-        <div class="form-group"><label>Do</label><input type="text" id="fTyDo" placeholder="0.135"></div>
-      </div>
-    </div>
-
-    <div class="section-divider">Selekcje i grubości</div>
-    <div class="form-group">
-      <label class="colors-editor-label">🎨 Wybierz selekcje</label>
-      <div class="color-palette" id="fPalette"></div>
-      <div id="fColorsList"></div>
-    </div>
-
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">Anuluj</button>
       <button class="btn-save" id="btnSave" onclick="saveEntry()">💾 Zapisz</button>
@@ -188,35 +161,6 @@
       <div class="form-group"><label>20°</label><input type="number" id="eP20" step="0.1" min="0" max="99" placeholder="0.0"/></div>
       <div class="form-group"><label>25°</label><input type="number" id="eP25" step="0.1" min="0" max="99" placeholder="0.0"/></div>
       <div class="form-group"><label>30°</label><input type="number" id="eP30" step="0.1" min="0" max="99" placeholder="0.0"/></div>
-    </div>
-
-    <div class="section-divider">Tolerancje</div>
-    <div class="form-group">
-      <label>Tolerancja grubości (mm)</label>
-      <div class="prices-row">
-        <div class="form-group"><label>Do</label><input type="text" id="eTgDo" placeholder="-0.012"></div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Tolerancja współśrodkowości (mm)</label>
-      <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" id="eTwOd" placeholder="0.000"></div>
-        <div class="form-group"><label>Do</label><input type="text" id="eTwDo" placeholder="-0.010"></div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Tolerancja wysokości (mm)</label>
-      <div class="prices-row">
-        <div class="form-group"><label>Od</label><input type="text" id="eTyOd" placeholder="0.100"></div>
-        <div class="form-group"><label>Do</label><input type="text" id="eTyDo" placeholder="0.135"></div>
-      </div>
-    </div>
-
-    <div class="section-divider">Selekcje i grubości</div>
-    <div class="form-group">
-      <label class="colors-editor-label">🎨 Wybierz selekcje</label>
-      <div class="color-palette" id="ePalette"></div>
-      <div id="eColorsList"></div>
     </div>
 
     <div class="modal-actions">
@@ -275,55 +219,6 @@
   </div>
 </div>
 
-<!-- ═══════════════ CONFIRM COLOR DELETE ═══════════════ -->
-<div class="confirm-overlay" id="confirmColorOverlay">
-  <div class="confirm-box">
-    <h3>🗑️ Usunąć selekcję?</h3>
-    <p>Selekcja <strong id="confirmColorName"></strong> zostanie <strong>usunięta z palety</strong>. Tej operacji nie można cofnąć.</p>
-    <div class="confirm-actions">
-      <button class="btn-confirm-cancel" onclick="closeConfirmColor()">Anuluj</button>
-      <button class="btn-confirm-delete" onclick="confirmDeleteColorFinal()">Usuń</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ DELETE COLOR MODAL ═══════════════ -->
-<div class="custom-color-overlay" id="deleteColorOverlay">
-  <div class="custom-color-box" style="max-width:360px;">
-    <button class="modal-close-btn" onclick="closeDeleteColor()">✕</button>
-    <h3>🗑️ Usuń selekcję</h3>
-    <p style="color:var(--text2);font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;margin-bottom:14px;letter-spacing:0.5px;">Wybierz selekcję do usunięcia:</p>
-    <div id="deleteColorList" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto;margin-bottom:16px;"></div>
-    <div class="custom-color-actions">
-      <button class="btn-custom-cancel" onclick="closeDeleteColor()">Anuluj</button>
-      <button class="btn-custom-ok" id="btnConfirmDeleteColor"
-              onclick="askConfirmColor()"
-              style="background:var(--red);" disabled>🗑️ Usuń</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════ ADD COLOR MODAL ═══════════════ -->
-<div class="custom-color-overlay" id="customColorOverlay">
-  <div class="custom-color-box">
-    <button class="modal-close-btn" onclick="closeCustomColor()">✕</button>
-    <h3>➕ Nowa selekcja</h3>
-    <div class="color-preview-row">
-      <div class="color-preview-circle" id="customColorPreview" style="background:#888888"></div>
-      <input type="color" id="customColorPicker" value="#888888"
-             oninput="document.getElementById('customColorPreview').style.background=this.value"/>
-    </div>
-    <div class="form-group">
-      <label>Nazwa selekcji</label>
-      <input type="text" id="customColorName" placeholder="np. Pomarańczowy" autocomplete="off"/>
-    </div>
-    <div class="custom-color-actions">
-      <button class="btn-custom-cancel" onclick="closeCustomColor()">Anuluj</button>
-      <button class="btn-custom-ok" onclick="confirmCustomColor()">✅ Dodaj</button>
-    </div>
-  </div>
-</div>
-
 <!-- ═══════════════ OVERLAYS ═══════════════ -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-box" id="loadingMsg"></div>
@@ -334,7 +229,6 @@
 <script src="js/config.js"></script>
 <script src="js/db.js"></script>
 <script src="js/slots.js"></script>
-<script src="js/palette.js"></script>
 <script src="js/search.js"></script>
 <script src="js/modals.js"></script>
 <script src="js/calculator.js"></script>
