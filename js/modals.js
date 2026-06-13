@@ -1,7 +1,7 @@
 // ── Add modal ──────────────────────────────────
 function openModal() {
-  if (!currentMachine) { showToast('⚠️ Najpierw wybierz maszynę', 'error'); return; }
-  if (!token)          { showToast('⚠️ Wprowadź token w ustawieniach ⚙️', 'error'); return; }
+  if (!currentMachine) { showToast('Najpierw wybierz maszynę', 'error'); return; }
+  if (!token)          { showToast('Wprowadź token w ustawieniach', 'error'); return; }
   document.getElementById('modalMachineName').textContent = currentMachine;
   ['fNum','fDiam','fForce','fP20','fP25','fP30'].forEach(id => document.getElementById(id).value = '');
   const nextSlot = getNextSlot();
@@ -25,10 +25,10 @@ async function saveEntry() {
 
   const slotRaw = document.getElementById('fSlot').value.trim();
   const slotNum = slotRaw !== '' ? parseInt(slotRaw) : null;
-  if (!validateSlotField('fSlot', 'fSlotError', null)) { showToast('⚠️ Popraw numer schowku', 'error'); return; }
+  if (!validateSlotField('fSlot', 'fSlotError', null)) { showToast('Popraw numer schowku', 'error'); return; }
 
-  if (!num || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('⚠️ Wypełnij wszystkie pola', 'error'); return; }
-  if ([p20,p25,p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
+  if (!num || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('Wypełnij wszystkie pola', 'error'); return; }
+  if ([p20,p25,p30].some(p => p > 99)) { showToast('Wartość nie może przekraczać 99.0', 'error'); return; }
   if (DB[num]) { showToast('Taki numer już istnieje', 'error'); return; }
 
   const machines = {
@@ -38,21 +38,21 @@ async function saveEntry() {
   };
 
   const btn = document.getElementById('btnSave');
-  btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
+  btn.disabled = true; btn.innerHTML = icon('loader', 'icon-spin') + 'Zapisuję...';
   DB[num] = { slot: slotNum, diameter: diam, force: isNaN(force) ? null : force, machines };
   const ok = await saveData();
 
   if (ok) {
     closeModal();
     const msg = slotNum != null
-      ? `✅ Numer ${num} zapisany. Wzornik dodany do schowku pod numerem ${slotNum}`
-      : `✅ Numer ${num} zapisany`;
+      ? `Numer ${num} zapisany. Wzornik dodany do schowku pod numerem ${slotNum}`
+      : `Numer ${num} zapisany`;
     showToast(msg, 'success');
   } else {
     delete DB[num];
-    showToast('❌ Błąd. Sprawdź token', 'error');
+    showToast('Błąd. Sprawdź token', 'error');
   }
-  btn.disabled = false; btn.textContent = '💾 Zapisz';
+  btn.disabled = false; btn.innerHTML = icon('save') + 'Zapisz';
 }
 
 // ── Edit modal ─────────────────────────────────
@@ -89,14 +89,14 @@ async function saveEdit() {
 
   const slotRaw = document.getElementById('eSlot').value.trim();
   const slotNum = slotRaw !== '' ? parseInt(slotRaw) : null;
-  if (!validateSlotField('eSlot', 'eSlotError', origNum)) { showToast('⚠️ Popraw numer schowku', 'error'); return; }
+  if (!validateSlotField('eSlot', 'eSlotError', origNum)) { showToast('Popraw numer schowku', 'error'); return; }
 
-  if (!newNum || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('⚠️ Wypełnij wszystkie pola', 'error'); return; }
-  if ([p20,p25,p30].some(p => p > 99)) { showToast('⚠️ Wartość nie może przekraczać 99.0', 'error'); return; }
-  if (newNum !== origNum && DB[newNum]) { showToast('⚠️ Taki numer już istnieje', 'error'); return; }
+  if (!newNum || isNaN(diam) || isNaN(p20) || isNaN(p25) || isNaN(p30)) { showToast('Wypełnij wszystkie pola', 'error'); return; }
+  if ([p20,p25,p30].some(p => p > 99)) { showToast('Wartość nie może przekraczać 99.0', 'error'); return; }
+  if (newNum !== origNum && DB[newNum]) { showToast('Taki numer już istnieje', 'error'); return; }
 
   const btn = document.getElementById('btnEditSave');
-  btn.disabled = true; btn.textContent = '⏳ Zapisuję...';
+  btn.disabled = true; btn.innerHTML = icon('loader', 'icon-spin') + 'Zapisuję...';
 
   const oldData = JSON.parse(JSON.stringify(DB[origNum]));
   if (newNum !== origNum) { DB[newNum] = { ...DB[origNum] }; delete DB[origNum]; }
@@ -108,17 +108,17 @@ async function saveEdit() {
   DB[target].machines[currentMachine] = { prices: [p20, p25, p30] };
 
   const ok = await saveData();
-  btn.disabled = false; btn.textContent = '💾 Zapisz zmiany';
+  btn.disabled = false; btn.innerHTML = icon('save') + 'Zapisz zmiany';
 
   if (ok) {
     closeEditModal();
-    showToast(`✅ Numer ${newNum} zaktualizowany`, 'success');
+    showToast(`Numer ${newNum} zaktualizowany`, 'success');
     selectResult(newNum, DB[newNum]);
     document.getElementById('searchInput').value = newNum;
   } else {
     if (newNum !== origNum) { delete DB[newNum]; DB[origNum] = oldData; }
     else { DB[origNum] = oldData; }
-    showToast('❌ Błąd zapisu', 'error');
+    showToast('Błąd zapisu', 'error');
   }
 }
 
@@ -142,15 +142,15 @@ async function confirmDelete() {
   const backup = { ...DB[id] };
   delete DB[id];
   closeConfirm();
-  showLoading('⏳ Usuwam...');
+  showLoading('Usuwam...');
   const ok = await saveData();
   hideLoading();
   if (ok) {
     document.getElementById('results').innerHTML = '<p class="hint">Wpis usunięty. Wpisz nowy numer.</p>';
     document.getElementById('searchInput').value = '';
-    showToast(`✅ Numer ${id} usunięty`, 'success');
+    showToast(`Numer ${id} usunięty`, 'success');
   } else {
     DB[id] = backup;
-    showToast('❌ Błąd usuwania', 'error');
+    showToast('Błąd usuwania', 'error');
   }
 }

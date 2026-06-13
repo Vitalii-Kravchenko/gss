@@ -10,13 +10,13 @@ let currentMachine = null;
 // ── Config save ────────────────────────────────
 async function saveConfig() {
   const t = document.getElementById('cfgToken').value.trim();
-  if (!t) { showToast('⚠️ Wprowadź token', 'error'); return; }
+  if (!t) { showToast('Wprowadź token', 'error'); return; }
   const test = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, {
     headers: { Authorization: `token ${t}` }
   });
-  if (!test.ok) { showToast('❌ Token nieprawidłowy!', 'error'); return; }
+  if (!test.ok) { showToast('Token nieprawidłowy!', 'error'); return; }
   token = t;
   localStorage.setItem('gss_token', token);
-  showToast('✅ Token zapisany', 'success');
+  showToast('Token zapisany', 'success');
   document.getElementById('configBar').removeAttribute('open');
 }

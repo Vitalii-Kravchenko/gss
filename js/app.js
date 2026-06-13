@@ -1,6 +1,6 @@
 // ── Toast & Loading ────────────────────────────
 function showLoading(msg) {
-  document.getElementById('loadingMsg').textContent = msg;
+  document.getElementById('loadingMsg').innerHTML = icon('loader', 'icon-spin') + msg;
   document.getElementById('loadingOverlay').classList.add('show');
 }
 
@@ -10,9 +10,15 @@ function hideLoading() {
 
 function showToast(msg, type = '') {
   const t = document.getElementById('toast');
-  t.textContent = msg;
+  const name = type === 'success' ? 'check' : type === 'error' ? 'error' : 'info';
+  t.innerHTML = icon(name) + `<span>${msg}</span>`;
   t.className = `toast ${type} show`;
   setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ── Inline field error with warning icon ───────
+function setFieldError(el, msg) {
+  el.innerHTML = msg ? icon('warning') + `<span>${msg}</span>` : '';
 }
 
 // ── Tabs ───────────────────────────────────────
