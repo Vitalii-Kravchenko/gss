@@ -1,33 +1,5 @@
 {
   "entries": {
-    "11111": {
-      "slot": 15,
-      "diameter": 11,
-      "force": 1111,
-      "machines": {
-        "GSS 1": {
-          "prices": [
-            0,
-            0,
-            0
-          ]
-        },
-        "GSS 2": {
-          "prices": [
-            0,
-            0,
-            0
-          ]
-        },
-        "GSS 3": {
-          "prices": [
-            0,
-            0,
-            0
-          ]
-        }
-      }
-    },
     "1186181079": {
       "slot": 3,
       "diameter": 104.022,
