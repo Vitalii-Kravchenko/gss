@@ -6,13 +6,13 @@ function calcRun() {
   const resEl  = document.getElementById('cResults');
   const mainEl = document.getElementById('cMainResult');
 
-  errEl.textContent = '';
+  setFieldError(errEl, '');
   resEl.style.display = 'none';
   mainEl.style.display = 'none';
 
-  if (isNaN(d) || isNaN(t)) { errEl.textContent = '⚠️ Wypełnij średnicę i grubość.'; return; }
-  if (d <= 0)               { errEl.textContent = '⚠️ Średnica musi być większa od zera.'; return; }
-  if (2 * t >= d)           { errEl.textContent = '⚠️ 2 × grubość nie może być ≥ średnicy.'; return; }
+  if (isNaN(d) || isNaN(t)) { setFieldError(errEl, 'Wypełnij średnicę i grubość.'); return; }
+  if (d <= 0)               { setFieldError(errEl, 'Średnica musi być większa od zera.'); return; }
+  if (2 * t >= d)           { setFieldError(errEl, '2 × grubość nie może być ≥ średnicy.'); return; }
 
   const base = (d - 2 * t) * Math.PI / 360;
   document.getElementById('cVal20').textContent = (base * 20).toFixed(3);

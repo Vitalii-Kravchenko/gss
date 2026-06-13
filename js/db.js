@@ -23,7 +23,7 @@ async function loadData() {
 
 // ── Save data to GitHub (merge-safe) ──────────
 async function saveData() {
-  if (!token) { showToast('⚠️ Wprowadź token w ustawieniach', 'error'); return false; }
+  if (!token) { showToast('Wprowadź token w ustawieniach', 'error'); return false; }
   try {
     const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
     const getRes = await fetch(apiUrl, {

@@ -37,13 +37,13 @@ function handleInput(e) {
   }
   const matched = Object.entries(DB).filter(([id]) => id.toLowerCase().startsWith(query.toLowerCase()));
   if (!matched.length) {
-    dropdown.innerHTML = `<div class="dropdown-empty">❌ Numer "${query}" nie istnieje w bazie</div>`;
+    dropdown.innerHTML = `<div class="dropdown-empty">${icon('error')} Numer "${query}" nie istnieje w bazie</div>`;
     return;
   }
   matched.forEach(([id, item]) => {
     const div = document.createElement('div');
     div.className = 'dropdown-item';
-    const slotChip = item.slot != null ? `<span class="slot-chip">📦 ${item.slot}</span>` : '';
+    const slotChip = item.slot != null ? `<span class="slot-chip">${icon('box')} ${item.slot}</span>` : '';
     div.innerHTML = `
       <span># <span class="match-highlight">${id.slice(0, query.length)}</span>${id.slice(query.length)}</span>
       <span class="dim-info">⌀${parseFloat(item.diameter).toFixed(3)}${slotChip}</span>
@@ -62,18 +62,16 @@ function selectResult(id, item) {
   const slot   = item.slot ?? null;
 
   const slotEditBtn = token
-    ? `<button class="btn-slot-action${slot == null ? ' add' : ''}" onclick="openSlotModal('${id}')">
-         ${slot == null
-           ? '<span style="font-size:1.15em;font-weight:900;line-height:1">+</span> Dodaj wzornik'
-           : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>'}
+    ? `<button class="btn-slot-action${slot == null ? ' add' : ''}" onclick="openSlotModal('${id}')" ${slot == null ? '' : 'aria-label="Zmień numer w schowku"'}>
+         ${slot == null ? icon('plus') + ' Dodaj wzornik' : icon('edit')}
        </button>`
     : '';
 
   const slotHTML = `
     <div class="slot-section ${slot != null ? 'stored' : 'missing'}">
       ${slot != null
-        ? `<div class="slot-found">📦 Ten wzornik leży w schowku pod numerem <strong>${slot}</strong></div>`
-        : `<div class="slot-missing-text">⚠️ Wzornik gdzieś się zgubił. Może poszukać go w szafce na dole?</div>`}
+        ? `<div class="slot-found">${icon('box')} Ten wzornik leży w schowku pod numerem <strong>${slot}</strong></div>`
+        : `<div class="slot-missing-text">${icon('warning')} Wzornik gdzieś się zgubił. Może poszukać go w szafce na dole?</div>`}
       ${slotEditBtn}
     </div>`;
 
@@ -85,8 +83,8 @@ function selectResult(id, item) {
 
   const actionsHTML = token ? `
     <div class="card-actions">
-      <button class="btn-edit"   onclick="openEditModal('${id}')">✏️ Edytuj</button>
-      <button class="btn-delete" onclick="openConfirm('${id}')">🗑️ Usuń</button>
+      <button class="btn-edit"   onclick="openEditModal('${id}')">${icon('edit')} Edytuj</button>
+      <button class="btn-delete" onclick="openConfirm('${id}')">${icon('trash')} Usuń</button>
     </div>` : '';
 
   document.getElementById('results').innerHTML = `
