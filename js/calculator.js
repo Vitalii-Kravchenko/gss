@@ -14,13 +14,16 @@ function calcRun() {
   if (d <= 0)               { setFieldError(errEl, 'Średnica musi być większa od zera.'); return; }
   if (2 * t >= d)           { setFieldError(errEl, '2 × grubość nie może być ≥ średnicy.'); return; }
 
-  const base = (d - 2 * t) * Math.PI / 360;
-  document.getElementById('cVal20').textContent = (base * 20).toFixed(3);
-  document.getElementById('cVal25').textContent = (base * 25).toFixed(3);
-  document.getElementById('cVal30').textContent = (base * 30).toFixed(3);
+  const inner = d - 2 * t;
+  // (D − 2t) × sin(kąt ÷ 2), kąt w stopniach → radiany dla Math.sin
+  const calc = (deg) => inner * Math.sin((deg / 2) * Math.PI / 180);
+
+  document.getElementById('cVal20').textContent = calc(20).toFixed(3);
+  document.getElementById('cVal25').textContent = calc(25).toFixed(3);
+  document.getElementById('cVal30').textContent = calc(30).toFixed(3);
 
   if (!isNaN(a) && a > 0) {
-    mainEl.textContent = `Twój kąt ${a}° → ${(base * a).toFixed(3)}`;
+    mainEl.textContent = `Twój kąt ${a}° → ${calc(a).toFixed(3)}`;
     mainEl.style.display = 'block';
   }
 
