@@ -1,1 +1,1 @@
-# gss
+# gss-idea
