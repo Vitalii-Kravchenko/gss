@@ -1,7 +1,39 @@
+let copiedEntry = null;
+
+function validateNumberField(inputId, errorId, excludeId = null) {
+  const input = document.getElementById(inputId);
+  const value = input.value.trim();
+  let message = '';
+  if (!/^\d{10}$/.test(value)) message = 'Wpisz dokładnie 10 cyfr';
+  else if (value !== excludeId && Object.prototype.hasOwnProperty.call(DB, value))
+    message = 'Taka dziesięciocyfrówka już istnieje';
+  setFieldError(document.getElementById(errorId), message);
+  input.classList.toggle('input-error', !!message);
+  input.setAttribute('aria-invalid', String(!!message));
+  return !message;
+}
+
+function copyEntry(id) {
+  if (!DB[id] || !currentMachine || !token) return;
+  openModal();
+  copiedEntry = JSON.parse(JSON.stringify(DB[id]));
+  const prices = copiedEntry.machines?.[currentMachine]?.prices || [0, 0, 0];
+  document.getElementById('modalMachineName').textContent =
+    currentMachine + ' · Kopia parametrów ' + id + ' (wszystkie maszyny)';
+  document.getElementById('fDiam').value = copiedEntry.diameter;
+  document.getElementById('fForce').value = copiedEntry.force ?? '';
+  ['fP20', 'fP25', 'fP30'].forEach((field, i) => document.getElementById(field).value = prices[i]);
+  document.getElementById('fNum').focus();
+}
+
 // ── Add modal ──────────────────────────────────
 function openModal() {
   if (!currentMachine) { showToast('Najpierw wybierz maszynę', 'error'); return; }
   if (!token)          { showToast('Wprowadź token w ustawieniach', 'error'); return; }
+  copiedEntry = null;
+  document.getElementById('fNumError').textContent = '';
+  document.getElementById('fNum').classList.remove('input-error');
+  document.getElementById('fNum').setAttribute('aria-invalid', 'false');
   document.getElementById('modalMachineName').textContent = currentMachine;
   ['fNum','fDiam','fForce','fP20','fP25','fP30'].forEach(id => document.getElementById(id).value = '');
   const nextSlot = getNextSlot();
@@ -16,6 +48,8 @@ function closeModal() {
 }
 
 async function saveEntry() {
+  if (document.getElementById('btnSave').disabled) return;
+  if (!validateNumberField('fNum', 'fNumError')) return;
   const num    = document.getElementById('fNum').value.trim();
   const diam   = parseFloat(document.getElementById('fDiam').value);
   const force  = parseFloat(document.getElementById('fForce').value);
@@ -31,26 +65,29 @@ async function saveEntry() {
   if ([p20,p25,p30].some(p => p > 99)) { showToast('Wartość nie może przekraczać 99.0', 'error'); return; }
   if (DB[num]) { showToast('Taki numer już istnieje', 'error'); return; }
 
-  const machines = {
+  const machines = copiedEntry ? JSON.parse(JSON.stringify(copiedEntry.machines || {})) : {
     'GSS 1': { prices: currentMachine === 'GSS 1' ? [p20,p25,p30] : [0,0,0] },
     'GSS 2': { prices: currentMachine === 'GSS 2' ? [p20,p25,p30] : [0,0,0] },
     'GSS 3': { prices: currentMachine === 'GSS 3' ? [p20,p25,p30] : [0,0,0] }
   };
 
+  machines[currentMachine] = { ...machines[currentMachine], prices: [p20,p25,p30] };
+
   const btn = document.getElementById('btnSave');
   btn.disabled = true; btn.innerHTML = icon('loader', 'icon-spin') + 'Zapisuję...';
-  DB[num] = { slot: slotNum, diameter: diam, force: isNaN(force) ? null : force, machines };
+  DB[num] = { ...(copiedEntry || {}), slot: slotNum, diameter: diam, force: isNaN(force) ? null : force, machines };
   const ok = await saveData();
 
   if (ok) {
     closeModal();
+    selectResult(num, DB[num]);
     const msg = slotNum != null
       ? `Numer ${num} zapisany. Wzornik dodany do schowku pod numerem ${slotNum}`
       : `Numer ${num} zapisany`;
     showToast(msg, 'success');
   } else {
     delete DB[num];
-    showToast('Błąd. Sprawdź token', 'error');
+    showToast(lastSaveError || 'Błąd. Sprawdź token', 'error');
   }
   btn.disabled = false; btn.innerHTML = icon('save') + 'Zapisz';
 }
@@ -66,6 +103,7 @@ function openEditModal(id) {
   document.getElementById('editModalMachine').textContent = currentMachine;
   document.getElementById('eOrigNum').value = id;
   document.getElementById('eNum').value     = id;
+  validateNumberField('eNum', 'eNumError', id);
   document.getElementById('eDiam').value    = parseFloat(item.diameter).toFixed(3);
   document.getElementById('eForce').value   = item.force ?? '';
   document.getElementById('eSlot').value    = item.slot ?? '';
@@ -79,6 +117,8 @@ function closeEditModal() {
 }
 
 async function saveEdit() {
+  if (document.getElementById('btnEditSave').disabled) return;
+  if (!validateNumberField('eNum', 'eNumError', document.getElementById('eOrigNum').value)) return;
   const origNum = document.getElementById('eOrigNum').value;
   const newNum  = document.getElementById('eNum').value.trim();
   const diam    = parseFloat(document.getElementById('eDiam').value);
@@ -118,7 +158,7 @@ async function saveEdit() {
   } else {
     if (newNum !== origNum) { delete DB[newNum]; DB[origNum] = oldData; }
     else { DB[origNum] = oldData; }
-    showToast('Błąd zapisu', 'error');
+    showToast(lastSaveError || 'Błąd zapisu', 'error');
   }
 }
 
@@ -154,3 +194,4 @@ async function confirmDelete() {
     showToast('Błąd usuwania', 'error');
   }
 }
+

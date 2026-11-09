@@ -82,7 +82,8 @@ function selectResult(id, item) {
     </div>`).join('');
 
   const actionsHTML = token ? `
-    <div class="card-actions">
+    <div class="card-actions" style="flex-wrap: wrap;">
+      <button class="btn-edit" onclick="copyEntry('${id}')">${icon('plus')} Kopiuj parametry</button>
       <button class="btn-edit"   onclick="openEditModal('${id}')">${icon('edit')} Edytuj</button>
       <button class="btn-delete" onclick="openConfirm('${id}')">${icon('trash')} Usuń</button>
     </div>` : '';
@@ -102,4 +103,5 @@ function selectResult(id, item) {
       ${actionsHTML}
     </div>`;
 }
+
 

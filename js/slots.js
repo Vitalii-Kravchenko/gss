@@ -5,7 +5,8 @@ function getUsedSlots(excludeId = null) {
   return Object.entries(DB)
     .filter(([id]) => id !== excludeId)
     .map(([, e]) => e.slot)
-    .filter(s => s != null);
+    .filter(s => s != null)
+    .map(Number);
 }
 
 function getNextSlot(excludeId = null) {
@@ -25,8 +26,8 @@ function validateSlotField(inputId, errorId, excludeId) {
   const errEl = document.getElementById(errorId);
   const inp   = document.getElementById(inputId);
   if (val === '') { setFieldError(errEl, ''); inp.classList.remove('input-error'); return true; }
-  const num = parseInt(val);
-  if (isNaN(num) || num < 1) {
+  const num = Number(val);
+  if (!Number.isSafeInteger(num) || num < 1) {
     setFieldError(errEl, 'Wpisz poprawny numer (min. 1)');
     inp.classList.add('input-error'); return false;
   }
@@ -44,8 +45,8 @@ function validateSlotInput() {
   const errEl = document.getElementById('slotInputError');
   const inp   = document.getElementById('slotInput');
   if (val === '') { errEl.textContent = ''; inp.classList.remove('input-error'); return false; }
-  const num = parseInt(val);
-  if (isNaN(num) || num < 1) {
+  const num = Number(val);
+  if (!Number.isSafeInteger(num) || num < 1) {
     setFieldError(errEl, 'Wpisz poprawny numer (min. 1)');
     inp.classList.add('input-error'); return false;
   }
@@ -105,7 +106,7 @@ async function saveSlot() {
     selectResult(id, DB[id]);
   } else {
     DB[_slotTargetId].slot = oldSlot;
-    showToast('Błąd zapisu. Sprawdź token', 'error');
+    showToast(lastSaveError || 'Błąd zapisu. Sprawdź token', 'error');
   }
 }
 
@@ -136,6 +137,7 @@ async function confirmDeleteSlot() {
   } else {
     DB[id].slot = oldSlot;
     _slotTargetId = null;
-    showToast('Błąd zapisu. Sprawdź token', 'error');
+    showToast(lastSaveError || 'Błąd zapisu. Sprawdź token', 'error');
   }
 }
+

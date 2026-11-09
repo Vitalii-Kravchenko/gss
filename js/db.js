@@ -1,3 +1,6 @@
+let loadedDB = {};
+let lastSaveError = '';
+
 // ── Load data from GitHub ──────────────────────
 async function loadData() {
   try {
@@ -15,6 +18,7 @@ async function loadData() {
         machines: e.machines || { 'GSS 1': { prices: [0,0,0] }, 'GSS 2': { prices: [0,0,0] }, 'GSS 3': { prices: [0,0,0] } }
       };
     });
+    loadedDB = JSON.parse(JSON.stringify(DB));
   } catch {
     DB = {};
     showToast('Nie udało się załadować danych', 'error');
@@ -23,6 +27,7 @@ async function loadData() {
 
 // ── Save data to GitHub (merge-safe) ──────────
 async function saveData() {
+  lastSaveError = '';
   if (!token) { showToast('Wprowadź token w ustawieniach', 'error'); return false; }
   try {
     const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
@@ -32,16 +37,29 @@ async function saveData() {
     const getJson = await getRes.json();
     if (!getRes.ok) throw new Error(getJson.message);
 
-    let freshDB = DB;
-    try {
-      const freshParsed = JSON.parse(decodeURIComponent(escape(atob(getJson.content.replace(/\n/g, '')))));
-      if (freshParsed.entries) {
-        freshDB = Object.assign({}, freshParsed.entries, DB);
-        for (const k of Object.keys(freshDB)) {
-          if (!(k in DB)) delete freshDB[k];
-        }
+    const freshParsed = JSON.parse(decodeURIComponent(escape(atob(getJson.content.replace(/\n/g, '')))));
+    const remoteDB = freshParsed.entries;
+    if (!remoteDB || typeof remoteDB !== 'object' || Array.isArray(remoteDB)) throw new Error('Nieprawidłowe dane w bazie');
+    const freshDB = JSON.parse(JSON.stringify(remoteDB));
+    const changedIds = [...new Set([...Object.keys(loadedDB), ...Object.keys(DB)])]
+      .filter(id => JSON.stringify(loadedDB[id]) !== JSON.stringify(DB[id]));
+    for (const id of changedIds) {
+      if (JSON.stringify(remoteDB[id]) !== JSON.stringify(loadedDB[id])) {
+        throw new Error('Dane zostały zmienione przez innego użytkownika. Odśwież stronę przed zapisem');
       }
-    } catch(e) { /* use in-memory DB if parse fails */ }
+      if (Object.prototype.hasOwnProperty.call(DB, id)) freshDB[id] = DB[id];
+      else delete freshDB[id];
+    }
+    for (const id of changedIds) {
+      const entry = freshDB[id];
+      if (!entry || entry.slot == null) continue;
+      const slot = Number(entry.slot);
+      if (!Number.isSafeInteger(slot) || slot < 1) throw new Error('Wpisz poprawny numer schowku');
+      if (Object.entries(freshDB).some(([otherId, other]) =>
+        otherId !== id && other.slot != null && Number(other.slot) === slot)) {
+        throw new Error('Ten numer wzornika jest już zajęty. Odśwież dane i wybierz wolny numer');
+      }
+    }
 
     const payload = { entries: freshDB };
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
@@ -53,6 +71,11 @@ async function saveData() {
     if (!putRes.ok) { const e = await putRes.json(); throw new Error(e.message); }
 
     DB = freshDB;
+    loadedDB = JSON.parse(JSON.stringify(DB));
     return true;
-  } catch { return false; }
+  } catch (error) {
+    lastSaveError = error.message || 'Błąd zapisu';
+    return false;
+  }
 }
+
