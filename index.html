@@ -90,7 +90,8 @@
     <div class="section-divider">Dane podstawowe</div>
     <div class="form-group">
       <label>Dziesięciocyfrówka</label>
-      <input type="text" id="fNum" placeholder="1402291079" autocomplete="off"/>
+      <input type="text" id="fNum" inputmode="numeric" maxlength="10" aria-describedby="fNumError" oninput="validateNumberField('fNum','fNumError')" placeholder="1402291079" autocomplete="off"/>
+      <span class="field-error" id="fNumError" aria-live="polite"></span>
     </div>
     <div class="form-group">
       <label>Średnica (mm)</label>
@@ -105,10 +106,10 @@
     <div class="form-group">
       <label>Numer w schowku (opcjonalny)</label>
       <input type="number" id="fSlot" min="1" step="1"
-             placeholder="zostanie przydzielony automatycznie"
+             placeholder="brak numeru"
              oninput="validateSlotField('fSlot','fSlotError',null)"/>
       <span class="field-error" id="fSlotError"></span>
-      <span class="slot-hint">Jeśli pole puste — wzornik zostanie dodany bez numeru schowku.</span>
+      <span class="slot-hint">Proponujemy następny wolny numer. Wyczyść pole, aby zapisać bez numeru schowku.</span>
     </div>
 
     <div class="section-divider">Wartość dla kątów</div>
@@ -136,7 +137,8 @@
     <div class="section-divider">Dane podstawowe</div>
     <div class="form-group">
       <label>Dziesięciocyfrówka</label>
-      <input type="text" id="eNum" autocomplete="off" placeholder="1402291079"/>
+      <input type="text" id="eNum" inputmode="numeric" maxlength="10" aria-describedby="eNumError" oninput="validateNumberField('eNum','eNumError', document.getElementById('eOrigNum').value)" autocomplete="off" placeholder="1402291079"/>
+      <span class="field-error" id="eNumError" aria-live="polite"></span>
     </div>
     <div class="form-group">
       <label>Średnica (mm)</label>
@@ -234,3 +236,4 @@
 
 </body>
 </html>
+
