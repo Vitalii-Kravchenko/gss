@@ -52,7 +52,11 @@ async function saveData() {
     }
     for (const id of changedIds) {
       const entry = freshDB[id];
-      if (!entry || entry.slot == null) continue;
+      if (!entry) continue;
+      if (Object.keys(freshDB).some(otherId => otherId !== id && otherId.toUpperCase() === id.toUpperCase())) {
+        throw new Error('Taka dziesięciocyfrówka już istnieje');
+      }
+      if (entry.slot == null) continue;
       const slot = Number(entry.slot);
       if (!Number.isSafeInteger(slot) || slot < 1) throw new Error('Wpisz poprawny numer schowku');
       if (Object.entries(freshDB).some(([otherId, other]) =>

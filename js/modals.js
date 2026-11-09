@@ -4,8 +4,8 @@ function validateNumberField(inputId, errorId, excludeId = null) {
   const input = document.getElementById(inputId);
   const value = input.value.trim();
   let message = '';
-  if (!/^\d{10}$/.test(value)) message = 'Wpisz dokładnie 10 cyfr';
-  else if (value !== excludeId && Object.prototype.hasOwnProperty.call(DB, value))
+  if (!/^[0-9Xx]{10}$/.test(value)) message = 'Wpisz 10 znaków: cyfry lub X';
+  else if (Object.keys(DB).some(id => id !== excludeId && id.toUpperCase() === value.toUpperCase()))
     message = 'Taka dziesięciocyfrówka już istnieje';
   setFieldError(document.getElementById(errorId), message);
   input.classList.toggle('input-error', !!message);
