@@ -34,7 +34,7 @@
   </div>
 
   <div class="search-wrap" id="searchWrap">
-    <input type="text" id="searchInput" inputmode="numeric" autocomplete="off"
+    <input type="text" id="searchInput" inputmode="text" autocomplete="off"
            placeholder="Najpierw wybierz maszynę..."
            oninput="handleInput(event)" disabled/>
     <button class="search-clear" id="searchClear" data-icon="x" onclick="clearSearch()"></button>
@@ -90,7 +90,7 @@
     <div class="section-divider">Dane podstawowe</div>
     <div class="form-group">
       <label>Dziesięciocyfrówka</label>
-      <input type="text" id="fNum" inputmode="numeric" maxlength="10" aria-describedby="fNumError" oninput="validateNumberField('fNum','fNumError')" placeholder="1402291079" autocomplete="off"/>
+      <input type="text" id="fNum" inputmode="text" maxlength="10" aria-describedby="fNumError" oninput="validateNumberField('fNum','fNumError')" placeholder="1402291079" autocomplete="off"/>
       <span class="field-error" id="fNumError" aria-live="polite"></span>
     </div>
     <div class="form-group">
@@ -137,7 +137,7 @@
     <div class="section-divider">Dane podstawowe</div>
     <div class="form-group">
       <label>Dziesięciocyfrówka</label>
-      <input type="text" id="eNum" inputmode="numeric" maxlength="10" aria-describedby="eNumError" oninput="validateNumberField('eNum','eNumError', document.getElementById('eOrigNum').value)" autocomplete="off" placeholder="1402291079"/>
+      <input type="text" id="eNum" inputmode="text" maxlength="10" aria-describedby="eNumError" oninput="validateNumberField('eNum','eNumError', document.getElementById('eOrigNum').value)" autocomplete="off" placeholder="1402291079"/>
       <span class="field-error" id="eNumError" aria-live="polite"></span>
     </div>
     <div class="form-group">
